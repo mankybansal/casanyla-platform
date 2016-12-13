@@ -1,0 +1,200 @@
+.header {
+    text-align: center;
+    position: fixed;
+    float: top;
+    z-index: 999;
+    background: #FFF;
+    height: 60px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-section {
+  width: 100%;
+  height: 45px;
+  z-index: 999;
+  position: fixed;
+  float: top;
+  top: 60px;
+  background: rgba(255, 255, 255, .96);
+  text-align: center;
+}
+
+.header-section-buttons{
+  font-size: 14px;
+  font-family: RobotoRegular;
+  color: #999;
+  height: 100%;
+  display: inline-block;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  padding: 16px 30px 16px 30px;
+}
+
+.logoButton {
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.headerSpacer {
+    height: 100%;
+    width: 38%;
+}
+
+.spacerLeft {
+    float: left;
+}
+
+.spacerRight {
+    float: right;
+}
+
+.myAccount {
+    text-transform: uppercase;
+}
+
+.menuBox {
+    height: 100%;
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: all ease .5s;
+    cursor: pointer;
+    text-align: center;
+    float: left;
+}
+
+.menuBox:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.menuButton {
+    font-size: 20px !important;
+    margin-top: 20px;
+    color: #333;
+    float: left;
+}
+
+.menuLogin {
+    float: right;
+}
+
+.menuTriggerText {
+    font-family: RobotoMedium, sans-serif;
+    font-size: 15px;
+    float: left;
+    margin-top: 21.5px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #333;
+    transition: all ease .5s;
+}
+
+.menuTriggerTextLink {
+    font-family: RobotoLight, sans-serif;
+    font-size: 15px;
+    float: left;
+    margin-top: 21.5px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #666;
+    transition: all ease .5s;
+}
+
+.menuOption {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    height: 60px;
+    border-bottom: 1.5px solid #eee;
+    box-sizing: border-box;
+    padding: 21.5px;
+    text-transform: uppercase;
+    font-size: 17px;
+    font-family: RobotoRegular, sans-serif;
+    color: #333;
+    float: top;
+    transition: all ease .5s;
+    cursor: pointer;
+}
+
+.menuOption:hover {
+    background: #eee;
+    color: #000;
+}
+
+.menuContainer {
+    display: none;
+    position: fixed;
+    top: 60px;
+    float: left;
+    z-index: 99;
+    height: calc(100% - 60px);
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+}
+
+.menu {
+    position: fixed;
+    top: 60px;
+    float: left;
+    z-index: 99999;
+    height: calc(100% - 60px);
+    width: 270px;
+    border-right: 2px solid rgba(0,0,0,.05);
+    background: white;
+    left: -270px;
+    box-sizing: border-box;
+    padding-top: 50px;
+}
+
+.boxMe {
+    padding: 13px;
+    margin-top: 8px !important;
+    background: #EEE;
+    color: black;
+    border-radius: 5px;
+}
+
+.accountOptions {
+    width: 200px;
+    display: inline-block;
+    position: fixed;
+    z-index: 9999;
+    top: 60px;
+    right: 0;
+    background: rgba(255,255,255,0.97);
+}
+
+
+.accountOption {
+    height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: RobotoMedium, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    padding-top: 21.5px;
+    color: #333;
+    border-bottom: 1px solid #DDDFE0;
+    cursor: pointer;
+    transition: all ease .5s;
+}
+
+.accountOption:hover {
+    background: rgba(255,255,255, 1);
+}
+
+@media only screen and (max-width: 800px) {
+    .headerSpacer {
+        width: 150px;
+    }
+
+    .logoButton {
+        height: 20px;
+        margin-top: 20px;
+    }
+}

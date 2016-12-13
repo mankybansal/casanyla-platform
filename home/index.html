@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Welcome to CasaNyla</title>
+
+    <link rel="stylesheet" href="../bower_components/animate.css/animate.css" type="text/css">
+    <link rel="stylesheet" href="../bower_components/components-font-awesome/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../css/default.css" type="text/css">
+    <link rel="stylesheet" href="../css/accountsDefault.css" type="text/css">
+    <link rel="stylesheet" href="../css/headerMenu.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.fullPage.css"/>
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/ngstorage/ngStorage.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/js-cookie/src/js.cookie.js"></script>
+    <script src="../bower_components/fullpage.js/dist/jquery.fullpage.js"></script>
+    <script src="../bower_components/fullpage.js/vendors/jquery.easings.min.js"></script>
+    <script src="../bower_components/fullpage.js/vendors/scrolloverflow.js"></script>
+
+    <script type="text/javascript" src="../js/headerMenu.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var homepage = true;
+            var dashboard = false;
+
+            $('#fullpage').fullpage({
+                anchors: ['introductionX', 'howItWorksX', 'styleMatchX', 'whoWeAreX', 'contactUsX'],
+                sectionsColor: ['#E9E9EB', '#FAFAFA', '#E9E9EB', '#DDD', '#E9E9EB'],
+                navigation: true,
+                navigationPosition: 'right',
+                navigationTooltips: ['Introduction', 'How It Works', /*'Unsure About Style?',*/ 'Who We Are', 'Call A Designer'],
+                normalScrollElements: ['#stepBox', '.footer'],
+                autoScrolling: false,
+                fitToSection: false
+            });
+
+            $(".contactSubmit").click(function (event) {
+
+                event.preventDefault();
+                var name = encodeURIComponent(document.getElementById("NAME").value);
+                var email = encodeURIComponent(document.getElementById("EMAIL").value);
+                var phone = encodeURIComponent(document.getElementById("PHONE").value);
+                var message = encodeURIComponent(document.getElementById("MESSAGE").value);
+
+                if (name == '' || email == '' || phone == '') {
+                    alert("Please fill all the details!");
+                } else {
+                    var dataObj = {
+                        query: {
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            message: message
+                        }
+                    };
+                    $.ajax({
+                        type: "GET",
+                        url: "https://dev.homeluxe.in:3000/sendmail",
+                        data: dataObj,
+                        success: function () {
+                            $('.contactSuccess').fadeIn(500);
+                            $('.contactSubmit').fadeOut(500);
+                        }
+                    });
+                }
+                return false;
+            });
+
+            $('.bounce').click(function () {
+                menuClose();
+                $("html, body").delay(500).animate({
+                    scrollTop: $('.howItWorksSection').offset().top - 40
+                }, 1000);
+            });
+        });
+
+    </script>
+
+    <style>
+
+        .introSection {
+            overflow: hidden !important;
+            max-height: 700px !important;
+            background: url('../images/SLIDE1.jpg') no-repeat;
+            background-size: 100% auto;
+        }
+
+        .introGetStarted {
+            box-shadow: none;
+
+            background: #5bc9e6;
+            border-radius: 5px;
+        }
+
+        .introText {
+            width: 100%;
+            margin-top: 35px;
+            box-sizing: border-box;
+            color: white;
+            font-size: 50px;
+            text-shadow: 0 0 50px black;
+        }
+
+
+        .HIWStep {
+            display: inline-block;
+            height: 200px;
+            width: 200px;
+            margin-left: 2px;
+            margin-right: 20px;
+            vertical-align: middle;
+            font-size: 17px;
+        }
+
+        .introContainer {
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+
+        .HIWContainer {
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+
+        .HIWText {
+          margin-top: 20px;
+          color: #999;
+        }
+
+        .introStepsSection {
+          display: inline-block;
+          width: 100%;
+          padding: 25px 50px 25px 50px;
+          background: #FFF;
+          box-sizing: border-box;
+          font-family: sans-serif;
+          text-align: center;
+        }
+
+        .whoWeAreContainer {
+            display: inline-block;
+
+            vertical-align: top !important;
+            width: 800px;
+            background: rgba(0, 0, 0, 0.05);
+            margin-left: 5px;
+            margin-right: 5px;
+            font-size: 16px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .executive-name {
+            font-size: 22px;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .executive-position {
+            font-size: 18px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .executive-image-outer {
+            width: 170px;
+            height: 170px;
+            margin: 0 auto;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 85px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .executive-image-inner {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+
+            overflow: hidden;
+            border-radius: 75px;
+        }
+
+        .diamondContainer {
+            display: inline-block;
+            min-height: 10px;
+        }
+
+        .diaCont {
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .addressContainer, .contactContainer {
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+            margin-top: 20px;
+            vertical-align: top;
+            background: #EEE;
+        }
+
+        .footerFullWidthAligner {
+            width: 1060px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.1);
+            height: 100%;
+            text-align: left;
+        }
+
+        .bounce {
+            margin-top: 70px;
+        }
+
+        .footerBox {
+            height: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .diamond-box{
+          width: 300px;
+          display: inline-block;
+          margin: 20px;
+          vertical-align: top;
+        }
+
+        .diamond-text {
+          margin-top: 5px;
+          font-size: 20px;
+          color: #555;
+        }
+
+        .diamond-text2 {
+          font-size: 17px;
+          margin-top: 10px;
+          color: #999;
+          font-family: RobotoLight;
+        }
+
+        .diamond-image {
+          width: 150px;
+          height: 150px;
+        }
+
+    </style>
+
+</head>
+
+<body ng-app="homeluxeApp" homeluxe-app-control user-control>
+    <header-menu></header-menu>
+    <login-overlay></login-overlay>
+    <div id="fullpage">
+        <div class="section introSection" id="section0">
+
+          <br>
+          <br>
+          <br>
+          <br>
+            <br>
+            <div class="introText">
+                Amazing Homes. Fully <span style="color: #f7bb41; text-shadow: 0 0 30px white;">Delivered.</span><br>
+                <span style="font-size: 30px">Create Your Dream Home.</span>
+            </div>
+
+
+          <br>
+          <br>
+
+            <div class="getStartedButton introGetStarted findYourStyleButton hideMobile" onclick="menuQuizClick()">
+                FIND YOUR STYLE
+            </div>
+
+
+            <div class="bounce">
+                <img src="../images/scroll.png" style="height: 100%">
+            </div>
+        </div>
+
+        <div class="introStepsSection" id="sectionA">
+                  <div class="diamond-box">
+                      <img src="../images/cn1.jpg" class="diamond-image">
+                      <div class="diamond-text">Find Your Style</div>
+                      <div class="diamond-text2">Choose from our collection of styles. Take our style quiz to find out what we think you'll like.</div>
+
+                  </div>
+
+                  <div class="diamond-box">
+                      <img src="../images/cn2.jpg" class="diamond-image">
+                      <div class="diamond-text">Get It Customized</div>
+                      <div class="diamond-text2">Change, move, replace whatever fits your style and make it absolutely picture perfect.</div>
+
+                  </div>
+
+                  <div class="diamond-box">
+                      <img src="../images/cn3.jpg" class="diamond-image">
+                      <div class="diamond-text">Enjoy Your Home</div>
+                      <div class="diamond-text2">We'll make sure you are delivered your dream home with the highest level of quality.</div>
+                  </div>
+
+        </div>
+
+        <div class="section HIWBox howItWorksSection" id="section1">
+            <div class="sectionTitle">HOW IT WORKS</div>
+
+            <br>
+            <div class="HIWContainer">
+                <div class="HIWStep">
+                    <img src="../images/cn1.png" class="HIWImage">
+                    <div class="HIWStepTitle">Free Design Consultation</div>
+                    <div class="HIWText">
+                      Meet with our designers to match to a style book.
+                    </div>
+
+                </div>
+
+                <div class="HIWStep">
+                    <img src="../images/cn2.png" class="HIWImage">
+                    <div class="HIWStepTitle">Customize For Your Needs</div>
+                    <div class="HIWText">
+                      Your designer provides you options custom to your needs.
+                    </div>
+
+                </div>
+
+                <div class="HIWStep">
+                    <img src="../images/cn3.png" class="HIWImage">
+                    <div class="HIWStepTitle">Approve Final Designs</div>
+                    <div class="HIWText">
+                      Place the order on your finalised design and costing.
+                    </div>
+                </div>
+
+
+                <div class="HIWStep">
+                    <img src="../images/cn2.png" class="HIWImage">
+                    <div class="HIWStepTitle">Get Progress Updates</div>
+                    <div class="HIWText">
+                      Our customer portal and project managers will update you on progress.
+                    </div>
+
+                </div>
+
+                <div class="HIWStep">
+                    <img src="../images/cn1.png" class="HIWImage">
+                    <div class="HIWStepTitle">Enjoy Your New Home</div>
+                    <div class="HIWText">
+                      We manage the products and contractors to hand over your home to you.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--
+        <div class="section" style="background: url('../images/artwork.png') #FFF; background-size: 1200px 1200px;"
+             id="section2">
+            <br>
+            <br>
+            <div class="sectionTitle">UNSURE WHAT YOUR STYLE IS?</div>
+            <div class="sectionLine" style="margin-top: 10px;">LET US HELP YOU FIND A MATCH</div>
+            <div class="getStartedButton findYourStyleButton" onclick="menuQuizClick()">TAKE OUR STYLE QUIZ</div>
+            <div class="sectionLine">OR</div>
+            <div class="getStartedButton browseOurStylesButton" onclick="menuBrowseClick()" style="margin-top: 0;">
+                BROWSE OUR STYLES
+            </div>
+            <br>
+            <br>
+        </div> -->
+        <div class="section whoWeAreSection" id="section3">
+            <br>
+            <div class="sectionTitle">WHO WE ARE</div>
+            <div class="stepContainer">
+
+                <div class="whoWeAreContainer" style="background: #f8bb42;">
+
+                    <img src="../images/bulb.png" style="width: 100px; margin-bottom: 15px; opacity: .9;">
+                    <div style="font-size: 30px;"><b>What We Believe</b></div>
+                    <br>
+                    <div style="width: 100%; text-align: justify !important;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<b>Great design makes people happy</b>; happy people do great things!
+                        The
+                        stunning
+                        optimization of form and
+                        functionality lies somewhere between science and art. When you sit on the chair, sleep on the
+                        bed,
+                        look
+                        on the artwork, you will feel the balance. Enjoy it!
+                        <br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<b>Homes and spaces will evolve with you</b>; let them tell your story,
+                        bear
+                        your
+                        scars, celebrate
+                        your
+                        memories; not look like another model flat with cheap imports
+                        <br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Sustainability is not a buzzword; we keep experimenting to make products
+                        and
+                        find <b>solutions that don't destroy the planet</b>. Plantation/recycled timber, solar, rain
+                        water
+                        harvesting, vertical
+                        gardens.
+                        You will see us trying elements of these with all our design.
+                    </div>
+                </div>
+
+            </div>
+            <br>
+
+        </div>
+        <div class="section contactUsSection"
+             style="background: url('../images/artwork.png') #FFF; background-size: 1200px 1200px;" id="section4">
+            <br>
+            <div class="sectionTitle">CONTACT US</div>
+
+
+            <div class="contactContainer">
+
+                <div class="addressText">
+                    Leave us a message
+                </div>
+
+                <form action="send.php" id="contactUs">
+                    <input class="contactInput" id="NAME" name="NAME" type="text" placeholder="Full Name">
+                    <input class="contactInput" id="EMAIL" name="EMAIL" type="email" placeholder="Email Address">
+                    <input class="contactInput" id="PHONE" name="PHONE" type="text" placeholder="Phone Number">
+                            <textarea class="textInput" id="MESSAGE" name="MESSAGE" rows="3"
+                                      placeholder="Type your message here"></textarea>
+                    <div class="contactSuccess" style="display: none; margin-top: 20px; font-size: 20px;">We will
+                        contact
+                        you!
+                    </div>
+                    <div style="width: 100%; height: 10px;"></div>
+                    <button class="contactSubmit">SEND</button>
+
+                </form>
+            </div>
+
+            <div class="addressContainer">
+
+                <div class="addressText">
+                    Here's where you can find us
+                </div>
+                <!--
+                <iframe class="googleMap"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.80967415446!2d77.57576511482144!3d12.919950990889788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae157614f434b7%3A0xf64a49807a3cb469!2shomeluxe.in!5e0!3m2!1sen!2sin!4v1456797762457"
+                        frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                -->
+                <div class="addressText">
+
+                    <b>CasaNyla.com</b><br>
+                    Address & Phone TBD
+                </div>
+
+            </div>
+            <div class="emailContainer">
+                You can also email us on <a href="mailto:info@homeluxe.in?Subject=Contact%20Details" target="_top"><span style="color: #F3776D;">info@casanyla.com</span></a>
+            </div>
+            <br>
+        </div>
+        <div class="footer" id="footer">
+            <div class="footerFullWidth" style="height: 140px;">
+                <div class="footerFullWidthAligner">
+                    <div class="footerBox">
+                        <img src="../images/casanyla.png" style="height: 50px; margin-top: 70px;">
+                    </div>
+                    <div class="footerBox"
+                         style="font-size: 30px; color: #666; box-sizing: border-box; padding-top: 80px;">
+
+                        <i class="fa fa-facebook-square"></i>
+                        <i class="fa fa-pinterest-square"></i>
+                        <i class="fa fa-instagram"></i>
+                        <i class="fa fa-twitter-square"></i>
+                        <i class="fa fa-youtube-square"></i>
+
+                    </div>
+                </div>
+            </div>
+            <div class="footerBlocksContainer">
+                <div class="footerBlocks"></div>
+                <div class="footerBlocks"></div>
+                <div class="footerBlocks"></div>
+                <div class="footerBlocks"></div>
+            </div>
+            <div class="footerFullWidth" style="height: 60px;">
+                <div class="footerFullWidthAligner">
+                    <div class="footerBox">
+                        <p style="font-family: RobotoLight, sans-serif; color: #FFF; font-size: 16px;">
+                            © 2016 CasaNyla.com, Inc. All rights reserved.
+                        </p>
+                    </div>
+                    <div class="footerBox">
+                        <a href="tos.html">
+                            <p style="font-family: RobotoLight, sans-serif; color: #BBB; font-size: 16px;">
+                                Terms Of Service
+                            </p>
+                        </a>
+                    </div>
+                    <div class="footerBox">
+                        <a href="privacy.html">
+                            <p style="font-family: RobotoLight, sans-serif; color: #BBB; font-size: 16px;">
+                                Privacy Policy
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

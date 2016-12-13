@@ -1,0 +1,186 @@
+::-webkit-input-placeholder {
+    font-size: 16px;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 16px;
+}
+
+:-ms-input-placeholder {
+    font-size: 16px;
+}
+
+
+.contentOverlay {
+    width: 100%;
+    height: 100%;
+    min-width: 600px;
+    min-height: 300px;
+    position: fixed;
+    z-index: 0;
+}
+
+
+.loginOverlay {
+    display: none;
+    width: 100%;
+    height: 100%;
+    min-width: 300px;
+    min-height: 300px;
+    background: rgba(0, 0, 0, 0.85);
+    position: fixed;
+    z-index: 9999;
+}
+
+
+.loginSpacer {
+    width: 100%;
+    height: calc((100% - 520px) / 2);
+}
+
+.loginContainer {
+    width: 400px;
+    height: 520px;
+    border-radius: 2px;
+    background: #FFF;
+    float: top;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+.loginLogoContainer {
+    width: 100%;
+    height: 120px;
+    background: #FFF;
+}
+
+.loginTitleContainer {
+    height: 60px;
+    float: top;
+    width: 100%;
+    background: #FFF;
+    font-family: RobotoLight, sans-serif;
+    color: #333;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+.inputBox {
+    width: 340px;
+    margin: 0 auto;
+    margin-top: 10px;
+    outline: none;
+    border: 0;
+    background: #F8F8F8;
+    color: black;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 10px 20px 10px 20px;
+    font-size: 20px;
+    border-radius: 2px;
+    font-family: RobotoLight, sans-serif;
+}
+
+.loginButton, .registerButton, .fbRegisterButton , .faceBookLogin {
+    cursor: pointer;
+    background: #468fde;
+    vertical-align: top;
+    display: inline-block;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 2px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #FFF;
+    font-size: 20px;
+    font-family: RobotoLight, sans-serif;
+}
+
+.loginButton {
+    width: 100px;
+    background: #F8BB42;
+    color: #000;
+    font-size: 16px;
+    padding: 22px;
+}
+
+.registerButton {
+    width: 230px;
+    background: #F3776D;
+    color: #FFF;
+    padding: 22px;
+    font-size: 16px;
+}
+
+.faceBookLogin {
+    padding: 10px;
+    width: 340px;
+    background: #3b5998;
+    padding-top: 22px;
+    font-size: 16px;
+}
+
+.loginLogo {
+    height: 90px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.alertMessage {
+    margin: 0 auto;
+    padding: 16.5px 15px 16.5px 15px;
+    width: 400px;
+    box-sizing: border-box;
+    height: 50px;
+    background: #333;
+    font-size: 17px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    display: none;
+    color: white;
+    font-family: RobotoLight, sans-serif;
+}
+
+.loginClose {
+    position: absolute;
+    font-size: 25px;
+    color: #888;
+    margin-left: 350px;
+    width: 50px;
+    height: 50px;
+    padding: 12.5px;
+    box-sizing: border-box;
+    transition: all ease .5s;
+}
+
+.loginClose:hover {
+    background: #EEE;
+}
+
+
+@media only screen and (max-width: 800px) {
+
+    .loginContainer {
+        width: 100%;
+        min-width: 360px;
+    }
+
+    .loginClose {
+        right: 0;
+        width: 50px;
+        height: 50px;
+        padding: 12.5px;
+        box-sizing: border-box;
+        transition: all ease .5s;
+    }
+
+}
