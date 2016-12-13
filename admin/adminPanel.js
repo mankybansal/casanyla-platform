@@ -25,7 +25,7 @@ homeluxeApp.config(function ($routeProvider) {
         })
         .when("/clients", {
             templateUrl: "templates/clients.html",
-            controller: "customersControl"
+            controller: "clientsControl"
         })
         .when("/styles", {
             templateUrl: "templates/styles.html",
