@@ -1,11 +1,11 @@
 {
-  "name": "homeluxe-platform",
-  "homepage": "https://github.com/mankybansal/homeluxe-platform",
+  "name": "casanyla-platform",
+  "homepage": "https://github.com/mankybansal/casanyla-platform",
   "authors": [
     "Mayank Bansal <sunny.bansal@gmail.com>",
     "Arjhun Srinivas <arjhun.s@gmail.com>"
   ],
-  "description": "HomeLuxe.in online platform",
+  "description": "CasaNyla.com online platform",
   "main": "index.html",
   "license": "MIT",
   "ignore": [
