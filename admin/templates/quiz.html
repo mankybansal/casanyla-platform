@@ -1,0 +1,45 @@
+<div ng-show="optionEdit"
+     style="position: fixed; z-index: 9999; width: 500px; left: 200px; height: 500px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <div ng-click="optionEdit = !optionEdit" style="margin-top: 20px; color: #006699; cursor: pointer;">
+        CLOSE
+    </div>
+    <input type="text" ng-model="currentEditOption.name">
+    <input type="file" ng-model="currentEditOption.image" name="value" accept="image/*">
+    <div ng-repeat="related in currentEditQuestion.relatedStyles">
+        {{related._id}}
+    </div>
+
+    <div class="actionButton" ng-click="optionSave()">SAVE</div>
+</div>
+
+<div class="quizList">
+    Question
+    <div ng-repeat="question in questionModel" ng-mouseenter="showEdit = true"
+         ng-mouseleave="showEdit = false" id="{{question._id}}" class="quizListItem">
+        {{ question.name }}
+        <a ng-show="showEdit" class='questionEditButton' ng-click="editQuestion(question)">edit</a>
+    </div>
+</div>
+
+<div class="quizModifyFormContainer">
+
+
+    <div class="quizModifyForm">
+        <input type="text" placeholder="Type Question Here" ng-model="currentEditQuestion.name"
+               class="quizModifyName">
+        <div class="optionsList">
+            <div ng-repeat="option in currentEditQuestion.options" ng-mouseenter="showEdit2 = true"
+                 ng-mouseleave="showEdit2 = false" id="{{option._id}}" class="OptionListItem">
+                <div class="quizModifyOption">
+                    {{ option.name }}
+                    <a ng-show="showEdit2" class='questionEditButton'
+                       ng-click="editOption(option)">edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="quizModifyActions">
+        <div class="actionButton" ng-click="questionDelete()">DELETE</div>
+        <div class="actionButton" ng-click="questionSave()">SAVE</div>
+    </div>
+</div>
