@@ -49,11 +49,48 @@ homeluxeApp.config(function ($routeProvider) {
         });
 });
 
-homeluxeApp.controller("londonCtrl", function ($scope) {
-    $scope.msg = "I love London";
+homeluxeApp.controller("overviewControl", function ($scope) {
+
 });
 
-homeluxeApp.controller("adminDashboardControl", function ($scope, $localStorage, $sessionStorage, $rootScope, $interval) {
+homeluxeApp.controller("usersControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("projectsControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("designersControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("clientsControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("stylesControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("quizControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("helpControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("settingsControl", function ($scope) {
+
+});
+
+homeluxeApp.controller("adminDashboardControl", function ($scope, $localStorage, $location, $sessionStorage, $rootScope, $interval) {
+
+
+    $scope.endpoint = function (endpoint){
+        $location.path(endpoint);
+    };
 
     $scope.init = function () {
         if ($localStorage.ngMyUser) {
