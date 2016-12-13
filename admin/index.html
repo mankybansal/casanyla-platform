@@ -48,16 +48,6 @@
                 <div class="menuOptionText">Overview</div>
             </div>
 
-            <!--
-            <div class="menuOption">
-                <div class="menuOptionSelect viewReports"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-bar-chart menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Reports & Stats</div>
-            </div>
-            -->
-
             <div class="menuOption" ng-click="endpoint('users')">
                 <div class="menuOptionSelect viewUsers"></div>
                 <div class="menuOptionIcon">
@@ -70,7 +60,7 @@
         <div class="menuOptionGroup">
             <div class="menuGroupLabel">Project Management</div>
 
-            <div class="menuOption">
+            <div class="menuOption" ng-click="endpoint('projects')">
                 <div class="menuOptionSelect viewProjects"></div>
                 <div class="menuOptionIcon">
                     <i class="fa fa-tasks menuIcon"></i>
@@ -78,7 +68,7 @@
                 <div class="menuOptionText">Projects</div>
             </div>
 
-            <div class="menuOption">
+            <div class="menuOption" ng-click="endpoint('designers')">
                 <div class="menuOptionSelect viewDesigners"></div>
                 <div class="menuOptionIcon">
                     <i class="fa fa-paint-brush menuIcon"></i>
@@ -98,7 +88,7 @@
         <div class="menuOptionGroup">
             <div class="menuGroupLabel">Lookbook Manager</div>
 
-            <div class="menuOption">
+            <div class="menuOption" ng-click="endpoint('styles')">
                 <div class="menuOptionSelect viewStyles"></div>
                 <div class="menuOptionIcon">
                     <i class="fa fa-photo menuIcon"></i>
@@ -106,7 +96,7 @@
                 <div class="menuOptionText">Styles</div>
             </div>
 
-            <div class="menuOption">
+            <div class="menuOption" ng-click="endpoint('quiz')">
                 <div class="menuOptionSelect viewQuizSettings"></div>
                 <div class="menuOptionIcon">
                     <i class="fa fa-check-square-o menuIcon"></i>
@@ -118,7 +108,7 @@
         <div class="menuOptionGroup">
             <div class="menuGroupLabel">Help & Settings</div>
 
-            <div class="menuOption">
+            <div class="menuOption" ng-click="endpoint('help')">
                 <div class="menuOptionSelect viewHelp"></div>
                 <div class="menuOptionIcon">
                     <i class="fa fa-question-circle menuIcon"></i>
@@ -126,17 +116,7 @@
                 <div class="menuOptionText">Help</div>
             </div>
 
-            <!--
-            <div class="menuOption">
-                <div class="menuOptionSelect viewReports"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-exclamation-circle menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Report Error</div>
-            </div>
-            -->
-
-            <div class="menuOption">
+            <div class="menuOption" ng-click="endpoint('settings')">
                 <div class="menuOptionSelect viewSettings"></div>
                 <div class="menuOptionIcon">
                     <i class="fa fa-gear menuIcon"></i>

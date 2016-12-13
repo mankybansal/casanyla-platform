@@ -87,12 +87,12 @@ homeluxeApp.controller("settingsControl", function ($scope) {
 
 homeluxeApp.controller("adminDashboardControl", function ($scope, $localStorage, $location, $sessionStorage, $rootScope, $interval) {
 
-
     $scope.endpoint = function (endpoint){
         $location.path(endpoint);
     };
 
     $scope.init = function () {
+
         if ($localStorage.ngMyUser) {
             $scope.ngMyUser = $localStorage.ngMyUser;
             showDashboard();
@@ -179,16 +179,14 @@ function hideDashboard() {
 
 $(document).ready(function () {
 
-    //
-    // $(".menuOption").click(function () {
-    //     var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();
-    //     var menuOptionSelected = $(this).find('.menuOptionText').text();
-    //     $('.menuGroupSelected').html(menuGroupSelected);
-    //     $('.menuOptionSelected').html(menuOptionSelected);
-    //     $(".menuLeft").find(".optionSelected").removeClass("optionSelected");
-    //     $(this).addClass("optionSelected");
-    //     $(".viewPanel").hide();
-    //     $("#" + $(this).find(".menuOptionSelect").attr('class').split(' ')[1]).fadeIn(500);
-    // })
+    
+    $(".menuOption").click(function () {
+        var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();
+        var menuOptionSelected = $(this).find('.menuOptionText').text();
+        $('.menuGroupSelected').html(menuGroupSelected);
+        $('.menuOptionSelected').html(menuOptionSelected);
+        $(".menuLeft").find(".optionSelected").removeClass("optionSelected");
+        $(this).addClass("optionSelected");
+    })
 
 });
