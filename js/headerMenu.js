@@ -74,7 +74,7 @@ function menuContactClick() {
 }
 
 function menuBrowseClick() {
-    window.location = '../browse.php';
+    window.location = '../browse/index.php';
 }
 
 function menuQuizClick() {

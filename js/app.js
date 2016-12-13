@@ -1,26 +1,26 @@
-var homeluxeApp = angular.module('homeluxeApp', ['ngStorage','ngRoute']);
+var homeluxeApp = angular.module('homeluxeApp', ['ngStorage', 'ngRoute']);
 
 homeluxeApp.directive('homeluxeAppControl', function () {
     return {
         controller: function ($scope, $interval) {
 
-          $scope.safeApply = function(fn) {
-            var phase = this.$root.$$phase;
-            if(phase == '$apply' || phase == '$digest') {
-              if(fn && (typeof(fn) === 'function')) {
-                fn();
-              }
-            } else {
-              this.$apply(fn);
-            }
-          };
+            $scope.safeApply = function (fn) {
+                var phase = this.$root.$$phase;
+                if (phase == '$apply' || phase == '$digest') {
+                    if (fn && (typeof(fn) === 'function')) {
+                        fn();
+                    }
+                } else {
+                    this.$apply(fn);
+                }
+            };
             $scope.serverRequest = function (requestType, url, data, callback) {
                 console.log($scope.apiBaseURL + url);
                 $.ajax({
                     type: requestType,
                     dataType: "json",
                     contentType: "application/x-www-form-urlencoded",
-                    xhrFields: { withCredentials: true },
+                    xhrFields: {withCredentials: true},
                     url: $scope.apiBaseURL + url,
                     data: data,
                     timeout: 25000, // sets timeout
@@ -50,93 +50,93 @@ homeluxeApp.directive('homeluxeAppControl', function () {
                     $scope.serverRequest("POST", "login", myObject, callback);
                 },
 
-                logout: function(callback){
-                  var myObject = {};
-                  $scope.serverRequest("POST", "logout", myObject, callback);
+                logout: function (callback) {
+                    var myObject = {};
+                    $scope.serverRequest("POST", "logout", myObject, callback);
                 },
 
                 userRegisterForm: function (name, email, password, type, callback) {
-                  var myObject = {
-                      "name": name,
-                      "email": email,
-                      "password": password,
-                      "role": type,
-                  };
-                  $scope.serverRequest("POST","register", myObject, callback);
+                    var myObject = {
+                        "name": name,
+                        "email": email,
+                        "password": password,
+                        "role": type,
+                    };
+                    $scope.serverRequest("POST", "register", myObject, callback);
                 },
 
-                showUsers: function(callback){
-                  var myObject = {};
-                  $scope.serverRequest("GET","user/list", myObject, callback);
+                showUsers: function (callback) {
+                    var myObject = {};
+                    $scope.serverRequest("GET", "user/list", myObject, callback);
                 },
 
-                getUser: function(userID, callback){
-                  var myObject = {};
-                  $scope.serverRequest("GET","user/"+userID, myObject, callback);
+                getUser: function (userID, callback) {
+                    var myObject = {};
+                    $scope.serverRequest("GET", "user/" + userID, myObject, callback);
                 },
 
-                updateUser: function(userID,myName,myEmail, callback){
-                  var myObject = {
-                    name: myName,
-                    email: myEmail
-                  };
-                  $scope.serverRequest("PUT","user/"+userID, myObject, callback);
+                updateUser: function (userID, myName, myEmail, callback) {
+                    var myObject = {
+                        name: myName,
+                        email: myEmail
+                    };
+                    $scope.serverRequest("PUT", "user/" + userID, myObject, callback);
                 },
 
-                getQuiz: function(callback){
-                  var myObject = {};
-                  $scope.serverRequest("GET","question",myObject,callback);
+                getQuiz: function (callback) {
+                    var myObject = {};
+                    $scope.serverRequest("GET", "question", myObject, callback);
                 },
 
-                putQuiz: function(quizModel, questionID, callback){
-                  console.log(quizModel);
-                  $scope.serverRequest("PUT","question/"+questionID,quizModel,callback)
+                putQuiz: function (quizModel, questionID, callback) {
+                    console.log(quizModel);
+                    $scope.serverRequest("PUT", "question/" + questionID, quizModel, callback)
                 },
 
                 submitQuiz: function (answerModel, callback) {
-                  $scope.serverRequest("POST","quiz", answerModel, callback);
+                    $scope.serverRequest("POST", "quiz", answerModel, callback);
 
                 },
 
                 getStyles: function (callback) {
-                  var myObject = {}
-                  $scope.serverRequest("GET","style", myObject ,callback);
+                    var myObject = {}
+                    $scope.serverRequest("GET", "style", myObject, callback);
                 },
 
                 /*
-                userRegisterFacebook: function (name, email, oAuth, profilePic, callback) {
-                    $scope.$watch("guestToken", function (n, o) {
-                        if (!n || !o) return;
-                        var myObject = {
-                            "token": $scope.guestToken,
-                            "name": name,
-                            "email": email,
-                            "password": oAuth,
-                            "oauth": oAuth,
-                            "profile_pic": profilePic
-                        };
-                        $scope.serverRequest("member/register", myObject, callback);
-                    }, true);
-                },
+                 userRegisterFacebook: function (name, email, oAuth, profilePic, callback) {
+                 $scope.$watch("guestToken", function (n, o) {
+                 if (!n || !o) return;
+                 var myObject = {
+                 "token": $scope.guestToken,
+                 "name": name,
+                 "email": email,
+                 "password": oAuth,
+                 "oauth": oAuth,
+                 "profile_pic": profilePic
+                 };
+                 $scope.serverRequest("member/register", myObject, callback);
+                 }, true);
+                 },
 
 
 
 
-                getLikes: function (userToken, callback) {
-                    var myObject = {
-                        "token": userToken
-                    };
-                    $scope.serverRequest("member/likes", myObject, callback);
-                },
+                 getLikes: function (userToken, callback) {
+                 var myObject = {
+                 "token": userToken
+                 };
+                 $scope.serverRequest("member/likes", myObject, callback);
+                 },
 
-                likeNode: function (userToken, nodeID, callback) {
-                    var myObject = {
-                        "token": userToken,
-                        "like_node": nodeID
-                    };
-                    $scope.serverRequest("member/like", myObject, callback);
-                }
-                */
+                 likeNode: function (userToken, nodeID, callback) {
+                 var myObject = {
+                 "token": userToken,
+                 "like_node": nodeID
+                 };
+                 $scope.serverRequest("member/like", myObject, callback);
+                 }
+                 */
             };
 
             $scope.init = function () {
@@ -208,57 +208,57 @@ homeluxeApp.directive('userControl', function () {
             };
 
             /*
-            $scope.facebookRegister = function () {
-                $scope.requests.userRegisterFacebook($scope.facebook.name, $scope.facebook.email, $scope.facebook.id, $scope.facebook.dp, function (response) {
-                    console.log(response);
-                    $scope.facebook.connected = true;
-                    $scope.login($scope.facebook.email, $scope.facebook.id);
-                });
-            };
+             $scope.facebookRegister = function () {
+             $scope.requests.userRegisterFacebook($scope.facebook.name, $scope.facebook.email, $scope.facebook.id, $scope.facebook.dp, function (response) {
+             console.log(response);
+             $scope.facebook.connected = true;
+             $scope.login($scope.facebook.email, $scope.facebook.id);
+             });
+             };
 
-            $scope.facebookLogin = function () {
-                FB.login(function (response) {
-                    console.log(response);
-                    if (response.authResponse) {
-                        showAlert("Please wait... &nbsp; <i class='fa fa-circle-o-notch fa-spin'></i>");
+             $scope.facebookLogin = function () {
+             FB.login(function (response) {
+             console.log(response);
+             if (response.authResponse) {
+             showAlert("Please wait... &nbsp; <i class='fa fa-circle-o-notch fa-spin'></i>");
 
-                        FB.api('/me/picture?type=normal', function (response) {
-                            $scope.facebook.dp = response.data.url;
-                        });
+             FB.api('/me/picture?type=normal', function (response) {
+             $scope.facebook.dp = response.data.url;
+             });
 
-                        FB.api('/me?fields=name,picture,email,id,link', function (response) {
+             FB.api('/me?fields=name,picture,email,id,link', function (response) {
 
-                            $scope.facebook.name = response.name;
-                            $scope.facebook.id = response.id;
-                            $scope.facebook.email = response.email;
+             $scope.facebook.name = response.name;
+             $scope.facebook.id = response.id;
+             $scope.facebook.email = response.email;
 
-                            $scope.requests.userLogin(response.email, response.id, function (response) {
-                                if (response.status == "Success") {
-                                    $scope.ngMyUser = response;
-                                    $scope.facebook.connected = true;
-                                    $scope.loginSuccess();
-                                }
-                                else $scope.facebookRegister();
-                            });
-                            console.log($scope.facebook);
-                        });
-                    }
-                    else showAlert('Facebook Login Failed.');
-                }, {scope: 'email,public_profile'});
-            };
+             $scope.requests.userLogin(response.email, response.id, function (response) {
+             if (response.status == "Success") {
+             $scope.ngMyUser = response;
+             $scope.facebook.connected = true;
+             $scope.loginSuccess();
+             }
+             else $scope.facebookRegister();
+             });
+             console.log($scope.facebook);
+             });
+             }
+             else showAlert('Facebook Login Failed.');
+             }, {scope: 'email,public_profile'});
+             };
 
-            $scope.checkCookie = function () {
-                if (!($scope.ngMyUser = Cookies.getJSON('myUser')))
-                    $scope.ngMyUser = false;
-            };
-            */
+             $scope.checkCookie = function () {
+             if (!($scope.ngMyUser = Cookies.getJSON('myUser')))
+             $scope.ngMyUser = false;
+             };
+             */
 
             $scope.init = function () {
 
-                if($localStorage.ngMyUser)
-                  $scope.ngMyUser = $localStorage.ngMyUser;
+                if ($localStorage.ngMyUser)
+                    $scope.ngMyUser = $localStorage.ngMyUser;
                 else
-                  $scope.ngMyUser = false;
+                    $scope.ngMyUser = false;
 
                 //$scope.checkCookie();
                 $scope.accountOptions = false;
@@ -266,9 +266,9 @@ homeluxeApp.directive('userControl', function () {
                 $scope.guest = {};
 
                 /*
-                $scope.cookieChecker = $interval(function () {
-                    $scope.checkCookie();
-                }, 3000); */
+                 $scope.cookieChecker = $interval(function () {
+                 $scope.checkCookie();
+                 }, 3000); */
             };
 
             $scope.accountOptionsTrigger = function () {
@@ -277,23 +277,23 @@ homeluxeApp.directive('userControl', function () {
             };
 
             $scope.gotoAdminDashboard = function () {
-              window.location = $scope.baseURL + "admin";
+                window.location = $scope.baseURL + "admin";
             };
 
             $scope.gotoDesignerDashboard = function () {
-              window.location = $scope.baseURL + "designer";
+                window.location = $scope.baseURL + "designer";
             };
 
             $scope.gotoClientDashboard = function () {
-              window.location = $scope.baseURL + "client";
+                window.location = $scope.baseURL + "client";
             };
 
             $scope.logout = function () {
-                $scope.requests.logout(function(response){
-                  if(response.responseText = "Successfully logged out"){
-                    $localStorage.$reset();
-                    $scope.init();
-                  }
+                $scope.requests.logout(function (response) {
+                    if (response.responseText = "Successfully logged out") {
+                        $localStorage.$reset();
+                        $scope.init();
+                    }
                 });
 
             };
@@ -344,7 +344,6 @@ homeluxeApp.controller("quizAppControl", function ($scope, $rootScope) {
         $scope.getNextQuestion();
     };
 });
-
 
 
 homeluxeApp.controller("browseStyleControl", function ($scope, $rootScope) {
@@ -511,7 +510,6 @@ homeluxeApp.controller("styleViewerControl", function ($scope, $rootScope) {
 });
 
 
-
 homeluxeApp.directive("headerMenu", function ($templateRequest, $compile) {
 
     var template = "../templates/headerMenu.html";
@@ -545,51 +543,51 @@ homeluxeApp.directive("loginOverlay", function ($templateRequest, $compile) {
 });
 
 /*
-homeluxeApp.directive("styleViewer", function ($templateRequest, $compile) {
+ homeluxeApp.directive("styleViewer", function ($templateRequest, $compile) {
 
-    var template;
-    if (typeof dashboard != 'undefined') template = "../templates/styleViewer.html";
-    else template = "templates/styleViewer.html";
+ var template;
+ if (typeof dashboard != 'undefined') template = "../templates/styleViewer.html";
+ else template = "templates/styleViewer.html";
 
-    return {
-        restrict: "AE",
-        link: function (scope, element) {
-            $templateRequest(template).then(function (html) {
-                var template = angular.element(html);
-                element.append(template);
-                $compile(template)(scope);
-            });
-        }
-    }
-});
+ return {
+ restrict: "AE",
+ link: function (scope, element) {
+ $templateRequest(template).then(function (html) {
+ var template = angular.element(html);
+ element.append(template);
+ $compile(template)(scope);
+ });
+ }
+ }
+ });
 
-function getURLParameter(name) {
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
-}
+ function getURLParameter(name) {
+ return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
+ }
 
-var urlStyle = getURLParameter('style');
+ var urlStyle = getURLParameter('style');
 
-function changeUrlParam(param, value) {
-    var currentURL = window.location.href + '&';
-    var change = new RegExp('(' + param + ')=(.*)&', 'g');
-    var newURL = currentURL.replace(change, '$1=' + value + '&');
+ function changeUrlParam(param, value) {
+ var currentURL = window.location.href + '&';
+ var change = new RegExp('(' + param + ')=(.*)&', 'g');
+ var newURL = currentURL.replace(change, '$1=' + value + '&');
 
-    if (getURLParameter(param) !== null) {
-        try {
-            window.history.replaceState('', '', newURL.slice(0, -1));
-        } catch (e) {
-            console.log(e);
-        }
-    } else {
-        var currURL = window.location.href;
-        if (currURL.indexOf("?") !== -1) {
-            window.history.replaceState('', '', currentURL.slice(0, -1) + '&' + param + '=' + value);
-        } else {
-            window.history.replaceState('', '', currentURL.slice(0, -1) + '?' + param + '=' + value);
-        }
-    }
-}
-*/
+ if (getURLParameter(param) !== null) {
+ try {
+ window.history.replaceState('', '', newURL.slice(0, -1));
+ } catch (e) {
+ console.log(e);
+ }
+ } else {
+ var currURL = window.location.href;
+ if (currURL.indexOf("?") !== -1) {
+ window.history.replaceState('', '', currentURL.slice(0, -1) + '&' + param + '=' + value);
+ } else {
+ window.history.replaceState('', '', currentURL.slice(0, -1) + '?' + param + '=' + value);
+ }
+ }
+ }
+ */
 
 // Show Alert Message
 function showAlert(message) {
@@ -597,27 +595,27 @@ function showAlert(message) {
 }
 
 /*
-// INITIALIZE Facebook App Access
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: '607233152758333',
-        cookie: true,  // enable cookies to allow the server to access the session
-        xfbml: true,  // parse social plugins on this page
-        version: 'v2.6' // use graph api version 2.5
-    });
-};
+ // INITIALIZE Facebook App Access
+ window.fbAsyncInit = function () {
+ FB.init({
+ appId: '607233152758333',
+ cookie: true,  // enable cookies to allow the server to access the session
+ xfbml: true,  // parse social plugins on this page
+ version: 'v2.6' // use graph api version 2.5
+ });
+ };
 
-// Load Facebook SDK
-(function (d) {
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {
-        return;
-    }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    ref.parentNode.insertBefore(js, ref);
-}(document));
+ // Load Facebook SDK
+ (function (d) {
+ var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+ if (d.getElementById(id)) {
+ return;
+ }
+ js = d.createElement('script');
+ js.id = id;
+ js.async = true;
+ js.src = "//connect.facebook.net/en_US/all.js";
+ ref.parentNode.insertBefore(js, ref);
+ }(document));
 
-*/
+ */
