@@ -36,11 +36,11 @@ homeluxeApp.config(function ($routeProvider) {
             controller: "quizControl"
         })
         .when("/help", {
-            templateUrl: "templates/quiz.html",
-            controller: "quizControl"
+            templateUrl: "templates/help.html",
+            controller: "helpControl"
         })
         .when("/settings", {
-            templateUrl: "templates/quiz.html",
+            templateUrl: "templates/settings.html",
             controller: "quizControl"
         })
         .otherwise({
