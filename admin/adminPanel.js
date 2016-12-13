@@ -116,32 +116,32 @@ homeluxeApp.controller("adminDashboardControl", function ($scope, $localStorage,
 
         $scope.requests.getStyles(function (response) {
             $scope.styles = response;
-        })
+        });
 
         $scope.requests.getQuiz(function (response) {
             $scope.questionModel = response;
         });
-    }
+    };
 
     $scope.editQuestion = function (question) {
         $scope.currentEditQuestion = question;
-    }
+    };
 
     $scope.questionSave = function () {
 
         var myvar = JSON.parse(angular.toJson($scope.currentEditQuestion));
         $scope.requests.putQuiz(myvar, $scope.currentEditQuestion._id, function (response) {
         });
-    }
+    };
 
     $scope.editOption = function (option) {
         $scope.optionEdit = true;
         $scope.currentEditOption = option;
-    }
+    };
 
     $scope.optionSave = function () {
         //upload script here
-    }
+    };
 
     $scope.logout = function () {
         $scope.$parent.logout();
