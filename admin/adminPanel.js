@@ -179,16 +179,16 @@ function hideDashboard() {
 
 $(document).ready(function () {
 
-
-    $(".menuOption").click(function () {
-        var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();
-        var menuOptionSelected = $(this).find('.menuOptionText').text();
-        $('.menuGroupSelected').html(menuGroupSelected);
-        $('.menuOptionSelected').html(menuOptionSelected);
-        $(".menuLeft").find(".optionSelected").removeClass("optionSelected");
-        $(this).addClass("optionSelected");
-        $(".viewPanel").hide();
-        $("#" + $(this).find(".menuOptionSelect").attr('class').split(' ')[1]).fadeIn(500);
-    })
+    //
+    // $(".menuOption").click(function () {
+    //     var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();
+    //     var menuOptionSelected = $(this).find('.menuOptionText').text();
+    //     $('.menuGroupSelected').html(menuGroupSelected);
+    //     $('.menuOptionSelected').html(menuOptionSelected);
+    //     $(".menuLeft").find(".optionSelected").removeClass("optionSelected");
+    //     $(this).addClass("optionSelected");
+    //     $(".viewPanel").hide();
+    //     $("#" + $(this).find(".menuOptionSelect").attr('class').split(' ')[1]).fadeIn(500);
+    // })
 
 });
