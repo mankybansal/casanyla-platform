@@ -2,7 +2,7 @@ var homeluxeApp = angular.module('homeluxeApp', ['ngStorage', 'ngRoute']);
 
 homeluxeApp.directive('homeluxeAppControl', function () {
     return {
-        controller: function ($scope, $interval) {
+        controller: function ($scope) {
 
             $scope.safeApply = function (fn) {
                 var phase = this.$root.$$phase;
@@ -14,6 +14,7 @@ homeluxeApp.directive('homeluxeAppControl', function () {
                     this.$apply(fn);
                 }
             };
+
             $scope.serverRequest = function (requestType, url, data, callback) {
                 console.log($scope.apiBaseURL + url);
                 $.ajax({
@@ -101,47 +102,21 @@ homeluxeApp.directive('homeluxeAppControl', function () {
                 getStyles: function (callback) {
                     var myObject = {}
                     $scope.serverRequest("GET", "style", myObject, callback);
-                },
+                }
+            };
 
-                /*
-                 userRegisterFacebook: function (name, email, oAuth, profilePic, callback) {
-                 $scope.$watch("guestToken", function (n, o) {
-                 if (!n || !o) return;
-                 var myObject = {
-                 "token": $scope.guestToken,
-                 "name": name,
-                 "email": email,
-                 "password": oAuth,
-                 "oauth": oAuth,
-                 "profile_pic": profilePic
-                 };
-                 $scope.serverRequest("member/register", myObject, callback);
-                 }, true);
-                 },
-
-
-
-
-                 getLikes: function (userToken, callback) {
-                 var myObject = {
-                 "token": userToken
-                 };
-                 $scope.serverRequest("member/likes", myObject, callback);
-                 },
-
-                 likeNode: function (userToken, nodeID, callback) {
-                 var myObject = {
-                 "token": userToken,
-                 "like_node": nodeID
-                 };
-                 $scope.serverRequest("member/like", myObject, callback);
-                 }
-                 */
+            $scope.serverSelect = function () {
+                if (location.hostname === "localhost") {
+                    $scope.apiBaseURL = "http://manky.me/";
+                    $scope.baseURL = "http://localhost:8080/casanyla-platform/";
+                } else {
+                    $scope.apiBaseURL = "http://manky.me/";
+                    $scope.baseURL = "http://casanyla.com/";
+                }
             };
 
             $scope.init = function () {
-                $scope.apiBaseURL = "http://manky.me/";
-                $scope.baseURL = "http://casanyla.com/";
+                $scope.serverSelect();
             };
 
             $scope.init();

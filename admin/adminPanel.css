@@ -7,8 +7,13 @@ html, body {
     padding: 0;
     margin: 0;
     background: #EEE;
-    font-family: RobotoLight;
+    font-family: RobotoLight, sans-serif;
     overflow: hidden;
+}
+
+@font-face {
+    font-family: RobotoThin;
+    src: url('../fonts/Roboto-Thin.ttf');
 }
 
 @font-face {
@@ -24,11 +29,6 @@ html, body {
 @font-face {
     font-family: RobotoRegular;
     src: url('../fonts/Roboto-Regular.ttf');
-}
-
-@font-face {
-    font-family: RobotoBlack;
-    src: url('../fonts/Roboto-Black.ttf');
 }
 
 ::-webkit-input-placeholder {
