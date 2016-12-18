@@ -52,20 +52,20 @@ casanylaApp.angular.controller("overviewControl", function ($scope) {
 
 });
 
-casanylaApp.angular.controller("usersControl", function ($scope,$filter) {
+casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
 
     $scope.addUser = function () {
         $scope.showOptionOverlay();
         $scope.userControllerView = $scope.userControllerViews.addUser;
     };
 
-    $scope.editUser = function(userID) {
+    $scope.editUser = function (userID) {
         $scope.showOptionOverlay();
         $scope.userControllerView = $scope.userControllerViews.editUser;
         $scope.selectedUser = $filter('filter')($scope.$parent.users, {_id: userID})[0];
     };
 
-    $scope.init = function(){
+    $scope.init = function () {
         $scope.userControllerViews = {
             addUser: 0,
             editUser: 1
@@ -87,18 +87,18 @@ casanylaApp.angular.controller("designersControl", function ($scope) {
         $scope.designerControllerView = $scope.designerControllerViews.addDesigner;
     };
 
-    $scope.editDesigner = function(userID) {
+    $scope.editDesigner = function (userID) {
         $scope.showOptionOverlay();
         $scope.designerControllerView = $scope.designerControllerViews.editDesigner;
         $scope.selectedDesigner = $filter('filter')($scope.$parent.users, {_id: userID})[0];
     };
-    
-    $scope.assignProject = function(){
+
+    $scope.assignProject = function () {
         $scope.showOptionOverlay();
         $scope.designerControllerView = $scope.designerControllerViews.assignProject;
     };
 
-    $scope.init = function(){
+    $scope.init = function () {
         $scope.designerControllerViews = {
             addDesigner: 0,
             editDesigner: 1,
@@ -117,6 +117,69 @@ casanylaApp.angular.controller("clientsControl", function ($scope) {
 
 casanylaApp.angular.controller("stylesControl", function ($scope) {
 
+    $scope.addStyle = function () {
+        $scope.showOptionOverlay();
+        $scope.stylesControllerView = $scope.stylesControllerViews.addStyle;
+    };
+
+    $scope.uploadImage = function () {
+        var file_data = $('#file').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+        form_data.append('folder',$scope.addStyleObject.name);
+        $.ajax({
+            url: '../scripts/styleImageUpload.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(php_script_response){
+                console.log(php_script_response); // display response from the PHP script, if any
+                var data = JSON.parse(php_script_response);
+
+                if(data.fileName){
+                    $scope.addStyleObject.images.push({
+                        active: true,
+                        file: data.fileName,
+                        name: $("#fileDesc").val().trim(),
+                        order: parseInt($("#fileOrder").val().trim())
+                    });
+                }
+            }
+        });
+    };
+    
+    $scope.postStyle = function(){
+        console.log($scope.addStyleObject);
+        $scope.requests.addStyle($scope.addStyleObject,function(response){
+            console.log(response);
+        });
+    };
+
+    $scope.editStyle = function (styleID) {
+        $scope.showOptionOverlay();
+        $scope.styleControllerView = $scope.stylesControllerViews.editStyle;
+        $scope.selectedStyle = $filter('filter')($scope.$parent.styles, {_id: styleID})[0];
+    };
+
+    $scope.init = function () {
+        $scope.stylesControllerViews = {
+            addStyles: 0
+        };
+
+        $scope.addStyleObject = {
+            name: "",
+            description: "",
+            images: [],
+            active: true
+        };
+
+        $scope.selectedStyle = null;
+    };
+
+    $scope.init();
 });
 
 casanylaApp.angular.controller("quizControl", function ($scope) {

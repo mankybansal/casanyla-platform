@@ -119,8 +119,12 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 },
 
                 getStyles: function (callback) {
-                    var myObject = {}
+                    var myObject = {};
                     $scope.serverRequest("GET", "style", myObject, callback);
+                },
+
+                addStyle: function (styleObject, callback) {
+                    $scope.serverRequest("POST", "style", styleObject, callback);
                 }
             };
 

@@ -1,15 +1,41 @@
 <div class="adminSectionMenu">
-    <div class="sectionMenuButton"><i class="fa fa-plus"></i>&nbsp;New Style</div>
+    <div class="sectionMenuButton" ng-click="addStyle()"><i class="fa fa-plus"></i>&nbsp;New Style</div>
 </div>
 
 
 <div class="styleBox" ng-repeat="style in styles">
     <div class="styleImage">
-        <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[3].file; }}'
+        <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
              style="width: 100%;">
     </div>
     <div class="styleTitle">{{ style.name }}</div>
     <div class="styleDesc">{{ style.description.substring(0, 100)+"..."; }}</div>
     <div class="styleActive" ng-show="style.active">ACTIVE</div>
     <div class="styleDeactive" ng-show="!style.active">DEACTIVE</div>
+</div>
+
+
+<div class="optionOverlay">
+    <div class="optionOverlaySpacer"></div>
+    <div class="optionOverlayContent">
+        <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
+
+        <div class="optionSection" ng-show="stylesControllerView == stylesControllerViews.addStyle">
+            <div class="optionSectionTitle">Add New CasaNyla Style</div>
+
+            <input type="text" ng-model="addStyleObject.name" id="styleName" class="dashboardInput" placeholder="Style Name">
+            <input type="text" ng-model="addStyleObject.description"  id="styleDesc" class="dashboardInput" placeholder="Description">
+            <br><br><br>
+            <input type="text" name="fileDesc" id="fileDesc" class="dashboardInput" placeholder="Image Name">
+            <input type="text" name="fileOrder" id="fileOrder"  class="dashboardInput" placeholder="Image Order">
+            <br>
+            <input type="file" name="file" id="file" required />
+            <div class="actionButton actionButtonYellow" ng-click="uploadImage()">Upload Image</div>
+
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonBlue" ng-click="postStyle()">ADD STYLE</div>
+        </div>
+
+    </div>
 </div>
