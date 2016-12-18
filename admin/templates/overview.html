@@ -2,7 +2,7 @@
     <div class="statsTint tintBlue">
         <div class="statsIcon">
             <i class="fa fa-image"></i>
-            <span style="color: rgba(0,0,0,0.2); margin-left: 10px; ">15</span>
+            <span style="color: rgba(0,0,0,0.2); margin-left: 10px; ">{{ styles.length }}</span>
         </div>
         <div class="statsTintText">Lookbook Styles</div>
     </div>
@@ -15,7 +15,7 @@
     <div class="statsTint tintGreen">
         <div class="statsIcon">
             <i class="fa fa-tasks"></i>
-            <span style="color: rgba(0,0,0,0.2); margin-left: 10px; ">9</span>
+            <span style="color: rgba(0,0,0,0.2); margin-left: 10px; "> {{ projects.length }}</span>
         </div>
         <div class="statsTintText">Projects</div>
     </div>
@@ -28,7 +28,7 @@
     <div class="statsTint tintRed">
         <div class="statsIcon">
             <i class="fa fa-users"></i>
-            <span style="color: rgba(0,0,0,0.2); margin-left: 10px; ">11</span>
+            <span style="color: rgba(0,0,0,0.2); margin-left: 10px; "> {{ getClientCount() }} </span>
         </div>
         <div class="statsTintText">Customers</div>
     </div>

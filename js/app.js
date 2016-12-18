@@ -1,18 +1,37 @@
-var homeluxeApp = angular.module('homeluxeApp', ['ngStorage', 'ngRoute']);
+var casanylaApp = {
+    angular: null,
+    currentPage: null,
+    currentUser: null,
+    pages: {
+        home: 0,
+        quiz: 1,
+        browse: 2,
+        admin: 3,
+        designer: 4,
+        client: 5
+    },
+    userRoles: {
+        admin: 1,
+        manager: 2,
+        designer: 3,
+        client: 4,
+        guest: 5
+    }
+};
 
-homeluxeApp.directive('homeluxeAppControl', function () {
+casanylaApp.angular = angular.module('casanylaApp', ['ngStorage', 'ngRoute', 'duScroll']);
+
+casanylaApp.angular.directive('casanylaAppControl', function () {
     return {
         controller: function ($scope) {
 
             $scope.safeApply = function (fn) {
                 var phase = this.$root.$$phase;
                 if (phase == '$apply' || phase == '$digest') {
-                    if (fn && (typeof(fn) === 'function')) {
+                    if (fn && (typeof(fn) === 'function'))
                         fn();
-                    }
-                } else {
+                } else
                     this.$apply(fn);
-                }
             };
 
             $scope.serverRequest = function (requestType, url, data, callback) {
@@ -24,7 +43,7 @@ homeluxeApp.directive('homeluxeAppControl', function () {
                     xhrFields: {withCredentials: true},
                     url: $scope.apiBaseURL + url,
                     data: data,
-                    timeout: 25000, // sets timeout
+                    timeout: 25000,
                     success: function (response) {
                         $scope.safeApply(function () {
                             console.log(response);
@@ -124,9 +143,9 @@ homeluxeApp.directive('homeluxeAppControl', function () {
     };
 });
 
-homeluxeApp.directive('userControl', function () {
+casanylaApp.angular.directive('userControl', function () {
     return {
-        controller: function ($scope, $localStorage, $sessionStorage, $interval) {
+        controller: function ($scope, $localStorage) {
             $scope.hideLoginOverlay = function () {
                 $('.loginOverlay').fadeOut(500);
             };
@@ -229,25 +248,22 @@ homeluxeApp.directive('userControl', function () {
              */
 
             $scope.init = function () {
-
                 if ($localStorage.ngMyUser)
                     $scope.ngMyUser = $localStorage.ngMyUser;
                 else
-                    $scope.ngMyUser = false;
+                    $scope.userRegister();
+            };
 
-                //$scope.checkCookie();
+            $scope.userReset = function(){
+                $scope.ngMyUser = false;
                 $scope.accountOptions = false;
                 //$scope.facebook = {};
                 $scope.guest = {};
-
-                /*
-                 $scope.cookieChecker = $interval(function () {
-                 $scope.checkCookie();
-                 }, 3000); */
+                casanylaApp.currentUser = null;
             };
 
             $scope.accountOptionsTrigger = function () {
-                if (!$scope.ngMyUser) loginButtonClick();
+                if (!$scope.ngMyUser) $scope.loginButtonClick();
                 else $scope.accountOptions = !$scope.accountOptions;
             };
 
@@ -265,16 +281,14 @@ homeluxeApp.directive('userControl', function () {
 
             $scope.logout = function () {
                 $scope.requests.logout(function (response) {
-                    if (response.responseText = "Successfully logged out") {
+                    if (response.responseText == "Successfully logged out") {
                         $localStorage.$reset();
-                        $scope.init();
+                        $scope.userReset();
                     }
                 });
-
             };
 
             $scope.loginSuccess = function () {
-                // SET COOKIES
                 //if ($scope.facebook.connected) $scope.ngMyUser.fbConnected = $scope.facebook.connected;
                 $('.alertMessage').hide();
                 $('.loginOverlay').hide();
@@ -284,11 +298,9 @@ homeluxeApp.directive('userControl', function () {
             $scope.init();
         }
     };
-})
-;
+});
 
-
-homeluxeApp.controller("quizAppControl", function ($scope, $rootScope) {
+casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
 
     $scope.startQuiz = function () {
         $scope.currentQuestion = 0;
@@ -320,177 +332,250 @@ homeluxeApp.controller("quizAppControl", function ($scope, $rootScope) {
     };
 });
 
+/*
+ casanylaApp.angular.controller("browseStyleControl", function ($scope, $rootScope) {
+ $scope.mySplit = function (string, nb) {
+ var array = string.split('.');
+ return array[nb];
+ };
 
-homeluxeApp.controller("browseStyleControl", function ($scope, $rootScope) {
-    $scope.mySplit = function (string, nb) {
-        var array = string.split('.');
-        return array[nb];
-    };
+ console.log($scope.guestToken);
 
-    console.log($scope.guestToken);
+ $scope.getStyles = function () {
+ $scope.requests.getStyles(function (response) {
+ $rootScope.styles = response;
 
-    $scope.getStyles = function () {
-        $scope.requests.getStyles(function (response) {
-            $rootScope.styles = response;
+ $('.mainCard').fadeIn(1000).animate({marginTop: '0px'}, 500);
 
-            $('.mainCard').fadeIn(1000).animate({marginTop: '0px'}, 500);
+ if (urlStyle != null) {
+ var styleNumber;
+ for (var i = 0; i < $rootScope.styles.length; i++)
+ if ($rootScope.styles[i].catalogueKey == urlStyle)
+ styleNumber = i;
+ $scope.viewStyle(styleNumber);
+ }
+ });
+ };
 
-            if (urlStyle != null) {
-                var styleNumber;
-                for (var i = 0; i < $rootScope.styles.length; i++)
-                    if ($rootScope.styles[i].catalogueKey == urlStyle)
-                        styleNumber = i;
-                $scope.viewStyle(styleNumber);
-            }
-        });
-    };
+ $scope.getStyles();
 
-    $scope.getStyles();
+ $scope.viewStyle = function (styleNum) {
+ $scope.$parent.viewStyle(styleNum);
+ }
+ });
 
-    $scope.viewStyle = function (styleNum) {
-        $scope.$parent.viewStyle(styleNum);
-    }
-});
+ casanylaApp.angular.controller("styleViewerControl", function ($scope, $rootScope) {
 
-homeluxeApp.controller("styleViewerControl", function ($scope, $rootScope) {
+ $scope.init = function () {
+ $rootScope.styles = [];
+ $scope.current = {
+ image: 0,
+ images: [],
+ style: null,
+ styleNode: null,
+ imageNode: null
+ };
+ };
 
-    $scope.init = function () {
-        $rootScope.styles = [];
-        $scope.current = {
-            image: 0,
-            images: [],
-            style: null,
-            styleNode: null,
-            imageNode: null
-        };
-    };
+ $scope.updateLikes = function (styleNode, imageNode) {
+ if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
+ $scope.requests.getLikes($scope.$parent.ngMyUser.token, function (response) {
+ if (response.success != "false") {
+ var flag1 = false, flag2 = false;
+ $.each(response, function (index, item) {
+ if (item.id == styleNode) {
+ $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
+ flag1 = true;
+ }
+ if (item.id == imageNode) {
+ $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
+ flag2 = true;
+ }
+ });
+ if (!flag1) $(".changeHeartStyle").removeClass("fa-heart").addClass("fa-heart-o")
+ if (!flag2) $(".changeHeartRoom").removeClass("fa-heart").addClass("fa-heart-o");
+ }
+ });
+ };
 
-    $scope.updateLikes = function (styleNode, imageNode) {
-        if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
-            $scope.requests.getLikes($scope.$parent.ngMyUser.token, function (response) {
-                if (response.success != "false") {
-                    var flag1 = false, flag2 = false;
-                    $.each(response, function (index, item) {
-                        if (item.id == styleNode) {
-                            $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
-                            flag1 = true;
-                        }
-                        if (item.id == imageNode) {
-                            $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
-                            flag2 = true;
-                        }
-                    });
-                    if (!flag1) $(".changeHeartStyle").removeClass("fa-heart").addClass("fa-heart-o")
-                    if (!flag2) $(".changeHeartRoom").removeClass("fa-heart").addClass("fa-heart-o");
-                }
-            });
-    };
+ $scope.likeStyle = function () {
+ if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
+ $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.styleNode, function (response) {
+ if (response.status == "Success")
+ $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
+ else if (response.message == "Invalid token detected")
+ $scope.$parent.logout();
+ else
+ console.log("Some Error Occurred");
+ });
+ else loginButtonClick();
+ };
 
-    $scope.likeStyle = function () {
-        if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
-            $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.styleNode, function (response) {
-                if (response.status == "Success")
-                    $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
-                else if (response.message == "Invalid token detected")
-                    $scope.$parent.logout();
-                else
-                    console.log("Some Error Occurred");
-            });
-        else loginButtonClick();
-    };
+ $scope.likeRoom = function () {
+ if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
+ $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.imageNode, function (response) {
+ if (response.status == "Success")
+ $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
+ else if (response.message == "Invalid token detected")
+ $scope.$parent.logout();
+ else
+ console.log("Some Error Occurred");
+ });
+ else
+ loginButtonClick();
+ };
 
-    $scope.likeRoom = function () {
-        if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
-            $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.imageNode, function (response) {
-                if (response.status == "Success")
-                    $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
-                else if (response.message == "Invalid token detected")
-                    $scope.$parent.logout();
-                else
-                    console.log("Some Error Occurred");
-            });
-        else
-            loginButtonClick();
-    };
+ $scope.viewStyle = function (styleNum) {
 
-    $scope.viewStyle = function (styleNum) {
+ $('.coverContainer').fadeIn(500);
+ $('.resultCard').fadeIn(500);
+ $('.centerDesc').fadeIn(500);
 
-        $('.coverContainer').fadeIn(500);
-        $('.resultCard').fadeIn(500);
-        $('.centerDesc').fadeIn(500);
+ $scope.current = {
+ image: 0,
+ images: [],
+ style: styleNum,
+ styleNode: $rootScope.styles[styleNum].id
+ };
 
-        $scope.current = {
-            image: 0,
-            images: [],
-            style: styleNum,
-            styleNode: $rootScope.styles[styleNum].id
-        };
+ changeUrlParam('style', $rootScope.styles[styleNum].catalogueKey);
 
-        changeUrlParam('style', $rootScope.styles[styleNum].catalogueKey);
+ if (typeof myRandomToken !== 'undefined') {
+ changeUrlParam('token', myRandomToken);
+ }
 
-        if (typeof myRandomToken !== 'undefined') {
-            changeUrlParam('token', myRandomToken);
-        }
+ if ($rootScope.styles[styleNum].images.length != 0) {
+ for (var i = 0; i < $rootScope.styles[styleNum].images.length; i++)
+ $scope.current.images[i] = {
+ "img": $rootScope.styles[styleNum].name + '/' + $rootScope.styles[styleNum].images[i].file,
+ "id": $rootScope.styles[styleNum].images[i].id
+ };
+ $scope.loadImage();
+ }
+ };
 
-        if ($rootScope.styles[styleNum].images.length != 0) {
-            for (var i = 0; i < $rootScope.styles[styleNum].images.length; i++)
-                $scope.current.images[i] = {
-                    "img": $rootScope.styles[styleNum].name + '/' + $rootScope.styles[styleNum].images[i].file,
-                    "id": $rootScope.styles[styleNum].images[i].id
-                };
-            $scope.loadImage();
-        }
-    };
+ $scope.leftNavClick = function () {
+ $scope.current.image -= 1;
+ if ($scope.current.image <= 0)
+ $scope.current.image = 0;
+ $scope.loadImage();
+ };
 
-    $scope.leftNavClick = function () {
-        $scope.current.image -= 1;
-        if ($scope.current.image <= 0)
-            $scope.current.image = 0;
-        $scope.loadImage();
-    };
+ $scope.rightNavClick = function () {
+ $scope.current.image++;
+ if ($scope.current.image >= ($scope.current.images.length - 1))
+ $scope.current.image = $scope.current.images.length - 1;
+ $scope.loadImage();
+ };
 
-    $scope.rightNavClick = function () {
-        $scope.current.image++;
-        if ($scope.current.image >= ($scope.current.images.length - 1))
-            $scope.current.image = $scope.current.images.length - 1;
-        $scope.loadImage();
-    };
+ $scope.loadImage = function () {
+ $scope.current.imageNode = $scope.current.images[$scope.current.image].id;
+ $scope.updateLikes($scope.current.styleNode, $scope.current.imageNode);
+ };
 
-    $scope.loadImage = function () {
-        $scope.current.imageNode = $scope.current.images[$scope.current.image].id;
-        $scope.updateLikes($scope.current.styleNode, $scope.current.imageNode);
-    };
+ $scope.fbShare = function () {
+ FB.ui({
+ method: 'feed',
+ name: $rootScope.styles[$scope.current.style].name + ' on HomeLuxe.in',
+ link: window.location.href,
+ picture: 'http://www.homeluxe.in/images/styles/' + $rootScope.styles[$scope.current.style].name + '/' + $rootScope.styles[$scope.current.style].images[0].file.img,
+ caption: 'This style is available on HomeLuxe.in',
+ description: $rootScope.styles[$scope.current.style].description,
+ message: 'Check out this style. It looks absolutely beautiful! :)'
+ });
+ };
 
-    $scope.fbShare = function () {
-        FB.ui({
-            method: 'feed',
-            name: $rootScope.styles[$scope.current.style].name + ' on HomeLuxe.in',
-            link: window.location.href,
-            picture: 'http://www.homeluxe.in/images/styles/' + $rootScope.styles[$scope.current.style].name + '/' + $rootScope.styles[$scope.current.style].images[0].file.img,
-            caption: 'This style is available on HomeLuxe.in',
-            description: $rootScope.styles[$scope.current.style].description,
-            message: 'Check out this style. It looks absolutely beautiful! :)'
-        });
-    };
+ $scope.callDesigner = function () {
+ window.location = 'index.php#contactUsX';
+ };
 
-    $scope.callDesigner = function () {
-        window.location = 'index.php#contactUsX';
-    };
+ $scope.coverContainerClose = function () {
+ $('.coverContainer').hide();
+ };
 
-    $scope.coverContainerClose = function () {
-        $('.coverContainer').hide();
-    };
+ $scope.init();
+ });
+*/
 
-    $scope.init();
-});
-
-
-homeluxeApp.directive("headerMenu", function ($templateRequest, $compile) {
+casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile) {
 
     var template = "../templates/headerMenu.html";
 
     return {
         restrict: "AE",
+        controller: function ($scope, $document) {
+
+            $scope.menuHomeClick = function () {
+                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                    $document.scrollToElement(document.getElementsByClassName("introSection"), 0, 500);
+                } else {
+
+                }
+            };
+
+            $scope.menuHowItWorksClick = function () {
+                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                    $document.scrollToElement(document.getElementsByClassName("howItWorksSection"), 0, 500);
+                } else {
+
+                }
+            };
+
+            $scope.menuWhoWeAreClick = function () {
+                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                    $document.scrollToElement(document.getElementsByClassName("whoWeAreSection"), 0, 500);
+                } else {
+
+                }
+            };
+
+            $scope.menuContactUsClick = function () {
+                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                    $document.scrollToElement(document.getElementsByClassName("contactUsSection"), 0, 500);
+                } else {
+
+                }
+            };
+
+            $scope.menuClicked = function () {
+                if (!$scope.menuState)
+                    $scope.menuOpen();
+                else
+                    $scope.menuClose();
+            };
+
+            $scope.menuContainerClicked = function () {
+                if ($scope.menuState)
+                    $scope.menuClose();
+            };
+
+            $scope.menuClose = function () {
+                $scope.menuState = false;
+                $(".menuCloseFeedback").stop(true, true).animate({opacity: 0}, 175);
+                $(".menuContainer").stop(true, true).fadeOut(175);
+                $(".menu").stop(true, true).animate({left: '-270px'}, 175);
+                $("#fullpage").stop(true, true).animate({left: '0px'}, 175);
+            };
+
+            $scope.menuOpen = function () {
+                $scope.menuState = true;
+                $(".menuCloseFeedback").stop(true, true).animate({opacity: 1}, 250);
+                $(".menuContainer").stop(true, true).fadeIn(250);
+                $(".menu").stop(true, true).animate({left: '0px'}, 250);
+                $("#fullpage").stop(true, true).animate({left: '100px'}, 250);
+            };
+
+            $scope.loginButtonClick = function () {
+                $('.loginOverlay').fadeIn(500);
+            };
+
+            $scope.init = function () {
+                $scope.menuState = false;
+            };
+
+            $scope.init();
+
+        },
         link: function (scope, element) {
             $templateRequest(template).then(function (html) {
                 var template = angular.element(html);
@@ -501,7 +586,8 @@ homeluxeApp.directive("headerMenu", function ($templateRequest, $compile) {
     }
 });
 
-homeluxeApp.directive("loginOverlay", function ($templateRequest, $compile) {
+
+casanylaApp.angular.directive("loginOverlay", function ($templateRequest, $compile) {
 
     var template = "../templates/loginOverlay.html";
 
@@ -518,7 +604,7 @@ homeluxeApp.directive("loginOverlay", function ($templateRequest, $compile) {
 });
 
 /*
- homeluxeApp.directive("styleViewer", function ($templateRequest, $compile) {
+ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compile) {
 
  var template;
  if (typeof dashboard != 'undefined') template = "../templates/styleViewer.html";

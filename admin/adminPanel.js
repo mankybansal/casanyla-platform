@@ -2,10 +2,9 @@
  * Created by mayankbansal on 6/14/16.
  */
 
+casanylaApp.currentPage = casanylaApp.pages.admin;
 
-var dashboard = true;
-
-homeluxeApp.config(function ($routeProvider) {
+casanylaApp.angular.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "templates/overview.html",
@@ -49,43 +48,43 @@ homeluxeApp.config(function ($routeProvider) {
         });
 });
 
-homeluxeApp.controller("overviewControl", function ($scope) {
+casanylaApp.angular.controller("overviewControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("usersControl", function ($scope) {
+casanylaApp.angular.controller("usersControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("projectsControl", function ($scope) {
+casanylaApp.angular.controller("projectsControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("designersControl", function ($scope) {
+casanylaApp.angular.controller("designersControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("clientsControl", function ($scope) {
+casanylaApp.angular.controller("clientsControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("stylesControl", function ($scope) {
+casanylaApp.angular.controller("stylesControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("quizControl", function ($scope) {
+casanylaApp.angular.controller("quizControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("helpControl", function ($scope) {
+casanylaApp.angular.controller("helpControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("settingsControl", function ($scope) {
+casanylaApp.angular.controller("settingsControl", function ($scope) {
 
 });
 
-homeluxeApp.controller("adminDashboardControl", function ($scope, $localStorage, $location, $sessionStorage, $rootScope, $interval) {
+casanylaApp.angular.controller("adminDashboardControl", function ($scope, $localStorage, $location, $filter, $sessionStorage, $rootScope, $interval) {
 
     $scope.endpoint = function (endpoint){
         $location.path(endpoint);
@@ -121,6 +120,12 @@ homeluxeApp.controller("adminDashboardControl", function ($scope, $localStorage,
         $scope.requests.getQuiz(function (response) {
             $scope.questionModel = response;
         });
+
+    };
+
+
+    $scope.getClientCount = function(){
+        return $filter('filter')($scope.users, { role: 'client' }).length;
     };
 
     $scope.editQuestion = function (question) {

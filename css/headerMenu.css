@@ -5,31 +5,37 @@
     z-index: 999;
     background: #FFF;
     height: 60px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     width: 100%;
     box-sizing: border-box;
 }
 
 .header-section {
-  width: 100%;
-  height: 45px;
-  z-index: 999;
-  position: fixed;
-  float: top;
-  top: 60px;
-  background: rgba(255, 255, 255, .96);
-  text-align: center;
+    width: 100%;
+    height: 45px;
+    z-index: 999;
+    position: fixed;
+    float: top;
+    top: 60px;
+    background: rgba(255, 255, 255, .96);
+    text-align: center;
 }
 
-.header-section-buttons{
-  font-size: 14px;
-  font-family: RobotoRegular;
-  color: #999;
-  height: 100%;
-  display: inline-block;
-  text-transform: uppercase;
-  box-sizing: border-box;
-  padding: 16px 30px 16px 30px;
+.header-section-buttons {
+    font-size: 14px;
+    font-family: RobotoRegular, sans-serif;
+    color: #999;
+    height: 100%;
+    display: inline-block;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    padding: 16px 30px 16px 30px;
+    cursor: pointer;
+}
+
+.header-section-buttons:hover {
+    background: #eee;
+    color: black;
 }
 
 .logoButton {
@@ -144,7 +150,7 @@
     z-index: 99999;
     height: calc(100% - 60px);
     width: 270px;
-    border-right: 2px solid rgba(0,0,0,.05);
+    border-right: 2px solid rgba(0, 0, 0, .05);
     background: white;
     left: -270px;
     box-sizing: border-box;
@@ -166,9 +172,8 @@
     z-index: 9999;
     top: 60px;
     right: 0;
-    background: rgba(255,255,255,0.97);
+    background: rgba(255, 255, 255, 0.97);
 }
-
 
 .accountOption {
     height: 60px;
@@ -185,7 +190,7 @@
 }
 
 .accountOption:hover {
-    background: rgba(255,255,255, 1);
+    background: rgba(255, 255, 255, 1);
 }
 
 @media only screen and (max-width: 800px) {

@@ -4,7 +4,7 @@
 
 var dashboard = true;
 
-homeluxeApp.controller("memberDashboardControl", function ($scope, $localStorage, $sessionStorage, $rootScope, $interval) {
+casanylaApp.controller("memberDashboardControl", function ($scope, $localStorage, $sessionStorage, $rootScope, $interval) {
 
     $scope.init = function () {
         //$scope.myLikes = {};
