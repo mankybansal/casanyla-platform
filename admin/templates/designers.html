@@ -1,10 +1,54 @@
 <div class="adminSectionMenu">
-    <div class="sectionMenuButton"><i class="fa fa-plus"></i>&nbsp;New Designer</div>
+    <div class="sectionMenuButton" ng-click="addDesigner()">
+        <i class="fa fa-plus"></i>&nbsp;New Designer
+    </div>
+    <div class="sectionMenuButton" ng-click="assignProject()">
+        <i class="fa fa-plus"></i>&nbsp;Assign Project
+    </div>
 </div>
 
-
-<div ng-repeat="user in users |  filter: { role: 'designer'}" class="userInfo">
+<div ng-repeat="user in users |  filter: { role: 'designer'}" ng-click="editUser(user._id)" class="userInfo">
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>
     <div class="userInfoRole">{{user.role}}</div>
+</div>
+
+<div class="optionOverlay">
+    <div class="optionOverlaySpacer"></div>
+    <div class="optionOverlayContent">
+        <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
+
+        <div class="optionSection" ng-show="designerControllerView == designerControllerViews.addDesigner">
+            <div class="optionSectionTitle">Add New CasaNyla Designer</div>
+            <input class="dashboardInput" type="text" placeholder="Full Name">
+            <input class="dashboardInput" type="text" placeholder="Email Address">
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonBlue">ADD USER</div>
+        </div>
+
+        <div class="optionSection" ng-show="designerControllerView == designerControllerViews.editDesigner">
+            <div class="optionSectionTitle">Edit CasaNyla Designer</div>
+            <input class="dashboardInput" type="text" ng-model="selectedDesigner.name" placeholder="Full Name">
+            <input class="dashboardInput" type="text" ng-model="selectedDesigner.email" placeholder="Email Address">
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonRed">DELETE DESIGNER</div>
+            <div class="actionButton actionButtonYellow">UPDATE DESIGNER</div>
+        </div>
+
+        <div class="optionSection" ng-show="designerControllerView == designerControllerViews.assignProject">
+            <div class="optionSectionTitle">Link Project & Designer</div>
+            <select class="dashboardInput">
+
+            </select>
+            <select class="dashboardInput">
+
+            </select>
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonBlue">LINK PROJECT</div>
+        </div>
+
+    </div>
 </div>

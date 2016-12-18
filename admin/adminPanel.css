@@ -97,9 +97,9 @@ html, body {
     height: 100%;
     float: left;
     width: 250px;
-    background: #1A1A1E;  overflow-y: scroll;
+    background: #1A1A1E;
+    overflow-y: scroll;
 }
-
 
 ::-webkit-scrollbar {
     display: none;
@@ -143,9 +143,8 @@ html, body {
     /*box-shadow: 0px 0px 20px rgba(0, 0, 0, 1);*/
 }
 
-
-.menuOptionGroup{
-    background: rgba(255,255,255,0.05);
+.menuOptionGroup {
+    background: rgba(255, 255, 255, 0.05);
     width: 100%;
     display: inline-block;
     padding: 20px 0px 20px 0px;
@@ -170,11 +169,11 @@ html, body {
     width: 100%;
     color: #777;
     cursor: pointer;
-    transition:  all ease .5s;
+    transition: all ease .5s;
 }
 
 .menuOption:hover {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     color: #CCC;
 }
 
@@ -272,7 +271,7 @@ html, body {
 .actionButton {
     display: inline-block;
     cursor: pointer;
-    background: #468fde;
+    background: cornflowerblue;
     height: 40px;
     margin: 0 auto;
     margin-top: 15px;
@@ -280,11 +279,10 @@ html, body {
     padding: 12.5px 15px 12.5px 15px;
     box-sizing: border-box;
     text-align: center;
-    color: #FFF;
+    color: #FFFFFF;
     font-size: 15px;
-    font-family: RobotoLight;
+    font-family: RobotoLight,sans-serif;
     text-transform: uppercase;
-    cursor: pointer;
     pointer-events: auto;
 }
 
@@ -333,7 +331,7 @@ html, body {
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    color: rgba(0,0,0,0.05);
+    color: rgba(0, 0, 0, 0.05);
     font-size: 80px;
     text-align: center;
 }
@@ -358,142 +356,142 @@ html, body {
 }
 
 .userInfo {
-  width: 200px;
-  text-align: center;
-  display: inline-block;
-  margin: 10px;
-  background: white;
+    width: 200px;
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+    background: white;
 }
 
 .userInfoName {
-  width: 100%;
-  font-size: 20px;
-  padding: 10px;
-  box-sizing: border-box;
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .userInfoEmail {
-  width: 100%;
-  font-size: 15px;
-  padding: 10px;
-  box-sizing: border-box;
+    width: 100%;
+    font-size: 15px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .userInfoRole {
-  width: 100%;
-  margin-top: 15px;
-  font-size: 15px;
-  padding: 10px;
-  box-sizing: border-box;
-  text-transform: uppercase;
-  background: #333;
-  color: white;
-  font-weight: bold;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    background: #333;
+    color: white;
+    font-weight: bold;
 }
 
 #viewQuizSettings {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .quizModifyName {
-  padding: 20px;
-  font-size: 20px;
-  outline: none;
-  border: none;
-  width: 300px;
-  box-sizing: border-box;
+    padding: 20px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    width: 300px;
+    box-sizing: border-box;
 }
 
 .quizList {
-  float: left;
-  width: 400px;
-  background: white;
-  height: 100%;
+    float: left;
+    width: 400px;
+    background: white;
+    height: 100%;
 }
 
 .quizListItem {
-  display: inline-block;
-  box-sizing: border-box;
-  text-align: left;
-  padding: 15px;
-  width: 100%;
-  border-bottom: 1px solid #DDD;
-  cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 15px;
+    width: 100%;
+    border-bottom: 1px solid #DDD;
+    cursor: pointer;
 }
 
 .quizModifyOption {
-  padding: 20px;
-  font-size: 17px;
-  background: white;
-  display: inline-block;
-  margin-top: 10px;
-  width: 300px;
-  box-sizing: border-box;
-  cursor: pointer;
+    padding: 20px;
+    font-size: 17px;
+    background: white;
+    display: inline-block;
+    margin-top: 10px;
+    width: 300px;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
 .quizModiftOption:hover {
-  background: #EEE;
+    background: #EEE;
 }
 
 .quizListItem:hover {
-  background: #EEE;
+    background: #EEE;
 }
 
 .questionEditButton {
-  float: right;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #006699;
+    float: right;
+    margin-right: 10px;
+    text-transform: uppercase;
+    color: #006699;
 }
 
 .styleBox {
-  margin: 15px;
-  height: 320px;
-  width: 270px;
-  background: white;
-  display: inline-block;
+    margin: 15px;
+    height: 320px;
+    width: 270px;
+    background: white;
+    display: inline-block;
 }
 
 .styleImage {
-  width: 100%;
-  height: 150px;
-  background: sandybrown;
-  overflow: hidden;
+    width: 100%;
+    height: 150px;
+    background: sandybrown;
+    overflow: hidden;
 }
 
 .styleTitle {
-  width: 100%;
-  font-size: 20px;
-  padding: 10px 0px 10px 0px;
-  box-sizing: border-box;
-  text-align: center;
+    width: 100%;
+    font-size: 20px;
+    padding: 10px 0px 10px 0px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .styleDesc {
-  width: 100%;
-  font-size: 17px;
-  padding: 0px 15px 10px 15px;
-  box-sizing: border-box;
-  text-align: center;
+    width: 100%;
+    font-size: 17px;
+    padding: 0px 15px 10px 15px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .styleActive {
-  color: green;
-  width: 50%;
-  float: left;
+    color: green;
+    width: 50%;
+    float: left;
 }
 
 .styleDeactive {
-  color: red;
-  width: 50%;
-  float: left;
+    color: red;
+    width: 50%;
+    float: left;
 }
 
 .editStyle {
-  width: 50%;
-  float: right;
+    width: 50%;
+    float: right;
 }
 
 /* ADMIN MENU */
@@ -512,13 +510,13 @@ html, body {
     font-size: 16px;
     box-sizing: border-box;
     text-transform: uppercase;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     color: #555;
     cursor: pointer;
 }
 
 .sectionMenuButton:hover {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     color: #000;
 }
 
@@ -531,7 +529,7 @@ html, body {
     left: 0;
     z-index: 9999;
     text-align: center;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .optionOverlayContent {
@@ -539,6 +537,8 @@ html, body {
     width: 700px;
     height: 600px;
     background: white;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .optionOverlaySpacer {
@@ -556,12 +556,54 @@ html, body {
     color: #555;
     box-sizing: border-box;
     padding: 10px;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
 
 .optionOverlayClose:hover {
 
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     color: #000;
+}
+
+.optionSectionTitle {
+    padding-top: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.dashboardInput {
+    width: 400px;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-size: 20px;
+    outline: none;
+    border: 0;
+    margin: 0 auto;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.actionButtonRed {
+    background: salmon;
+    color: white;
+}
+
+.actionButtonGrey {
+    background: #EEE;
+    color: black;
+}
+
+.actionButtonYellow {
+    background: #F8BB40;
+    color: black;
+}
+
+.actionButtonGreen {
+    background: yellowgreen;
+    color: black;
 }

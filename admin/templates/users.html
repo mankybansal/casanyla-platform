@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<div ng-repeat="user in users" ng-click="editUser()" class="userInfo">
+<div ng-repeat="user in users" ng-click="editUser(user._id)" class="userInfo">
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>
     <div class="userInfoRole">{{user.role}}</div>
@@ -16,32 +16,34 @@
         <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
 
         <div class="optionSection" ng-show="userControllerView == userControllerViews.addUser">
-            <input type="text" placeholder="Full Name">
-            <input type="text" placeholder="Email Address">
-            <input type="text" placeholder="Password">
-            <select>
-                <option value="Admin">Admin</option>
-                <option value="Manager">Manager</option>
-                <option value="Designer">Designer</option>
-                <option value="Client" selected>Client</option>
+            <div class="optionSectionTitle">Add New CasaNyla User</div>
+            <input class="dashboardInput" type="text" placeholder="Full Name">
+            <input class="dashboardInput" type="text" placeholder="Email Address">
+            <select class="dashboardInput">
+                <option value="admin">Admin</option>
+                <option value="manager">Manager</option>
+                <option value="designer">Designer</option>
+                <option value="client" selected>Client</option>
             </select>
-            <div class="actionButton">CANCEL</div>
-            <div class="actionButton">ADD USER</div>
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonBlue">ADD USER</div>
         </div>
 
         <div class="optionSection" ng-show="userControllerView == userControllerViews.editUser">
-            <input type="text" placeholder="Full Name">
-            <input type="text" placeholder="Email Address">
-            <input type="text" placeholder="Password">
-            <select>
-                <option value="Admin"></option>
-                <option value="Manager"></option>
-                <option value="Designer"></option>
-                <option value="Client"></option>
+            <div class="optionSectionTitle">Edit CasaNyla User</div>
+            <input class="dashboardInput" type="text" ng-model="selectedUser.name" placeholder="Full Name">
+            <input class="dashboardInput" type="text" ng-model="selectedUser.email" placeholder="Email Address">
+            <select class="dashboardInput" ng-model="selectedUser.role">
+                <option value="admin">Admin</option>
+                <option value="manager">Manager</option>
+                <option value="designer">Designer</option>
+                <option value="client" selected>Client</option>
             </select>
-            <div class="actionButton">CANCEL</div>
-            <div class="actionButton">DELETE USER</div>
-            <div class="actionButton">UPDATE USER</div>
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonRed">DELETE USER</div>
+            <div class="actionButton actionButtonYellow">UPDATE USER</div>
         </div>
 
     </div>

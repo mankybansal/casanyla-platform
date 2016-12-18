@@ -52,16 +52,17 @@ casanylaApp.angular.controller("overviewControl", function ($scope) {
 
 });
 
-casanylaApp.angular.controller("usersControl", function ($scope) {
+casanylaApp.angular.controller("usersControl", function ($scope,$filter) {
 
     $scope.addUser = function () {
         $scope.showOptionOverlay();
         $scope.userControllerView = $scope.userControllerViews.addUser;
     };
 
-    $scope.editUser = function() {
+    $scope.editUser = function(userID) {
         $scope.showOptionOverlay();
         $scope.userControllerView = $scope.userControllerViews.editUser;
+        $scope.selectedUser = $filter('filter')($scope.$parent.users, {_id: userID})[0];
     };
 
     $scope.init = function(){
@@ -69,6 +70,8 @@ casanylaApp.angular.controller("usersControl", function ($scope) {
             addUser: 0,
             editUser: 1
         };
+
+        $scope.selectedUser = null;
     };
 
     $scope.init();
@@ -79,7 +82,33 @@ casanylaApp.angular.controller("projectsControl", function ($scope) {
 });
 
 casanylaApp.angular.controller("designersControl", function ($scope) {
+    $scope.addDesigner = function () {
+        $scope.showOptionOverlay();
+        $scope.designerControllerView = $scope.designerControllerViews.addDesigner;
+    };
 
+    $scope.editDesigner = function(userID) {
+        $scope.showOptionOverlay();
+        $scope.designerControllerView = $scope.designerControllerViews.editDesigner;
+        $scope.selectedDesigner = $filter('filter')($scope.$parent.users, {_id: userID})[0];
+    };
+    
+    $scope.assignProject = function(){
+        $scope.showOptionOverlay();
+        $scope.designerControllerView = $scope.designerControllerViews.assignProject;
+    };
+
+    $scope.init = function(){
+        $scope.designerControllerViews = {
+            addDesigner: 0,
+            editDesigner: 1,
+            assignProject: 2
+        };
+
+        $scope.selectedDesigner = null;
+    };
+
+    $scope.init();
 });
 
 casanylaApp.angular.controller("clientsControl", function ($scope) {

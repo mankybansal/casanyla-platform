@@ -5,12 +5,11 @@
 
 <div class="styleBox" ng-repeat="style in styles">
     <div class="styleImage">
-        <img ng-src='{{ "../images/styles/" + style.name + "/" + style.images[3].file; }}'
+        <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[3].file; }}'
              style="width: 100%;">
     </div>
     <div class="styleTitle">{{ style.name }}</div>
     <div class="styleDesc">{{ style.description.substring(0, 100)+"..."; }}</div>
     <div class="styleActive" ng-show="style.active">ACTIVE</div>
     <div class="styleDeactive" ng-show="!style.active">DEACTIVE</div>
-    <div class="editStyle">EDIT</div>
 </div>
