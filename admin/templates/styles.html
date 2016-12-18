@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="styleBox" ng-repeat="style in styles">
+<div class="styleBox" ng-repeat="style in styles" ng-click="editSelectedStyle(style._id)">
     <div class="styleImage">
         <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
              style="width: 100%;">
@@ -20,14 +20,24 @@
     <div class="optionOverlayContent">
         <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
 
-        <div class="optionSection" ng-show="stylesControllerView == stylesControllerViews.addStyle">
+        <div class="optionSection" ng-show="stylesControllerView == stylesControllerViews.addStyles">
             <div class="optionSectionTitle">Add New CasaNyla Style</div>
 
-            <input type="text" ng-model="addStyleObject.name" id="styleName" class="dashboardInput" placeholder="Style Name">
-            <input type="text" ng-model="addStyleObject.description"  id="styleDesc" class="dashboardInput" placeholder="Description">
-            <br><br><br>
-            <input type="text" name="fileDesc" id="fileDesc" class="dashboardInput" placeholder="Image Name">
-            <input type="text" name="fileOrder" id="fileOrder"  class="dashboardInput" placeholder="Image Order">
+            <input type="text" ng-model="addStyleObject.name" ng-disabled="addStyleObject.images.length!=0" class="dashboardInput" placeholder="Style Name">
+            <input type="text" ng-model="addStyleObject.description"  class="dashboardInput" placeholder="Description">
+
+            <div class="styleUploadImages">
+                <div class="styleUploadNone" ng-show="addStyleObject.images.length==0">
+                    NO IMAGES UPLOADED FOR THIS STYLE
+                </div>
+
+                <div class="styleUploadImage" ng-repeat="myimage in addStyleObject.images">
+                    <img ng-src="../platform-assets/styles/{{addStyleObject.name}}/{{myimage.file}}" class="styleUploadIMG">
+                </div>
+            </div>
+
+            <input type="text" name="fileDesc" id="fileDesc" class="dashboardInput dashboardInputSmall" placeholder="Image Description">
+            <input type="number" name="fileOrder" id="fileOrder"  class="dashboardInput  dashboardInputSmall" placeholder="Image Order">
             <br>
             <input type="file" name="file" id="file" required />
             <div class="actionButton actionButtonYellow" ng-click="uploadImage()">Upload Image</div>
@@ -37,5 +47,35 @@
             <div class="actionButton actionButtonBlue" ng-click="postStyle()">ADD STYLE</div>
         </div>
 
+        <div class="optionSection" ng-show="stylesControllerView == stylesControllerViews.editMyStyle">
+            <div class="optionSectionTitle">Edit CasaNyla Style</div>
+
+            <input type="text" ng-model="selectedStyle.name" ng-disabled="selectedStyle.images.length!=0" class="dashboardInput" placeholder="Style Name">
+            <input type="text" ng-model="selectedStyle.description"  class="dashboardInput" placeholder="Description">
+
+            <div class="styleUploadImages">
+                <div class="styleUploadNone" ng-show="selectedStyle.images.length==0">
+                    NO IMAGES UPLOADED FOR THIS STYLE
+                </div>
+
+                <div class="styleUploadImage" ng-repeat="myimage in selectedStyle.images">
+                    <div class="deleteImage" ng-click="deleteImage($index)"><i class="fa fa-trash"></i></div>
+                    <img ng-src="../platform-assets/styles/{{selectedStyle.name}}/{{myimage.file}}" class="styleUploadIMG">
+                </div>
+            </div>
+
+            <input type="text" name="fileDesc" id="fileDesc2" class="dashboardInput dashboardInputSmall" placeholder="Image Description">
+            <input type="number" name="fileOrder" id="fileOrder2"  class="dashboardInput  dashboardInputSmall" placeholder="Image Order">
+            <br>
+            <input type="file" name="file" id="file2" required />
+            <div class="actionButton actionButtonYellow" ng-click="uploadImage2()">Upload Image</div>
+
+            <br><br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
+            <div class="actionButton actionButtonRed" ng-click="deleteStyle(selectedStyle._id)">DELETE STYLE</div>
+            <div class="actionButton actionButtonYellow" ng-click="updateStyle(selectedStyle._id)">UPDATE STYLE</div>
+        </div>
+
     </div>
+
 </div>

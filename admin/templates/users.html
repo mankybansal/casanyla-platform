@@ -17,9 +17,10 @@
 
         <div class="optionSection" ng-show="userControllerView == userControllerViews.addUser">
             <div class="optionSectionTitle">Add New CasaNyla User</div>
-            <input class="dashboardInput" type="text" placeholder="Full Name">
-            <input class="dashboardInput" type="text" placeholder="Email Address">
-            <select class="dashboardInput">
+            <input class="dashboardInput" type="text" ng-model="addNewUser.name" placeholder="Full Name">
+            <input class="dashboardInput" type="text" ng-model="addNewUser.email" placeholder="Email Address">
+            <input class="dashboardInput" type="password" ng-model="addNewUser.password" placeholder="Password">
+            <select class="dashboardInput" ng-model="addNewUser.role">
                 <option value="admin">Admin</option>
                 <option value="manager">Manager</option>
                 <option value="designer">Designer</option>
@@ -27,7 +28,7 @@
             </select>
             <br><br>
             <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
-            <div class="actionButton actionButtonBlue">ADD USER</div>
+            <div class="actionButton actionButtonBlue" ng-click="postUser()">ADD USER</div>
         </div>
 
         <div class="optionSection" ng-show="userControllerView == userControllerViews.editUser">
@@ -42,7 +43,7 @@
             </select>
             <br><br>
             <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
-            <div class="actionButton actionButtonRed">DELETE USER</div>
+            <div class="actionButton actionButtonRed" ng-click="deleteUser()">DELETE USER</div>
             <div class="actionButton actionButtonYellow">UPDATE USER</div>
         </div>
 

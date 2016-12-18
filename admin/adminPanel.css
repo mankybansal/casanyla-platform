@@ -361,6 +361,11 @@ html, body {
     display: inline-block;
     margin: 10px;
     background: white;
+    cursor: pointer;
+}
+
+.userInfo:hover {
+    background: #EEE;
 }
 
 .userInfoName {
@@ -452,6 +457,11 @@ html, body {
     width: 270px;
     background: white;
     display: inline-block;
+    cursor:pointer;
+}
+
+.styleBox:hover {
+    background: #eee;
 }
 
 .styleImage {
@@ -539,6 +549,7 @@ html, body {
     background: white;
     box-sizing: border-box;
     text-align: center;
+    overflow: hidden;
 }
 
 .optionOverlaySpacer {
@@ -588,6 +599,10 @@ html, body {
     margin-top: 20px;
 }
 
+.dashboardInputSmall {
+    width: 200px;
+}
+
 .actionButtonRed {
     background: salmon;
     color: white;
@@ -606,4 +621,48 @@ html, body {
 .actionButtonGreen {
     background: yellowgreen;
     color: black;
+}
+
+.styleUploadImages {
+    margin-top: 20px;
+    padding: 10px;
+    height: 100px;
+    min-width: 100%;
+    background: #EEE;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow-x: auto;
+}
+
+.styleUploadImage {
+    white-space: nowrap;
+    margin-left: 10px;
+    height: 80px;
+    display: inline-block;
+    overflow: hidden;
+    float: left;
+}
+
+.styleUploadNone {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 30px;
+    color: #999;
+    display: inline-block;
+    width: 100%;
+}
+
+.styleUploadIMG{
+    height: 100%;
+}
+
+.deleteImage {
+    float:left;
+    width: 30px;
+    height: 80px;
+    box-sizing: border-box;
+    padding: 30px 5px 30px 5px;
+    font-size: 20px;
+    color: white;
+    background: salmon;
 }

@@ -59,6 +59,29 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
         $scope.userControllerView = $scope.userControllerViews.addUser;
     };
 
+    $scope.postUser = function(){
+        //TODO CHANGE THIS TO ANGULAR MODEL
+        $scope.requests.userRegisterForm($scope.addNewUser.name,$scope.addNewUser.email,$scope.addNewUser.password,$scope.addNewUser.role, function(response){
+            $scope.safeApply(function(){
+                $scope.closeOptionOverlay();
+                $scope.$parent.updateAdmin();
+                $scope.init();
+                alert("Added User");
+            });
+        });
+    };
+
+    $scope.deleteUser = function(){
+        $scope.requests.deleteUser($scope.selectedUser._id, function(){
+            $scope.safeApply(function(){
+                $scope.closeOptionOverlay();
+                $scope.$parent.updateAdmin();
+                $scope.init();
+                alert("Deleted User");
+            });
+        });
+    };
+
     $scope.editUser = function (userID) {
         $scope.showOptionOverlay();
         $scope.userControllerView = $scope.userControllerViews.editUser;
@@ -69,6 +92,13 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
         $scope.userControllerViews = {
             addUser: 0,
             editUser: 1
+        };
+
+        $scope.addNewUser = {
+            name: '',
+            email: '',
+            password: '',
+            role: ''
         };
 
         $scope.selectedUser = null;
@@ -115,18 +145,22 @@ casanylaApp.angular.controller("clientsControl", function ($scope) {
 
 });
 
-casanylaApp.angular.controller("stylesControl", function ($scope) {
+casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
 
     $scope.addStyle = function () {
         $scope.showOptionOverlay();
-        $scope.stylesControllerView = $scope.stylesControllerViews.addStyle;
+        $scope.stylesControllerView = $scope.stylesControllerViews.addStyles;
     };
 
     $scope.uploadImage = function () {
+        if ($scope.addStyleObject.name == '' || $scope.addStyleObject.name == null) {
+            alert("First Enter Style Name");
+        }
+
         var file_data = $('#file').prop('files')[0];
         var form_data = new FormData();
         form_data.append('file', file_data);
-        form_data.append('folder',$scope.addStyleObject.name);
+        form_data.append('folder', $scope.addStyleObject.name);
         $.ajax({
             url: '../scripts/styleImageUpload.php', // point to server-side PHP script
             dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -135,39 +169,113 @@ casanylaApp.angular.controller("stylesControl", function ($scope) {
             processData: false,
             data: form_data,
             type: 'post',
-            success: function(php_script_response){
+            success: function (php_script_response) {
                 console.log(php_script_response); // display response from the PHP script, if any
                 var data = JSON.parse(php_script_response);
 
-                if(data.fileName){
-                    $scope.addStyleObject.images.push({
-                        active: true,
-                        file: data.fileName,
-                        name: $("#fileDesc").val().trim(),
-                        order: parseInt($("#fileOrder").val().trim())
-                    });
-                }
+                //TODO: ADD MESSAGES IF THE UPLOAD FAILS
+                //TODO: ADD VALIDATION
+                //TODO: REMOVE IMAGE
+                $scope.safeApply(function () {
+                    if (data.fileName) {
+                        $scope.addStyleObject.images.push({
+                            active: true,
+                            file: data.fileName,
+                            name: $("#fileDesc").val().trim(),
+                            order: parseInt($("#fileOrder").val().trim())
+                        });
+                    }
+                });
             }
         });
     };
-    
-    $scope.postStyle = function(){
-        console.log($scope.addStyleObject);
-        $scope.requests.addStyle($scope.addStyleObject,function(response){
-            console.log(response);
+
+    $scope.uploadImage2 = function () {
+        var file_data = $('#file2').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+        form_data.append('folder', $scope.selectedStyle.name);
+        $.ajax({
+            url: '../scripts/styleImageUpload.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (php_script_response) {
+                console.log(php_script_response); // display response from the PHP script, if any
+                var data = JSON.parse(php_script_response);
+
+                //TODO: ADD MESSAGES IF THE UPLOAD FAILS
+                //TODO: ADD VALIDATION
+                //TODO: REMOVE IMAGE
+                $scope.safeApply(function () {
+                    if (data.fileName) {
+                        $scope.selectedStyle.images.push({
+                            active: true,
+                            file: data.fileName,
+                            name: $("#fileDesc2").val().trim(),
+                            order: parseInt($("#fileOrder2").val().trim())
+                        });
+                    }
+                });
+            }
         });
     };
 
-    $scope.editStyle = function (styleID) {
+    $scope.postStyle = function () {
+        console.log($scope.addStyleObject);
+        $scope.requests.addStyle($scope.addStyleObject, function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            alert("Successfully Added");
+        });
+    };
+
+    $scope.deleteImage = function(imageIndex){
+        $scope.selectedStyle.images.splice(imageIndex,1);
+        console.log($scope.selectedStyle.images);
+    };
+
+    $scope.deleteStyle = function(styleID){
+        $scope.requests.deleteStyle(styleID, function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            //TODO: DELETE IMAGE FOLDER BEFORE DELETE
+            alert("Successfully Deleted");
+        });
+    };
+
+    $scope.editSelectedStyle = function (styleID) {
         $scope.showOptionOverlay();
-        $scope.styleControllerView = $scope.stylesControllerViews.editStyle;
+        $scope.stylesControllerView = $scope.stylesControllerViews.editMyStyle;
         $scope.selectedStyle = $filter('filter')($scope.$parent.styles, {_id: styleID})[0];
+    };
+    
+    $scope.updateStyle = function (styleID){
+        console.log(JSON.parse(angular.toJson($scope.selectedStyle)));
+        $scope.requests.updateStyle(styleID, JSON.parse(angular.toJson($scope.selectedStyle)), function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            alert("Successfully Updated");
+        });
+        $scope.closeOptionOverlay();
     };
 
     $scope.init = function () {
         $scope.stylesControllerViews = {
-            addStyles: 0
+            addStyles: 0,
+            editMyStyle: 1
         };
+
+        $scope.stylesControllerView =  null;
 
         $scope.addStyleObject = {
             name: "",
@@ -210,6 +318,20 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $(".optionOverlay").fadeOut();
     };
 
+    $scope.updateAdmin = function(){
+        $scope.requests.showUsers(function (response) {
+            $scope.users = response;
+        });
+
+        $scope.requests.getStyles(function (response) {
+            $scope.styles = response;
+        });
+
+        $scope.requests.getQuiz(function (response) {
+            $scope.questionModel = response;
+        });
+    };
+
     $scope.init = function () {
 
         if ($localStorage.ngMyUser) {
@@ -229,18 +351,7 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $scope.optionEdit = false;
         $scope.overlayOpen = false;
 
-
-        $scope.requests.showUsers(function (response) {
-            $scope.users = response;
-        });
-
-        $scope.requests.getStyles(function (response) {
-            $scope.styles = response;
-        });
-
-        $scope.requests.getQuiz(function (response) {
-            $scope.questionModel = response;
-        });
+        $scope.updateAdmin();
 
     };
 

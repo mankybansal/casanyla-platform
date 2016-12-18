@@ -103,6 +103,11 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     $scope.serverRequest("PUT", "user/" + userID, myObject, callback);
                 },
 
+                deleteUser: function (userID, callback) {
+                    var myObject = {};
+                    $scope.serverRequest("DELETE", "user/" + userID, myObject, callback);
+                },
+
                 getQuiz: function (callback) {
                     var myObject = {};
                     $scope.serverRequest("GET", "question", myObject, callback);
@@ -125,6 +130,15 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
 
                 addStyle: function (styleObject, callback) {
                     $scope.serverRequest("POST", "style", styleObject, callback);
+                },
+
+                deleteStyle: function (styleID, callback) {
+                    var myObject = {};
+                    $scope.serverRequest("DELETE", "style/" + styleID, myObject, callback);
+                },
+
+                updateStyle: function (styleID, styleObject, callback) {
+                    $scope.serverRequest("PUT", "style/" + styleID, styleObject, callback);
                 }
             };
 
@@ -258,7 +272,7 @@ casanylaApp.angular.directive('userControl', function () {
                     $scope.userRegister();
             };
 
-            $scope.userReset = function(){
+            $scope.userReset = function () {
                 $scope.ngMyUser = false;
                 $scope.accountOptions = false;
                 //$scope.facebook = {};
@@ -499,7 +513,7 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
 
  $scope.init();
  });
-*/
+ */
 
 casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile) {
 
