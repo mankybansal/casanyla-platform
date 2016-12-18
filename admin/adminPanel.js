@@ -54,6 +54,24 @@ casanylaApp.angular.controller("overviewControl", function ($scope) {
 
 casanylaApp.angular.controller("usersControl", function ($scope) {
 
+    $scope.addUser = function () {
+        $scope.showOptionOverlay();
+        $scope.userControllerView = $scope.userControllerViews.addUser;
+    };
+
+    $scope.editUser = function() {
+        $scope.showOptionOverlay();
+        $scope.userControllerView = $scope.userControllerViews.editUser;
+    };
+
+    $scope.init = function(){
+        $scope.userControllerViews = {
+            addUser: 0,
+            editUser: 1
+        };
+    };
+
+    $scope.init();
 });
 
 casanylaApp.angular.controller("projectsControl", function ($scope) {
@@ -86,8 +104,18 @@ casanylaApp.angular.controller("settingsControl", function ($scope) {
 
 casanylaApp.angular.controller("adminDashboardControl", function ($scope, $localStorage, $location, $filter, $sessionStorage, $rootScope, $interval) {
 
-    $scope.endpoint = function (endpoint){
+    $scope.endpoint = function (endpoint) {
         $location.path(endpoint);
+    };
+
+    $scope.showOptionOverlay = function () {
+        $scope.overlayOpen = true;
+        $(".optionOverlay").fadeIn();
+    };
+
+    $scope.closeOptionOverlay = function () {
+        $scope.overlayOpen = false;
+        $(".optionOverlay").fadeOut();
     };
 
     $scope.init = function () {
@@ -107,6 +135,7 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $scope.currentEditQuestion = null;
         $scope.currentEditOption = null;
         $scope.optionEdit = false;
+        $scope.overlayOpen = false;
 
 
         $scope.requests.showUsers(function (response) {
@@ -124,8 +153,8 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
     };
 
 
-    $scope.getClientCount = function(){
-        return $filter('filter')($scope.users, { role: 'client' }).length;
+    $scope.getClientCount = function () {
+        return $filter('filter')($scope.users, {role: 'client'}).length;
     };
 
     $scope.editQuestion = function (question) {
@@ -184,7 +213,7 @@ function hideDashboard() {
 
 $(document).ready(function () {
 
-    
+
     $(".menuOption").click(function () {
         var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();
         var menuOptionSelected = $(this).find('.menuOptionText').text();

@@ -1,9 +1,48 @@
 <div class="adminSectionMenu">
-    <div class="sectionMenuButton"><i class="fa fa-plus"></i>&nbsp;Add User</div>
+    <div class="sectionMenuButton" ng-click="addUser()">
+        <i class="fa fa-plus"></i>&nbsp;Add User
+    </div>
 </div>
 
-<div ng-repeat="user in users" class="userInfo">
+<div ng-repeat="user in users" ng-click="editUser()" class="userInfo">
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>
     <div class="userInfoRole">{{user.role}}</div>
+</div>
+
+<div class="optionOverlay">
+    <div class="optionOverlaySpacer"></div>
+    <div class="optionOverlayContent">
+        <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
+
+        <div class="optionSection" ng-show="userControllerView == userControllerViews.addUser">
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Email Address">
+            <input type="text" placeholder="Password">
+            <select>
+                <option value="Admin">Admin</option>
+                <option value="Manager">Manager</option>
+                <option value="Designer">Designer</option>
+                <option value="Client" selected>Client</option>
+            </select>
+            <div class="actionButton">CANCEL</div>
+            <div class="actionButton">ADD USER</div>
+        </div>
+
+        <div class="optionSection" ng-show="userControllerView == userControllerViews.editUser">
+            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Email Address">
+            <input type="text" placeholder="Password">
+            <select>
+                <option value="Admin"></option>
+                <option value="Manager"></option>
+                <option value="Designer"></option>
+                <option value="Client"></option>
+            </select>
+            <div class="actionButton">CANCEL</div>
+            <div class="actionButton">DELETE USER</div>
+            <div class="actionButton">UPDATE USER</div>
+        </div>
+
+    </div>
 </div>
