@@ -15,6 +15,7 @@
 <script src="../bower_components/angular/angular.js"></script>
 <script src="../bower_components/ngstorage/ngStorage.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.js"></script>
+<script src="../bower_components/angular-scroll/angular-scroll.js"></script>
 
 <script type="text/javascript" src="../js/app.js"></script>
 
@@ -310,7 +311,7 @@
     <login-overlay></login-overlay>
     <header-menu></header-menu>
 
-    <div ng-controller="styleViewerControl">
+    <div <!--ng-controller="styleViewerControl"-->>
         <style-viewer></style-viewer>
         <div ng-controller="quizAppControl">
 
@@ -333,9 +334,9 @@
                         <div class="questionText animated fadeInUp">{{question.name}}</div>
                         <div class="questionOptions">
                             <div class="option animated fadeIn" ng-repeat="option in question.options"
-                                 ng-click="saveAnswer(option.id)">
+                                 ng-click="saveAnswer($index)">
                                 <div class="optionImageContainer">
-                                    <img ng-src='{{"../images/optionPictures/" + option.image}}' class='optionImage'>
+                                    <img ng-src='{{"../platform-assets/quiz/" + option.image}}' class='optionImage'>
                                 </div>
                                 <div class="optionText">{{option.name}}</div>
                             </div>

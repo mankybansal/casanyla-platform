@@ -119,6 +119,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 },
 
                 submitQuiz: function (answerModel, callback) {
+                    console.log(answerModel);
                     $scope.serverRequest("POST", "quiz", answerModel, callback);
 
                 },
@@ -318,11 +319,10 @@ casanylaApp.angular.directive('userControl', function () {
     };
 });
 
-casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
+casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope, $filter) {
 
     $scope.startQuiz = function () {
         $scope.currentQuestion = 0;
-        $scope.myAnswers = [];
         $scope.myProgress = 0;
         $scope.quizOver = false;
         $scope.inProgress = true;
@@ -336,184 +336,177 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
         $scope.myProgress += 100 / ($scope.questions.length + 1);
         if (!($scope.question = $scope.questions[$scope.currentQuestion])) {
             $scope.quizOver = true;
-            $scope.requests.submitQuiz($scope.myAnswers.join(), function (response) {
-                $rootScope.styles = response;
-                $scope.$parent.viewStyle(0);
+
+            console.log($scope.questions);
+            $scope.requests.submitQuiz(JSON.parse(angular.toJson($scope.questions)), function (response) {
+                console.log(response);
             });
         }
     };
 
     $scope.saveAnswer = function (myAnswer) {
-        $scope.myAnswers.push(myAnswer);
+        $scope.questions[$scope.currentQuestion].options[myAnswer].answered = true;
         $scope.currentQuestion++;
         $scope.getNextQuestion();
     };
 });
 
+
+casanylaApp.angular.controller("browseStyleControl", function ($scope) {
+
+
+    $scope.getStyles = function () {
+        $scope.requests.getStyles(function (response) {
+            $scope.styles = response;
+        });
+    };
+
+    $scope.init = function () {
+        $scope.styles = null;
+        $scope.getStyles();
+    };
+
+    $scope.init();
+
+    /*$scope.viewStyle = function (styleNum) {
+     $scope.$parent.viewStyle(styleNum);
+     }*/
+});
+
 /*
- casanylaApp.angular.controller("browseStyleControl", function ($scope, $rootScope) {
- $scope.mySplit = function (string, nb) {
- var array = string.split('.');
- return array[nb];
- };
+casanylaApp.angular.controller("styleViewerControl", function ($scope, $rootScope) {
 
- console.log($scope.guestToken);
+    $scope.init = function () {
+        $rootScope.styles = [];
+        $scope.current = {
+            image: 0,
+            images: [],
+            style: null,
+            styleNode: null,
+            imageNode: null
+        };
+    };
 
- $scope.getStyles = function () {
- $scope.requests.getStyles(function (response) {
- $rootScope.styles = response;
+    $scope.updateLikes = function (styleNode, imageNode) {
+        if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
+            $scope.requests.getLikes($scope.$parent.ngMyUser.token, function (response) {
+                if (response.success != "false") {
+                    var flag1 = false, flag2 = false;
+                    $.each(response, function (index, item) {
+                        if (item.id == styleNode) {
+                            $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
+                            flag1 = true;
+                        }
+                        if (item.id == imageNode) {
+                            $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
+                            flag2 = true;
+                        }
+                    });
+                    if (!flag1) $(".changeHeartStyle").removeClass("fa-heart").addClass("fa-heart-o")
+                    if (!flag2) $(".changeHeartRoom").removeClass("fa-heart").addClass("fa-heart-o");
+                }
+            });
+    };
 
- $('.mainCard').fadeIn(1000).animate({marginTop: '0px'}, 500);
+    $scope.likeStyle = function () {
+        if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
+            $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.styleNode, function (response) {
+                if (response.status == "Success")
+                    $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
+                else if (response.message == "Invalid token detected")
+                    $scope.$parent.logout();
+                else
+                    console.log("Some Error Occurred");
+            });
+        else loginButtonClick();
+    };
 
- if (urlStyle != null) {
- var styleNumber;
- for (var i = 0; i < $rootScope.styles.length; i++)
- if ($rootScope.styles[i].catalogueKey == urlStyle)
- styleNumber = i;
- $scope.viewStyle(styleNumber);
- }
- });
- };
+    $scope.likeRoom = function () {
+        if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
+            $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.imageNode, function (response) {
+                if (response.status == "Success")
+                    $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
+                else if (response.message == "Invalid token detected")
+                    $scope.$parent.logout();
+                else
+                    console.log("Some Error Occurred");
+            });
+        else
+            loginButtonClick();
+    };
 
- $scope.getStyles();
+    $scope.viewStyle = function (styleNum) {
 
- $scope.viewStyle = function (styleNum) {
- $scope.$parent.viewStyle(styleNum);
- }
- });
+        $('.coverContainer').fadeIn(500);
+        $('.resultCard').fadeIn(500);
+        $('.centerDesc').fadeIn(500);
 
- casanylaApp.angular.controller("styleViewerControl", function ($scope, $rootScope) {
+        $scope.current = {
+            image: 0,
+            images: [],
+            style: styleNum,
+            styleNode: $rootScope.styles[styleNum].id
+        };
 
- $scope.init = function () {
- $rootScope.styles = [];
- $scope.current = {
- image: 0,
- images: [],
- style: null,
- styleNode: null,
- imageNode: null
- };
- };
+        changeUrlParam('style', $rootScope.styles[styleNum].catalogueKey);
 
- $scope.updateLikes = function (styleNode, imageNode) {
- if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
- $scope.requests.getLikes($scope.$parent.ngMyUser.token, function (response) {
- if (response.success != "false") {
- var flag1 = false, flag2 = false;
- $.each(response, function (index, item) {
- if (item.id == styleNode) {
- $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
- flag1 = true;
- }
- if (item.id == imageNode) {
- $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
- flag2 = true;
- }
- });
- if (!flag1) $(".changeHeartStyle").removeClass("fa-heart").addClass("fa-heart-o")
- if (!flag2) $(".changeHeartRoom").removeClass("fa-heart").addClass("fa-heart-o");
- }
- });
- };
+        if (typeof myRandomToken !== 'undefined') {
+            changeUrlParam('token', myRandomToken);
+        }
 
- $scope.likeStyle = function () {
- if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
- $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.styleNode, function (response) {
- if (response.status == "Success")
- $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
- else if (response.message == "Invalid token detected")
- $scope.$parent.logout();
- else
- console.log("Some Error Occurred");
- });
- else loginButtonClick();
- };
+        if ($rootScope.styles[styleNum].images.length != 0) {
+            for (var i = 0; i < $rootScope.styles[styleNum].images.length; i++)
+                $scope.current.images[i] = {
+                    "img": $rootScope.styles[styleNum].name + '/' + $rootScope.styles[styleNum].images[i].file,
+                    "id": $rootScope.styles[styleNum].images[i].id
+                };
+            $scope.loadImage();
+        }
+    };
 
- $scope.likeRoom = function () {
- if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
- $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.imageNode, function (response) {
- if (response.status == "Success")
- $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
- else if (response.message == "Invalid token detected")
- $scope.$parent.logout();
- else
- console.log("Some Error Occurred");
- });
- else
- loginButtonClick();
- };
+    $scope.leftNavClick = function () {
+        $scope.current.image -= 1;
+        if ($scope.current.image <= 0)
+            $scope.current.image = 0;
+        $scope.loadImage();
+    };
 
- $scope.viewStyle = function (styleNum) {
+    $scope.rightNavClick = function () {
+        $scope.current.image++;
+        if ($scope.current.image >= ($scope.current.images.length - 1))
+            $scope.current.image = $scope.current.images.length - 1;
+        $scope.loadImage();
+    };
 
- $('.coverContainer').fadeIn(500);
- $('.resultCard').fadeIn(500);
- $('.centerDesc').fadeIn(500);
+    $scope.loadImage = function () {
+        $scope.current.imageNode = $scope.current.images[$scope.current.image].id;
+        $scope.updateLikes($scope.current.styleNode, $scope.current.imageNode);
+    };
 
- $scope.current = {
- image: 0,
- images: [],
- style: styleNum,
- styleNode: $rootScope.styles[styleNum].id
- };
+    $scope.fbShare = function () {
+        FB.ui({
+            method: 'feed',
+            name: $rootScope.styles[$scope.current.style].name + ' on HomeLuxe.in',
+            link: window.location.href,
+            picture: 'http://www.homeluxe.in/images/styles/' + $rootScope.styles[$scope.current.style].name + '/' + $rootScope.styles[$scope.current.style].images[0].file.img,
+            caption: 'This style is available on HomeLuxe.in',
+            description: $rootScope.styles[$scope.current.style].description,
+            message: 'Check out this style. It looks absolutely beautiful! :)'
+        });
+    };
 
- changeUrlParam('style', $rootScope.styles[styleNum].catalogueKey);
+    $scope.callDesigner = function () {
+        window.location = 'index.php#contactUsX';
+    };
 
- if (typeof myRandomToken !== 'undefined') {
- changeUrlParam('token', myRandomToken);
- }
+    $scope.coverContainerClose = function () {
+        $('.coverContainer').hide();
+    };
 
- if ($rootScope.styles[styleNum].images.length != 0) {
- for (var i = 0; i < $rootScope.styles[styleNum].images.length; i++)
- $scope.current.images[i] = {
- "img": $rootScope.styles[styleNum].name + '/' + $rootScope.styles[styleNum].images[i].file,
- "id": $rootScope.styles[styleNum].images[i].id
- };
- $scope.loadImage();
- }
- };
+    $scope.init();
+});
+*/
 
- $scope.leftNavClick = function () {
- $scope.current.image -= 1;
- if ($scope.current.image <= 0)
- $scope.current.image = 0;
- $scope.loadImage();
- };
-
- $scope.rightNavClick = function () {
- $scope.current.image++;
- if ($scope.current.image >= ($scope.current.images.length - 1))
- $scope.current.image = $scope.current.images.length - 1;
- $scope.loadImage();
- };
-
- $scope.loadImage = function () {
- $scope.current.imageNode = $scope.current.images[$scope.current.image].id;
- $scope.updateLikes($scope.current.styleNode, $scope.current.imageNode);
- };
-
- $scope.fbShare = function () {
- FB.ui({
- method: 'feed',
- name: $rootScope.styles[$scope.current.style].name + ' on HomeLuxe.in',
- link: window.location.href,
- picture: 'http://www.homeluxe.in/images/styles/' + $rootScope.styles[$scope.current.style].name + '/' + $rootScope.styles[$scope.current.style].images[0].file.img,
- caption: 'This style is available on HomeLuxe.in',
- description: $rootScope.styles[$scope.current.style].description,
- message: 'Check out this style. It looks absolutely beautiful! :)'
- });
- };
-
- $scope.callDesigner = function () {
- window.location = 'index.php#contactUsX';
- };
-
- $scope.coverContainerClose = function () {
- $('.coverContainer').hide();
- };
-
- $scope.init();
- });
- */
 
 casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile) {
 

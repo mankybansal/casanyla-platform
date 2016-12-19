@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta name=viewport content="width=device-width, initial-scale=1">
+
+    <meta charset="UTF-8">
+    <title>Browse Styles | HomeLuxe</title>
+
+    <link rel="stylesheet" href="../bower_components/animate.css/animate.css" type="text/css">
+    <link rel="stylesheet" href="../bower_components/components-font-awesome/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../css/default.css" type="text/css">
+    <link rel="stylesheet" href="../css/accountsDefault.css" type="text/css">
+    <link rel="stylesheet" href="../css/headerMenu.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.fullPage.css"/>
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/ngstorage/ngStorage.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-scroll/angular-scroll.js"></script>
+
+    <script type="text/javascript" src="../js/app.js"></script>
+
+    <style>
+
+        html, body {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE/Edge */
+            user-select: none;
+            width: 100% !important;
+            height: 100%;
+            max-width: 100% !important;
+            outline: none;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            min-width: 1000px;
+            background: url('images/artwork.png') #E9E9EB;
+            background-size: 1000px 1000px;
+            font-family: RobotoRegular, sans-serif;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .mainCardContainer {
+            padding-top: 100px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .styleBox {
+            width: 500px;
+            display :inline-block;
+            margin: 20px;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            transition: all ease .5s;
+        }
+
+        .styleBox:hover {
+            background: #F8BB40;
+            box-shadow: 0px 0px 40px rgba(0,0,0,0.2);
+        }
+
+        .styleImage {
+            height: 300px;
+            width: 100%;
+            overflow: hidden;
+            background: #EEE;
+            float: top;
+            display: inline-block;
+        }
+
+        .styleTitle {
+            float: top;
+            margin-top: 20px;
+            font-size: 30px;
+        }
+
+        .styleDesc {
+            float: top;
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #777777;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body ng-app="casanylaApp" casanyla-app-control user-control>
+<header-menu></header-menu>
+<login-overlay></login-overlay>
+    <!--<style-viewer></style-viewer>-->
+    <div class="mainCardContainer" ng-controller="browseStyleControl">
+        <div class="styleBox" ng-repeat="style in styles" ng-click="viewStyle(style._id)">
+            <div class="styleImage">
+                <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
+                     style="height: 100%;">
+            </div>
+            <div class="styleTitle">{{ style.name }}</div>
+            <div class="styleDesc">{{ style.description.substring(0, 120)+"..."; }}</div>
+        </div>
+    </div>
+</body>
+</html>
