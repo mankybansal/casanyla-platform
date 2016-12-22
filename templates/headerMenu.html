@@ -3,33 +3,15 @@
     <div class="headerSpacer spacerLeft">
 
         <div class="menuBox" ng-click="menuClicked()">
-            <i class="fa fa-caret-left menuButton menuCloseFeedback" style="margin-right: 5px; opacity: 0;"></i>
-
             <img src="../images/MENU.png" style="height: 30px; width: 30px; float: left; margin-top: 15px;">
-            <div class="menuTriggerText">
-                MENU
-            </div>
         </div>
     </div>
-
-
 
     <img class='logoButton' src="../images/casanyla.png" ng-click="menuHomeClick()">
 
     <div class="headerSpacer spacerRight ">
-        <div class="menuBox menuLogin hideMobile loginTrigger" style="background: #fbbb38;" ng-click="accountOptionsTrigger()">
-            <div class="menuTriggerText myAccount" >
-                <span ng-show="!ngMyUser">SIGN IN / SIGN UP</span>
-                <span ng-show="ngMyUser">
-                    {{ngMyUser.name}}
-                    &nbsp;&nbsp;
-                    <i class="fa fa-user"></i>
-                </span>
-            </div>
-        </div>
-        <div class="menuBox menuLogin hideMobile" ng-click="menuContactUsClick()">
-            <div class="menuTriggerText"
-                 style="font-family: RobotoRegular;">
+        <div class="menuBox menuLogin hideMobile" style="background: #fbbb38;" ng-click="menuContactUsClick()">
+            <div class="menuTriggerText" style="font-family: RobotoRegular, sans-serif;">
                 CONTACT US
             </div>
         </div>
@@ -39,39 +21,8 @@
 </div>
 
 <div class="header-section">
-  <!-- <div class="header-section-buttons">Find Your Style</div> -->
-  <!-- <div class="header-section-buttons">Browse Our Styles</div> -->
-  <div class="header-section-buttons" ng-click="menuHowItWorksClick()">How It Works</div>
-  <div class="header-section-buttons" ng-click="menuWhoWeAreClick()">Who We Are</div>
-  <div class="header-section-buttons" ng-click="menuContactUsClick()">Get In Touch</div>
-  <!-- <div class="header-section-buttons">My Account</div> -->
+    <div class="header-section-buttons" ng-click="menuHowItWorksClick()">How It Works</div>
+    <div class="header-section-buttons" ng-click="menuBrowseClick()">Browse Our Styles</div>
+    <div class="header-section-buttons" ng-click="menuWhoWeAreClick()">Who We Are</div>
+    <div class="header-section-buttons" ng-click="menuContactUsClick()">Get In Touch</div>
 </div>
-
-<div class="accountOptions" ng-show="accountOptions">
-    <div class="accountOption" ng-show="ngMyUser.role == 'admin'" ng-click="gotoAdminDashboard()">
-        ADMIN DASHBOARD
-    </div>
-    <div class="accountOption" ng-show="ngMyUser.role == 'designer'"ng-click="gotoDesignerDashboard()">
-        DESIGNER DASHBOARD
-    </div>
-    <div class="accountOption" ng-show="ngMyUser.role == 'client'" ng-click="gotoClientDashboard()">
-        MY ACCOUNT
-    </div>
-    <div class="accountOption" ng-click="logout()">
-        SIGN OUT
-    </div>
-</div>
-
-<div class="menuContainer" ng-click="menuContainerClicked()"></div>
-
-<div class="menu">
-    <div class="menuOption" ng-click="menuHomeClick()">Home</div>
-    <!-- <div class="menuOption" onclick="menuQuizClick()">Find Your Style</div> -->
-    <!-- <div class="menuOption" onclick="menuBrowseClick()">Browse Our Styles</div> -->
-    <div class="menuOption" ng-click="menuHowItWorksClick()">How It Works</div>
-    <div class="menuOption" ng-click="menuWhoWeAreClick()">Who We Are</div>
-    <div class="menuOption" ng-click="menuContactUsClick()">Contact Us</div>
-    <!-- <div class="menuOption myAccount loginTrigger" onclick="loginButtonClick()">My Account</div> -->
-</div>
-
-<div id="left-menu"></div>
