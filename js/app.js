@@ -274,12 +274,12 @@ casanylaApp.angular.directive('userControl', function () {
                 $scope.guest = {};
                 casanylaApp.currentUser = null;
 
-                if(casanylaApp.requireLogin){
+                if (casanylaApp.requireLogin) {
                     $scope.requireLogin = true;
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('.loginOverlay').fadeIn(500);
-                    },500);
-                }else{
+                    }, 500);
+                } else {
                     $scope.requireLogin = false;
                 }
             };
@@ -351,12 +351,12 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
         if (!($scope.question = $scope.questions[$scope.currentQuestion])) {
             $scope.quizOver = true;
             $scope.requests.submitQuiz(angular.toJson($scope.questions), function (response) {
-                $scope.answers = response;
-                if ($scope.answers.length > 0) {
-                    $rootScope.viewStyle($scope.answers[0]);
-                } else {
-                    alert("NO STYLES FOUND FOR THIS COMBINATION");
-                }
+                $scope.safeApply(function () {
+                    $scope.answers = response;
+                    if ($scope.answers.length > 0) {
+                        $rootScope.viewStyle($scope.answers[0]);
+                    } else alert("NO STYLES FOUND FOR THIS COMBINATION");
+                });
             });
         }
     };
