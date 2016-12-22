@@ -27,6 +27,7 @@
 
     <script>
         casanylaApp.requireLogin = true;
+        casanylaApp.currentPage = casanylaApp.pages.browse;
     </script>
 
     <style>
@@ -119,5 +120,41 @@
             <div class="styleDesc">{{ style.description.substring(0, 120)+"..."; }}</div>
         </div>
     </div>
+
+    <div class="footer" id="footer">
+    <div class="footerFullWidth" style="height: 140px;">
+        <div class="footerFullWidthAligner">
+            <div class="footerBox">
+                <img src="../images/casanyla.png" style="height: 50px; margin-top: 70px;">
+            </div>
+            <div class="footerBox"
+                 style="font-size: 30px; color: #666; box-sizing: border-box; padding-top: 80px;">
+
+                <i class="fa fa-facebook-square"></i>
+                <i class="fa fa-pinterest-square"></i>
+                <i class="fa fa-instagram"></i>
+                <i class="fa fa-twitter-square"></i>
+                <i class="fa fa-youtube-square"></i>
+
+            </div>
+        </div>
+    </div>
+    <div class="footerBlocksContainer">
+        <div class="footerBlocks"></div>
+        <div class="footerBlocks"></div>
+        <div class="footerBlocks"></div>
+        <div class="footerBlocks"></div>
+    </div>
+    <div class="footerFullWidth" style="height: 60px;">
+        <div class="footerFullWidthAligner">
+            <div class="footerBox">
+                <p style="font-family: RobotoLight, sans-serif; color: #FFF; font-size: 16px;">
+                    © 2016 CasaNyla.com, Inc. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

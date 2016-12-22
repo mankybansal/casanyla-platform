@@ -120,7 +120,13 @@ html, body {
     margin-right: 30px;
     height: 40px;
     width: 40px;
-    background: #EEE;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.avatar {
+    font-size: 30px;
+    color: #999;
 }
 
 .profileBox {
@@ -281,7 +287,7 @@ html, body {
     text-align: center;
     color: #FFFFFF;
     font-size: 15px;
-    font-family: RobotoLight,sans-serif;
+    font-family: RobotoLight, sans-serif;
     text-transform: uppercase;
     pointer-events: auto;
 }
@@ -362,6 +368,12 @@ html, body {
     margin: 10px;
     background: white;
     cursor: pointer;
+}
+
+.userImage {
+    font-size: 60px;
+    color: #EEE;
+    margin-top: 20px;
 }
 
 .userInfo:hover {
@@ -457,7 +469,7 @@ html, body {
     width: 270px;
     background: white;
     display: inline-block;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .styleBox:hover {
@@ -652,12 +664,12 @@ html, body {
     width: 100%;
 }
 
-.styleUploadIMG{
+.styleUploadIMG {
     height: 100%;
 }
 
 .deleteImage {
-    float:left;
+    float: left;
     width: 30px;
     height: 80px;
     box-sizing: border-box;

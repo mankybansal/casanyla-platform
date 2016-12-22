@@ -4,6 +4,7 @@
 
 
 <div ng-repeat="user in users |  filter: { role: 'client'}" class="userInfo">
+    <i class="fa fa-user-circle-o userImage"></i>
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>
     <div class="userInfoRole">{{user.role}}</div>

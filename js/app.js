@@ -509,8 +509,12 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
             };
 
             $scope.menuBrowseClick = function () {
-                $('.resultCard').fadeOut(500);
-                $('.centerDesc').fadeOut(500);
+                if (casanylaApp.currentPage == casanylaApp.pages.browse) {
+                    $('.resultCard').fadeOut(500);
+                    $('.centerDesc').fadeOut(500);
+                }else{
+                    window.location = "../browse"
+                }
             };
 
             $scope.coverContainerClose = function () {
@@ -538,35 +542,36 @@ casanylaApp.angular.directive("headerMenuBeta", function ($templateRequest, $com
         controller: function ($scope, $document) {
 
             $scope.menuHomeClick = function () {
-                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("introSection"), 0, 500);
-                } else {
-
-                }
+                else window.location = "../home";
             };
 
             $scope.menuHowItWorksClick = function () {
-                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("howItWorksSection"), 0, 500);
-                } else {
+                else window.location = "../home/#!#howItWorksSection";
 
-                }
             };
 
-            $scope.menuWhoWeAreClick = function () {
-                if (casanylaApp.currentPage == casanylaApp.pages.home) {
-                    $document.scrollToElement(document.getElementsByClassName("whoWeAreSection"), 0, 500);
-                } else {
+            $scope.menuBrowseClick = function () {
+                window.location = "../browse"
+            };
 
-                }
+            $scope.menuQuizClick = function () {
+                window.location = "../quiz"
+            };
+
+            $scope.menuWhoWeAreClick = function (){
+                if (casanylaApp.currentPage == casanylaApp.pages.home)
+                    $document.scrollToElement(document.getElementsByClassName("whoWeAreSection"), 0, 500);
+                else window.location = "../home/#!#whoWeAreSection";
             };
 
             $scope.menuContactUsClick = function () {
-                if (casanylaApp.currentPage == casanylaApp.pages.home) {
+                if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("contactUsSection"), 0, 500);
-                } else {
-
-                }
+                else window.location = "../home/#!#contactUsSection";
             };
 
             $scope.menuClicked = function () {
@@ -629,11 +634,11 @@ casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile
             $scope.menuHomeClick = function () {
                 if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("introSection"), 0, 500);
+                else window.location = "../home";
             };
 
             $scope.menuBrowseClick = function () {
-                if (casanylaApp.currentPage == casanylaApp.pages.home)
-                    $document.scrollToElement(document.getElementsByClassName("browseSection"), 0, 500);
+                window.location = "../browse"
             };
 
             $scope.menuHowItWorksClick = function () {
@@ -644,7 +649,7 @@ casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile
 
             $scope.menuContactUsClick = function () {
                 if (casanylaApp.currentPage == casanylaApp.pages.home)
-                    $document.scrollToElement(document.getElementsByClassName("contactUsSection"), 0, 500);
+                    $document.scrollToElement(document.getElementsByClassName("contactUsSection"), 100, 500);
             };
 
             $scope.init();
