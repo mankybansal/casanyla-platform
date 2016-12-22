@@ -325,8 +325,10 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
         $scope.quizOver = false;
         $scope.inProgress = true;
         $scope.requests.getQuiz(function (response) {
-            $scope.questions = response;
-            $scope.getNextQuestion();
+            $scope.safeApply(function(){
+                $scope.questions = response;
+                $scope.getNextQuestion();
+            });
         });
     };
 
@@ -334,8 +336,6 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
         $scope.myProgress += 100 / ($scope.questions.length + 1);
         if (!($scope.question = $scope.questions[$scope.currentQuestion])) {
             $scope.quizOver = true;
-
-            console.log(angular.toJson($scope.questions));
             $scope.requests.submitQuiz(angular.toJson($scope.questions), function (response) {
                 $scope.answers = response;
                 if($scope.answers.length>0){
@@ -358,7 +358,9 @@ casanylaApp.angular.controller("browseStyleControl", function ($scope, $rootScop
 
     $scope.getStyles = function () {
         $scope.requests.getStyles(function (response) {
-            $rootScope.styles = response;
+            $scope.safeApply(function (){
+                $rootScope.styles = response;
+            });
         });
     };
 
