@@ -55,7 +55,7 @@
     }
 
     .continueButton {
-      background: mediumturquoise;
+        background: mediumturquoise;
     }
 
     .questionCardContainer {
@@ -308,48 +308,46 @@
 </style>
 
 <body ng-app="casanylaApp" casanyla-app-control user-control>
-    <login-overlay></login-overlay>
-    <header-menu-beta></header-menu-beta>
+<login-overlay></login-overlay>
+<header-menu-beta></header-menu-beta>
 
-    <div <!--ng-controller="styleViewerControl"-->>
-        <style-viewer></style-viewer>
-        <div ng-controller="quizAppControl">
+<style-viewer></style-viewer>
+<div ng-controller="quizAppControl">
 
-            <div class="introPanel sectionPanel" ng-show="!inProgress">
-                    <span class="aligner">
-                    <div class="introTitle">Ready to find your style?</div>
+    <div class="introPanel sectionPanel" ng-show="!inProgress">
+        <span class="aligner">
+        <div class="introTitle">Ready to find your style?</div>
 
-                        <div class="introSubTitle">
-                            We'll be asking you a few simple questions. <br>
-                            All you have to do is pick an option that suits you the most.
-                        </div>
-
-                        <div class="continueButton actionButton" ng-click="startQuiz()">CONTINUE</div>
-                    </span>
+            <div class="introSubTitle">
+                We'll be asking you a few simple questions. <br>
+                All you have to do is pick an option that suits you the most.
             </div>
 
-            <div class="questionCardContainer" ng-show="!quizOver">
-                    <span class="aligner">
-                    <div class="questionCard" ng-show="!quizOver">
-                        <div class="questionText animated fadeInUp">{{question.name}}</div>
-                        <div class="questionOptions">
-                            <div class="option animated fadeIn" ng-repeat="option in question.options"
-                                 ng-click="saveAnswer($index)">
-                                <div class="optionImageContainer">
-                                    <img ng-src='{{"../platform-assets/quiz/" + option.image}}' class='optionImage'>
-                                </div>
-                                <div class="optionText">{{option.name}}</div>
-                            </div>
-                        </div>
+            <div class="continueButton actionButton" ng-click="startQuiz()">CONTINUE</div>
+        </span>
+    </div>
+
+    <div class="questionCardContainer" ng-show="!quizOver">
+        <span class="aligner">
+        <div class="questionCard" ng-show="!quizOver">
+            <div class="questionText animated fadeInUp">{{question.name}}</div>
+            <div class="questionOptions">
+                <div class="option animated fadeIn" ng-repeat="option in question.options"
+                     ng-click="saveAnswer($index)">
+                    <div class="optionImageContainer">
+                        <img ng-src='{{"../platform-assets/quiz/" + option.image}}' class='optionImage'>
                     </div>
-                    </span>
-            </div>
-
-            <div class="footer">
-                <div class="quizProgress" ng-style="{width: myProgress + '%'}"></div>
+                    <div class="optionText">{{option.name}}</div>
+                </div>
             </div>
         </div>
+        </span>
     </div>
+
+    <div class="footer">
+        <div class="quizProgress" ng-style="{width: myProgress + '%'}"></div>
+    </div>
+</div>
 </body>
 
 </html>

@@ -218,6 +218,7 @@
     height: 100%;
     float: left;
     text-align: center;
+    cursor: pointer;
 }
 
 .rightNav {
@@ -225,6 +226,7 @@
     height: 100%;
     float: right;
     text-align: center;
+    cursor: pointer;
 }
 
 .resultLogo {
