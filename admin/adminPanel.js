@@ -389,7 +389,6 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
 
 });
 
-
 function showDashboard() {
 
     $(".viewPanel").hide();
@@ -415,7 +414,6 @@ function hideDashboard() {
 }
 
 $(document).ready(function () {
-
 
     $(".menuOption").click(function () {
         var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();

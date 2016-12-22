@@ -1,10 +1,13 @@
 <div class="loginOverlay">
+
+    <div ng-show="requireLogin" class="loginTinter"></div>
+
     <div class="loginSpacer">
 
     </div>
     <div class="loginContainer">
 
-        <div class="loginClose" ng-click="hideLoginOverlay()">
+        <div class="loginClose" ng-show="!requireLogin" ng-click="hideLoginOverlay()">
             <i class="fa fa-close"></i>
         </div>
         <div class="loginLogoContainer">

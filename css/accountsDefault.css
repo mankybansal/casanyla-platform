@@ -2,14 +2,13 @@
     font-size: 16px;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
+::-moz-placeholder { /* Firefox 19+ */
     font-size: 16px;
 }
 
 :-ms-input-placeholder {
     font-size: 16px;
 }
-
 
 .contentOverlay {
     width: 100%;
@@ -19,7 +18,6 @@
     position: fixed;
     z-index: 0;
 }
-
 
 .loginOverlay {
     display: none;
@@ -31,7 +29,6 @@
     position: fixed;
     z-index: 9999;
 }
-
 
 .loginSpacer {
     width: 100%;
@@ -87,7 +84,7 @@
     font-family: RobotoLight, sans-serif;
 }
 
-.loginButton, .registerButton, .fbRegisterButton , .faceBookLogin {
+.loginButton, .registerButton, .fbRegisterButton, .faceBookLogin {
     cursor: pointer;
     background: #468fde;
     vertical-align: top;
@@ -160,12 +157,20 @@
     padding: 12.5px;
     box-sizing: border-box;
     transition: all ease .5s;
+    cursor: pointer;
 }
 
 .loginClose:hover {
     background: #EEE;
 }
 
+.loginTinter {
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255, 0.8);
+}
 
 @media only screen and (max-width: 800px) {
 

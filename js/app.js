@@ -2,6 +2,7 @@ var casanylaApp = {
     angular: null,
     currentPage: null,
     currentUser: null,
+    requireLogin: false,
     pages: {
         home: 0,
         quiz: 1,
@@ -22,6 +23,7 @@ var casanylaApp = {
 casanylaApp.angular = angular.module('casanylaApp', ['ngStorage', 'ngRoute', 'duScroll']);
 
 casanylaApp.angular.directive('casanylaAppControl', function () {
+
     return {
         controller: function ($scope) {
 
@@ -34,12 +36,12 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     this.$apply(fn);
             };
 
-            $scope.serverRequest = function (requestType, url, data, callback) {
+            $scope.serverRequest = function (requestType, url, data, callback, content) {
                 console.log($scope.apiBaseURL + url);
                 $.ajax({
                     type: requestType,
                     dataType: "json",
-                    contentType: "application/json",
+                    contentType: "application/" + content,
                     xhrFields: {withCredentials: true},
                     url: $scope.apiBaseURL + url,
                     data: data,
@@ -67,12 +69,12 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                         "email": username,
                         "password": password
                     };
-                    $scope.serverRequest("POST", "login", myObject, callback);
+                    $scope.serverRequest("POST", "login", myObject, callback, "x-www-form-urlencoded");
                 },
 
                 logout: function (callback) {
                     var myObject = {};
-                    $scope.serverRequest("POST", "logout", myObject, callback);
+                    $scope.serverRequest("POST", "logout", myObject, callback, "x-www-form-urlencoded");
                 },
 
                 userRegisterForm: function (name, email, password, type, callback) {
@@ -82,17 +84,17 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                         "password": password,
                         "role": type,
                     };
-                    $scope.serverRequest("POST", "register", myObject, callback);
+                    $scope.serverRequest("POST", "register", myObject, callback, "x-www-form-urlencoded");
                 },
 
                 showUsers: function (callback) {
                     var myObject = {};
-                    $scope.serverRequest("GET", "user/list", myObject, callback);
+                    $scope.serverRequest("GET", "user/list", myObject, callback, "x-www-form-urlencoded");
                 },
 
                 getUser: function (userID, callback) {
                     var myObject = {};
-                    $scope.serverRequest("GET", "user/" + userID, myObject, callback);
+                    $scope.serverRequest("GET", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
                 },
 
                 updateUser: function (userID, myName, myEmail, callback) {
@@ -100,44 +102,44 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                         name: myName,
                         email: myEmail
                     };
-                    $scope.serverRequest("PUT", "user/" + userID, myObject, callback);
+                    $scope.serverRequest("PUT", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
                 },
 
                 deleteUser: function (userID, callback) {
                     var myObject = {};
-                    $scope.serverRequest("DELETE", "user/" + userID, myObject, callback);
+                    $scope.serverRequest("DELETE", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
                 },
 
                 getQuiz: function (callback) {
                     var myObject = {};
-                    $scope.serverRequest("GET", "question", myObject, callback);
+                    $scope.serverRequest("GET", "question", myObject, callback, "x-www-form-urlencoded");
                 },
 
                 putQuiz: function (quizModel, questionID, callback) {
                     console.log(quizModel);
-                    $scope.serverRequest("PUT", "question/" + questionID, quizModel, callback)
+                    $scope.serverRequest("PUT", "question/" + questionID, quizModel, callback, "x-www-form-urlencoded")
                 },
 
                 submitQuiz: function (answerModel, callback) {
-                    $scope.serverRequest("POST", "quiz", answerModel, callback);
+                    $scope.serverRequest("POST", "quiz", answerModel, callback, "json");
                 },
 
                 getStyles: function (callback) {
                     var myObject = {};
-                    $scope.serverRequest("GET", "style", myObject, callback);
+                    $scope.serverRequest("GET", "style", myObject, callback, "x-www-form-urlencoded");
                 },
 
                 addStyle: function (styleObject, callback) {
-                    $scope.serverRequest("POST", "style", styleObject, callback);
+                    $scope.serverRequest("POST", "style", styleObject, callback, "x-www-form-urlencoded");
                 },
 
                 deleteStyle: function (styleID, callback) {
                     var myObject = {};
-                    $scope.serverRequest("DELETE", "style/" + styleID, myObject, callback);
+                    $scope.serverRequest("DELETE", "style/" + styleID, myObject, callback, "x-www-form-urlencoded");
                 },
 
                 updateStyle: function (styleID, styleObject, callback) {
-                    $scope.serverRequest("PUT", "style/" + styleID, styleObject, callback);
+                    $scope.serverRequest("PUT", "style/" + styleID, styleObject, callback, "x-www-form-urlencoded");
                 }
             };
 
@@ -172,16 +174,17 @@ casanylaApp.angular.directive('userControl', function () {
             };
 
             $scope.login = function () {
-                if ($scope.isValid($scope.guest.email) && $scope.isValid($scope.guest.password)) {
+                if ($scope.isValid($scope.guest.email) && $scope.isValid($scope.guest.password))
                     $scope.requests.userLogin($scope.guest.email, $scope.guest.password, function (response) {
-                        if (response.name) {
-                            $localStorage.ngMyUser = response;
-                            $scope.ngMyUser = $localStorage.ngMyUser;
-                            $scope.loginSuccess();
-                        }
-                        else showAlert('Wrong username or password.');
+                        $scope.safeApply(function () {
+                            if (response.name) {
+                                $localStorage.ngMyUser = response;
+                                $scope.ngMyUser = $localStorage.ngMyUser;
+                                $scope.loginSuccess();
+                            }
+                            else showAlert('Wrong username or password.');
+                        });
                     });
-                }
                 else
                     showAlert('Please enter a username & password.');
             };
@@ -264,19 +267,21 @@ casanylaApp.angular.directive('userControl', function () {
              };
              */
 
-            $scope.init = function () {
-                if ($localStorage.ngMyUser)
-                    $scope.ngMyUser = $localStorage.ngMyUser;
-                else
-                    $scope.userRegister();
-            };
-
             $scope.userReset = function () {
                 $scope.ngMyUser = false;
                 $scope.accountOptions = false;
                 //$scope.facebook = {};
                 $scope.guest = {};
                 casanylaApp.currentUser = null;
+
+                if(casanylaApp.requireLogin){
+                    $scope.requireLogin = true;
+                    setTimeout(function(){
+                        $('.loginOverlay').fadeIn(500);
+                    },500);
+                }else{
+                    $scope.requireLogin = false;
+                }
             };
 
             $scope.accountOptionsTrigger = function () {
@@ -298,10 +303,12 @@ casanylaApp.angular.directive('userControl', function () {
 
             $scope.logout = function () {
                 $scope.requests.logout(function (response) {
-                    if (response.responseText == "Successfully logged out") {
-                        $localStorage.$reset();
-                        $scope.userReset();
-                    }
+                    $scope.safeApply(function () {
+                        if (response.responseText == "Successfully logged out") {
+                            $localStorage.$reset();
+                            $scope.userReset();
+                        }
+                    });
                 });
             };
 
@@ -310,6 +317,13 @@ casanylaApp.angular.directive('userControl', function () {
                 $('.alertMessage').hide();
                 $('.loginOverlay').hide();
                 if (typeof dashboard != 'undefined' && dashboard) showDashboard();
+            };
+
+            $scope.init = function () {
+                if ($localStorage.ngMyUser)
+                    $scope.ngMyUser = $localStorage.ngMyUser;
+                else $scope.userReset();
+
             };
 
             $scope.init();
@@ -325,7 +339,7 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
         $scope.quizOver = false;
         $scope.inProgress = true;
         $scope.requests.getQuiz(function (response) {
-            $scope.safeApply(function(){
+            $scope.safeApply(function () {
                 $scope.questions = response;
                 $scope.getNextQuestion();
             });
@@ -338,9 +352,9 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
             $scope.quizOver = true;
             $scope.requests.submitQuiz(angular.toJson($scope.questions), function (response) {
                 $scope.answers = response;
-                if($scope.answers.length>0){
+                if ($scope.answers.length > 0) {
                     $rootScope.viewStyle($scope.answers[0]);
-                }else{
+                } else {
                     alert("NO STYLES FOUND FOR THIS COMBINATION");
                 }
             });
@@ -358,7 +372,7 @@ casanylaApp.angular.controller("browseStyleControl", function ($scope, $rootScop
 
     $scope.getStyles = function () {
         $scope.requests.getStyles(function (response) {
-            $scope.safeApply(function (){
+            $scope.safeApply(function () {
                 $rootScope.styles = response;
             });
         });
