@@ -39,7 +39,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 $.ajax({
                     type: requestType,
                     dataType: "json",
-                    contentType: "application/x-www-form-urlencoded",
+                    contentType: "application/json",
                     xhrFields: {withCredentials: true},
                     url: $scope.apiBaseURL + url,
                     data: data,
@@ -119,9 +119,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 },
 
                 submitQuiz: function (answerModel, callback) {
-                    console.log(answerModel);
                     $scope.serverRequest("POST", "quiz", answerModel, callback);
-
                 },
 
                 getStyles: function (callback) {
@@ -336,8 +334,15 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
         $scope.myProgress += 100 / ($scope.questions.length + 1);
         if (!($scope.question = $scope.questions[$scope.currentQuestion])) {
             $scope.quizOver = true;
+
+            console.log(angular.toJson($scope.questions));
             $scope.requests.submitQuiz(angular.toJson($scope.questions), function (response) {
-                console.log(response);
+                $scope.answers = response;
+                if($scope.answers.length>0){
+                    $rootScope.viewStyle($scope.answers[0]);
+                }else{
+                    alert("NO STYLES FOUND FOR THIS COMBINATION");
+                }
             });
         }
     };
@@ -349,7 +354,7 @@ casanylaApp.angular.controller("quizAppControl", function ($scope, $rootScope) {
     };
 });
 
-casanylaApp.angular.controller("browseStyleControl", function ($scope, $rootScope, $filter) {
+casanylaApp.angular.controller("browseStyleControl", function ($scope, $rootScope) {
 
     $scope.getStyles = function () {
         $scope.requests.getStyles(function (response) {
@@ -376,9 +381,8 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
 
     return {
         restrict: "AE",
-        controller: function ($scope, $rootScope, $filter) {
+        controller: function ($scope) {
             $scope.init = function () {
-                $rootScope.styles = [];
                 $scope.currentStyle = null;
             };
 
@@ -432,10 +436,10 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
              };
              */
 
-            $scope.viewStyle = function (styleNum) {
+            $scope.viewStyle = function (style) {
 
                 $scope.currentStyle = {
-                    styleObject: $filter('filter')($rootScope.styles, {_id: styleNum})[0],
+                    styleObject: style,
                     currentImage: 0,
                     currentImageFile: null
                 };
@@ -466,7 +470,6 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
                 $scope.safeApply(function () {
                     $scope.currentImageFile = $scope.currentStyle.styleObject.images[$scope.currentStyle.currentImage].file;
                     //$scope.updateLikes($scope.current.styleNode, $scope.current.imageNode);
-                    console.log($scope.currentImageFile);
                 });
 
             };

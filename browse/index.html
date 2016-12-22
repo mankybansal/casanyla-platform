@@ -106,7 +106,7 @@
 <login-overlay></login-overlay>
     <style-viewer></style-viewer>
     <div class="mainCardContainer" ng-controller="browseStyleControl">
-        <div class="styleBox" ng-repeat="style in styles" ng-click="viewStyle(style._id)">
+        <div class="styleBox" ng-repeat="style in styles" ng-click="viewStyle(style)">
             <div class="styleImage">
                 <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
                      style="height: 100%;">
