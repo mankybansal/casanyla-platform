@@ -92,8 +92,9 @@ html, body {
 .HIWImage {
     margin: 0 auto;
     margin-bottom: 15px;
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
+    opacity: .65;
 }
 
 
@@ -339,7 +340,7 @@ html, body {
 /* SCROLL DOWN MOUSE */
 
 .mouse {
-    border: 2px solid #000;
+    border: 2px solid #333;
     border-radius: 26px;
     position: absolute;
     top: 90%;
@@ -354,7 +355,7 @@ html, body {
 }
 
 .mouse::after {
-    background-color: #000;
+    background-color: #333;
     border-radius: 100%;
     content: "";
     position: absolute;
