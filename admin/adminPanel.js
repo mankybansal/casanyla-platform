@@ -478,7 +478,8 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
                         endpoint: "projects",
                         icon: "fa-tasks",
                         selected: false
-                    },
+                    }
+                    ,
                     {
                         name: "Designers",
                         endpoint: "designers",
@@ -520,7 +521,7 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
                         selected: false
                     },
                     {
-                        name: "Quiz Settings",
+                        name: "Settings",
                         endpoint: "settings",
                         icon: "fa-gear",
                         selected: false
