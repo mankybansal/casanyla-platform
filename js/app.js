@@ -471,6 +471,10 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
              };
              */
 
+            $scope.getNextPrev = function(){
+                return currentStyle.styleObject.images[currentStyle.currentImage].name;
+            };
+
             $scope.viewStyle = function (style) {
 
                 $scope.currentStyle = {
@@ -489,15 +493,15 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
 
             $scope.leftNavClick = function () {
                 $scope.currentStyle.currentImage -= 1;
-                if ($scope.currentStyle.styleObject.currentImage <= 0)
-                    $scope.currentStyle.styleObject.currentImage = 0;
+                if ($scope.currentStyle.currentImage <= 0)
+                    $scope.currentStyle.currentImage = 0;
                 $scope.loadImage();
             };
 
             $scope.rightNavClick = function () {
                 $scope.currentStyle.currentImage++;
-                if ($scope.currentStyle.styleObject.currentImage >= ($scope.currentStyle.styleObject.images.length - 1))
-                    $scope.currentStyle.styleObject.currentImage = $scope.currentStyle.styleObject.images.length - 1;
+                if ($scope.currentStyle.currentImage >= ($scope.currentStyle.styleObject.images.length - 1))
+                    $scope.currentStyle.currentImage = $scope.currentStyle.styleObject.images.length - 1;
                 $scope.loadImage();
             };
 
@@ -527,10 +531,9 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
                 window.location = '../home/index.php#contactUsX';
             };
 
-            $scope.menuBrowseClick = function () {
+            $scope.menuBrowseClickStyle = function () {
                 if (casanylaApp.currentPage == casanylaApp.pages.browse) {
                     $('.resultCard').fadeOut(500);
-                    $('.centerDesc').fadeOut(500);
                 } else {
                     window.location = "../browse"
                 }

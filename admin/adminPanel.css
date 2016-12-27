@@ -294,7 +294,7 @@ html, body {
 }
 
 .statsBoxes:hover {
-    /*box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);*/
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .statsDesc {
@@ -369,16 +369,26 @@ html, body {
     margin: 10px;
     background: white;
     cursor: pointer;
+    transition: all ease .3s;
 }
 
 .userImage {
+    width: 100%;
+    display: inline-block;
+    height: 65px;
     font-size: 60px;
     color: #DDD;
     margin-top: 20px;
+    opacity: .5;
+    transition: all ease .3s;
 }
 
 .userInfo:hover {
-    background: #EEE;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.userInfo:hover .userImage {
+    font-size: 65px;
+    opacity: .65;
 }
 
 .userInfoName {
@@ -492,7 +502,7 @@ html, body {
 }
 
 .styleBox:hover {
-    background: #eee;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .styleBox:hover .styleIMG {
@@ -795,9 +805,6 @@ html, body {
 }
 
 
-
-
-
 .questionBox {
     margin: 15px;
     width: 200px;
@@ -811,7 +818,7 @@ html, body {
 }
 
 .questionBox:hover {
-    background: #eee;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .questionLabel {
