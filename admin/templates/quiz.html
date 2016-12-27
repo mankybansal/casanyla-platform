@@ -1,8 +1,8 @@
-<div class="adminSectionMenu">
+<div class="adminSectionMenu animated fadeInDown">
     <div class="sectionMenuButton" ng-click="addQuestion()"><i class="fa fa-plus"></i>&nbsp;New Question</div>
 </div>
 
-<div class="questionBox" ng-repeat="question in questionModel" ng-click="editSelectedQuestion(question._id)">
+<div ng-repeat="question in questionModel" ng-click="editSelectedQuestion(question._id)" class="animated fadeInUp questionBox" >
     <div class="questionLabel">Question {{$index + 1}}</div>
     <br>
     <div class="questionTitle">{{question.name}}</div>

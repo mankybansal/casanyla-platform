@@ -156,17 +156,6 @@
     height: 100%;
 }
 
-.headerBar {
-    width: 100%;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.90);
-    float: top;
-    transition: all ease .2s;
-}
-
-.headerBar:hover {
-    background: rgba(255, 255, 255, .97);
-}
 
 .shareStyle {
     float: left;
@@ -193,274 +182,122 @@
     height: 100%;
 }
 
-.imageNav {
+.headerSpace {
     width: 100%;
-    height: calc(100% - 140px);
-    background: rgba(0, 0, 0, 0.05);
-    float: top;
+    height: 106px;
 }
 
-.optionBar {
+.imageViewPanel {
+    width: calc(100% - 351px);
+    float: left;
+    height: calc(100% - 106px);
+    background: #DDD;
+    position: relative;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.infoPanel {
+    width: 350px;
+    float: right;
+    height: calc(100% - 106px);
+    background: #FFF;
+    text-align: left;
+
+}
+
+.imageViewIMG {
     width: 100%;
-    height: 140px;
-    float: top;
-    background: rgba(255, 255, 255, 0.90);
-    transition: all ease .2s;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
 }
 
-.optionBar:hover {
-    background: rgba(255, 255, 255, 0.97);
-}
-
-.browseLooks {
-    display: inline-block;
-    cursor: pointer;
-    color: #FFF;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
-    margin-top: 14px;
-    float: right;
-    margin-right: 12px;
-    font-size: 18px;
-    padding: 12px 20px 12px 20px;
-}
-
-.callDesigner {
-    display: inline-block;
-    cursor: pointer;
-    color: #000;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-    margin-top: 14px;
-    float: right;
-    margin-right: 12px;
-    font-size: 18px;
-    padding: 12px 20px 12px 20px;
-    background: #F8BB40;
-
-}
-
-.resultLogo {
-    height: 40px;
-    margin-top: 15px;
-    float: left;
-    margin-left: 70px;
-    cursor: pointer;
-}
-
-.viewInfo {
-
-    height: 45px;
-    float: left;
-    margin-top: 12.5px;
-    margin-left: 20px;
-    display: inline-block;
-    padding: 12px;
-    font-family: RobotoLight, sans-serif;;
-    font-size: 18px;
+.styleViewTitle {
+    font-size: 25px;
+    width: 100%;
     box-sizing: border-box;
+    padding: 20px;
+    background: #333;
+    color: white;
     text-transform: uppercase;
-    color: #000;
-    cursor: pointer;
-    transition: all ease .2s;
 }
 
-@media only screen and (max-width: 800px) {
+.styleViewDesc {
+    font-size: 18px;
+    width: 100%;
+    margin-top: 20px;
+    font-family: RobotoLight, sans-serif;
+    color: #555;
+    box-sizing: border-box;
+    padding: 25px;
+}
 
+.optionMenu {
+    position: fixed;
+    bottom: 0;
+    height: 145px;
+    width: 350px;
+    background: #EEE;
+}
 
+.viewNav {
+    float: left;
+    padding: 10px;
+    background: #F8BB40;
+    width: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all ease .3s;
+}
 
-    .coverTitle {
-        font-size: 20px;
-        color: #000;
-        width: 100%;
-        display: inline-block;
-        box-sizing: border-box;
-        padding: 0px 15px 0px 15px;
-        text-align: center;
-        font-family: RobotoLight, sans-serif;;
-    }
+.navAngles {
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.3);
+}
 
+.leftNav {
+    float: left;
+}
 
-    .coverSubtitle {
-        font-size: 15px;
-        color: #222;
-        width: 100%;
-        height: 20px;
-        margin-top: 10px;
-        box-sizing: border-box;
-        padding: 0px 15px 0px 15px;
-        text-align: center;
-        font-family: RobotoLight, sans-serif;;
-    }
+.rightNav {
+    float: right;
+}
 
+.centerNav {
+    width: 260px;
+    background: white;
+    height: 60px;
+    float: left;
+    box-sizing: border-box;
+    padding: 8px 20px 22px 20px;
+    font-size: 17px;
+    text-transform: uppercase;
+}
 
-    .coverBG {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-    }
+.imageNext {
+    height: 40px;
+    color: #000;
+    width: 350px;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    background: #EEE;
+    text-transform: uppercase;
+    font-family: RobotoThin, sans-serif;
 
-    .coverFG {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        text-align: center;
-    }
+}
 
-    .coverTop {
-        width: 100%;
-        height: 100px;
-        float: top;
-        box-sizing: border-box;
-        padding-top: 20px;
-    }
-
-    .coverBottom {
-        width: 100%;
-        height: calc(100% - 100px);
-        float: top;
-    }
-
-    .coverText {
-        font-size: 15px;
-        color: #222;
-        width: 100%;
-        display: inline-block;
-        box-sizing: border-box;
-        padding: 15px;
-        font-family: RobotoLight, sans-serif;;
-        float: top;
-    }
-
-    .coverImage {
-        margin-top: 10px;
-        width: 100%;
-        height: 180px;
-        float: top;
-        text-align: center !important;
-    }
-
-
-    .coverPic {
-        height: 100%;
-        width: auto;
-        margin: 0 auto !important;
-        float: none;
-    }
-
-
-    .likeButton {
-        margin-top: 0px;
-        margin-left: 0px;
-        float: left;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        font-size: 15px;
-        padding: 5px;
-        background: white;
-        display: inline-block;
-        cursor: pointer;
-        color: #333;
-        text-transform: uppercase;
-    }
-
-    .iconContainer {
-        display: inline-block;
-        width: 50% !important;
-        float: left;
-    }
-
-    .hideMobile {
-        display: none;
-    }
-
-    .viewInfo {
-
-        height: 35px;
-        float: left;
-        margin-top: 17.5px;
-        margin-left: 10px;
-        display: inline-block;
-        padding: 10px 2px 10px 2px;
-        font-family: RobotoLight, sans-serif;;
-        font-size: 13px;
-        box-sizing: border-box;
-        text-transform: uppercase;
-        color: #000;
-    }
-
-    .logoButton {
-        height: 25px;
-        margin-top: 19.5px;
-    }
-
-    .resultLogo {
-        height: 25px;
-        margin-top: 22.5px;
-        float: left;
-        margin-left: 10px;
-    }
-
-    .leftNav {
-        width: 50px;
-        background: rgba(0, 0, 0, 0.1);
-    }
-
-    .rightNav {
-        width: 50px;
-
-        background: rgba(0, 0, 0, 0.1);
-    }
-
-    .navAngles {
-        font-size: 50px;
-    }
-
-    .optionBar {
-        height: 80px;
-    }
-
-    .imageNav {
-        height: calc(100% - 150px);
-    }
-
-    .shareStyle {
-        float: left;
-        font-size: 20px;
-        margin-top: 10px;
-        margin-left: 10px;
-        float: left;
-        opacity: .8;
-        transition: all ease .3s;
-    }
-
-    .logoButton {
-        float: left;
-        margin-left: 10px;
-    }
-
-    .iconContainer {
-        width: 100%;
-        display: inline-block;
-    }
-
-    .browseLooks {
-        margin-top: 5px;
-        float: left;
-        margin-left: 5px;
-        font-size: 14px;
-        padding: 8px 5px 8px 5px;
-    }
-
-    .callDesigner {
-        margin-top: 5px;
-        float: right;
-        margin-right: 5px;
-        font-size: 14px;
-        padding: 8px 5px 8px 5px;
-    }
-
-    .headerSpacer {
-        width: 150px;
-    }
-
+.viewMore {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 17px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    background: salmon;
+    color: white;
+    cursor: pointer;
 }

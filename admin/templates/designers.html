@@ -1,4 +1,4 @@
-<div class="adminSectionMenu">
+<div class="adminSectionMenu animated fadeInDown">
     <div class="sectionMenuButton" ng-click="addDesigner()">
         <i class="fa fa-plus"></i>&nbsp;New Designer
     </div>
@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div ng-repeat="user in users |  filter: { role: 'designer'}" ng-click="editDesigner(user._id)" class="userInfo">
+<div ng-repeat="user in users |  filter: { role: 'designer'}" ng-click="editDesigner(user._id)" class="animated fadeInUp userInfo">
     <i class="fa fa-user-circle-o userImage"></i>
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>

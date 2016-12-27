@@ -1,9 +1,9 @@
-<div class="adminSectionMenu">
+<div class="adminSectionMenu animated fadeInDown">
     <div class="sectionMenuButton" ng-click="addStyle()"><i class="fa fa-plus"></i>&nbsp;New Style</div>
 </div>
 
 
-<div class="styleBox" ng-repeat="style in styles" ng-click="editSelectedStyle(style._id)">
+<div ng-repeat="style in styles" ng-click="editSelectedStyle(style._id)" class="animated fadeInUp styleBox">
     <div class="styleImage">
         <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
              class="styleIMG">

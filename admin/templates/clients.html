@@ -1,9 +1,9 @@
-<div class="adminSectionMenu">
+<div class="adminSectionMenu animated fadeInDown">
     <div class="sectionMenuButton"><i class="fa fa-plus"></i>&nbsp;New Client</div>
 </div>
 
 
-<div ng-repeat="user in users |  filter: { role: 'client'}" class="userInfo">
+<div ng-repeat="user in users |  filter: { role: 'client'}" class="animated fadeInUp userInfo">
     <i class="fa fa-user-circle-o userImage"></i>
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>

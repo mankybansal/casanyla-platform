@@ -1,9 +1,9 @@
-<div class="adminSectionMenu">
+<div class="adminSectionMenu animated fadeInDown">
     <div class="sectionMenuButton" ng-click="addProject()"><i class="fa fa-plus"></i>&nbsp;New Project</div>
 </div>
 
 
-<div class="projectBox" ng-repeat="project in projects" ng-click="editSelectedProject(project._id)">
+<div class="animated fadeInUp projectBox" ng-repeat="project in projects" ng-click="editSelectedProject(project._id)">
     <div class="projectTitle">{{ project.name }}</div>
     <div class="projectLabel"><i class="fa fa-user"></i>&nbsp;&nbsp;Client</div>
     <div class="projectText">{{ project.owner.name }}</div>
