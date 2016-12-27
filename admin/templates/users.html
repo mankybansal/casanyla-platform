@@ -8,7 +8,7 @@
     <i class="fa fa-user-circle-o userImage"></i>
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>
-    <div class="userInfoRole">{{user.role}}</div>
+    <div class="userInfoRole role-{{user.role}}">{{user.role}}</div>
 </div>
 
 <div class="optionOverlay">
@@ -45,7 +45,7 @@
             <br><br>
             <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
             <div class="actionButton actionButtonRed" ng-click="deleteUser()">DELETE USER</div>
-            <div class="actionButton actionButtonYellow">UPDATE USER</div>
+            <div class="actionButton actionButtonYellow" ng-click="updateUser(selectedUser._id)">UPDATE USER</div>
         </div>
 
     </div>

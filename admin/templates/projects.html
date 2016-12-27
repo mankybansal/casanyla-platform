@@ -1,3 +1,60 @@
 <div class="adminSectionMenu">
-    <div class="sectionMenuButton"><i class="fa fa-plus"></i>&nbsp;New Project</div>
+    <div class="sectionMenuButton" ng-click="addProject()"><i class="fa fa-plus"></i>&nbsp;New Project</div>
+</div>
+
+
+<div class="projectBox" ng-repeat="project in projects" ng-click="editSelectedProject(project._id)">
+    <div class="projectTitle">{{ project.name }}</div>
+    <div class="projectLabel"><i class="fa fa-user"></i>&nbsp;&nbsp;Client</div>
+    <div class="projectText">{{ project.owner.name }}</div>
+    <div class="projectLabel"><i class="fa fa-home"></i>&nbsp;&nbsp;Address</div>
+    <div class="projectText" style="height: 100px;">{{ project.address }}</div>
+    <div class="projectLabel"><i class="fa fa-paint-brush"></i>&nbsp;&nbsp;Designer</div>
+    <div class="projectText">{{ project.designer.name }}</div>
+</div>
+
+
+<div class="optionOverlay">
+    <div class="optionOverlaySpacer"></div>
+    <div class="optionOverlayContent">
+        <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
+
+        <div class="optionSection" ng-show="projectsControllerView == projectsControllerViews.addProjects">
+            <div class="optionSectionTitle">Add Client Project</div>
+
+            <input type="text" ng-model="addProjectObject.name"
+                   class="dashboardInput" placeholder="Project Title">
+
+            <input type="text" ng-model="addProjectObject.estimate"
+                   class="dashboardInput" placeholder="Estimate">
+
+            <input type="text" ng-model="addProjectObject.address"
+                   class="dashboardInput" placeholder="Address">
+
+
+            <select class="dashboardInput" ng-model="addProjectObject.owner">
+                <option value="" disabled selected>Select Designer</option>
+                <option ng-repeat="x in users |  filter: { role: 'client'}" value="{{x._id}}">{{x.name}}</option>
+            </select>
+
+
+            <select class="dashboardInput" ng-model="addProjectObject.designer">
+                <option value="" disabled selected>Select Designer</option>
+                <option ng-repeat="x in users |  filter: { role: 'designer'}" value="{{x._id}}">{{x.name}}</option>
+            </select>
+
+            <br>
+            <br>
+            <div>Created By: {{ ngMyUser.name }}</div>
+
+            <br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL &nbsp;<i
+                    class="fa fa-times"></i></div>
+            <div class="actionButton actionButtonBlue" ng-click="postProject()">ADD Project &nbsp;<i
+                    class="fa fa-plus"></i>
+            </div>
+        </div>
+
+    </div>
+
 </div>

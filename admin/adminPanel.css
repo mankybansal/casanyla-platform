@@ -743,3 +743,66 @@ html, body {
     padding: 15px 20px 15px 20px;
     box-shadow: 0 0 50px rgba(0,0,0,.3);
 }
+
+
+
+
+
+
+
+
+
+.projectBox {
+    margin: 15px;
+    width: 270px;
+    padding: 20px 35px 20px 35px;
+    background: white;
+    display: inline-block;
+    cursor: pointer;
+    transition: all ease .3s;
+    vertical-align: top;
+}
+
+.projectBox:hover {
+    background: #eee;
+}
+
+.projectTitle {
+    width: 100%;
+    font-size: 25px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.projectText {
+    width: 100%;
+    font-size: 20px;
+    padding: 5px 0 5px 0;
+    font-family: RobotoThin, sans-serif;
+    box-sizing: border-box;
+    text-align: left;
+    color: #444;
+}
+
+.projectLabel {
+    width: 100%;
+    font-size: 13px;
+    opacity: .3;
+    text-align: left;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.role-admin {
+    background: salmon;
+}
+
+.role-client {
+    background: cornflowerblue;
+}
+
+.role-designer {
+    background: #F8BB40;
+    color: black;
+}

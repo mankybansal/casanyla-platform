@@ -88,6 +88,17 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
         $scope.selectedUser = $filter('filter')($scope.$parent.users, {_id: userID})[0];
     };
 
+    $scope.updateUser = function (userID){
+        $scope.requests.updateUser(userID, JSON.parse(angular.toJson($scope.selectedUser)), function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            showMessage("Successfully Updated","yellow");
+        });
+        $scope.closeOptionOverlay();
+    };
+
     $scope.init = function () {
         $scope.userControllerViews = {
             addUser: 0,
@@ -108,7 +119,76 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
 });
 
 casanylaApp.angular.controller("projectsControl", function ($scope) {
+    
+    $scope.addProject = function () {
+        $scope.showOptionOverlay();
+        $scope.projectsControllerView = $scope.projectsControllerViews.addProjects;
+    };
 
+    $scope.postProject = function () {
+        console.log($scope.addProjectObject);
+        $scope.requests.addProject($scope.addProjectObject, function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            showMessage("Successfully Added","green");
+        });
+    };
+
+    $scope.deleteProject = function (projectID) {
+        $scope.requests.deleteProject(projectID, function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            showMessage("Successfully Deleted","red");
+        });
+    };
+
+
+
+    $scope.editSelectedProject = function (projectID) {
+        $scope.showOptionOverlay();
+        $scope.projectsControllerView = $scope.stylesControllerViews.editMyProject;
+        $scope.selectedProject = $filter('filter')($scope.$parent.projects, {_id: projectID})[0];
+    };
+
+    $scope.updateProject = function (projectID) {
+
+        console.log(angular.toJson($scope.selectedStyle));
+        $scope.requests.updateProject(projectID, JSON.parse(angular.toJson($scope.selectedProject)), function (response) {
+            console.log(response);
+            $scope.$parent.updateAdmin();
+            $scope.init();
+            $scope.closeOptionOverlay();
+            showMessage("Successfully Updated","yellow");
+        });
+        $scope.closeOptionOverlay();
+    };
+
+    $scope.init = function () {
+        $scope.projectsControllerViews = {
+            addProjects: 0,
+            editMyProject: 1
+        };
+
+        $scope.projectsControllerView = null;
+
+        $scope.addProjectObject = {
+            name: "",
+            owner: "",
+            designer: "",
+            estimate: "",
+            createdBy: $scope.ngMyUser._id,
+            milestones: [],
+            address: ""
+        };
+
+        $scope.selectedProject = null;
+    };
+
+    $scope.init();
 });
 
 casanylaApp.angular.controller("designersControl", function ($scope) {
@@ -341,6 +421,10 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
 
         $scope.requests.getStyles(function (response) {
             $scope.styles = response;
+        });
+        
+        $scope.requests.getProjects(function (response) {
+            $scope.projects = response;
         });
 
         $scope.requests.getQuiz(function (response) {

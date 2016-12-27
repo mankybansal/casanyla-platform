@@ -97,12 +97,8 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     $scope.serverRequest("GET", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
                 },
 
-                updateUser: function (userID, myName, myEmail, callback) {
-                    var myObject = {
-                        name: myName,
-                        email: myEmail
-                    };
-                    $scope.serverRequest("PUT", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
+                updateUser: function (userObject, callback) {
+                    $scope.serverRequest("PUT", "user/" + userID, userObject, callback, "x-www-form-urlencoded");
                 },
 
                 deleteUser: function (userID, callback) {
@@ -140,6 +136,29 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
 
                 updateStyle: function (styleID, styleObject, callback) {
                     $scope.serverRequest("PUT", "style/" + styleID, styleObject, callback, "x-www-form-urlencoded");
+                },
+
+                getProjects: function (callback) {
+                    var myObject = {};
+                    $scope.serverRequest("GET", "project/list", myObject, callback, "x-www-form-urlencoded");
+                },
+
+                getProject: function (projectID, callback) {
+                    var myObject = {};
+                    $scope.serverRequest("GET", "project/" + projectID, myObject, callback, "x-www-form-urlencoded");
+                },
+
+                addProject: function (projectObject, callback) {
+                    $scope.serverRequest("POST", "project", projectObject, callback, "x-www-form-urlencoded");
+                },
+
+                updateProject: function (projectID, projectObject, callback) {
+                    $scope.serverRequest("PUT", "project/" + projectID, projectObject, callback, "x-www-form-urlencoded");
+                },
+
+                deleteProject: function (projectID, callback) {
+                    var myObject = {};
+                    $scope.serverRequest("DELETE", "project/" + projectID, myObject, callback, "x-www-form-urlencoded");
                 }
             };
 
