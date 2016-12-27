@@ -373,7 +373,7 @@ html, body {
 
 .userImage {
     font-size: 60px;
-    color: #EEE;
+    color: #DDD;
     margin-top: 20px;
 }
 
@@ -795,14 +795,13 @@ html, body {
 }
 
 .role-admin {
-    background: salmon;
+    color: salmon;
 }
 
 .role-client {
-    background: cornflowerblue;
+    color: cornflowerblue;
 }
 
 .role-designer {
-    background: #F8BB40;
-    color: black;
+    color: #F8BB40;
 }

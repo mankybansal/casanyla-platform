@@ -5,10 +5,10 @@
 </div>
 
 <div ng-repeat="user in users" ng-click="editUser(user._id)" class="userInfo">
-    <i class="fa fa-user-circle-o userImage"></i>
+    <i class="fa fa-user-circle-o userImage role-{{user.role}}"></i>
     <div class="userInfoName">{{user.name}}</div>
     <div class="userInfoEmail">{{user.email}}</div>
-    <div class="userInfoRole role-{{user.role}}">{{user.role}}</div>
+    <div class="userInfoRole">{{user.role}}</div>
 </div>
 
 <div class="optionOverlay">

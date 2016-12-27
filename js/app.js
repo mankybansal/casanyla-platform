@@ -97,7 +97,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     $scope.serverRequest("GET", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
                 },
 
-                updateUser: function (userObject, callback) {
+                updateUser: function (userID,userObject, callback) {
                     $scope.serverRequest("PUT", "user/" + userID, userObject, callback, "x-www-form-urlencoded");
                 },
 
