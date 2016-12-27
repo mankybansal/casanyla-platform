@@ -148,7 +148,7 @@ casanylaApp.angular.controller("projectsControl", function ($scope) {
 
     $scope.editSelectedProject = function (projectID) {
         $scope.showOptionOverlay();
-        $scope.projectsControllerView = $scope.stylesControllerViews.editMyProject;
+        $scope.projectsControllerView = $scope.projectsControllerViews.editMyProject;
         $scope.selectedProject = $filter('filter')($scope.$parent.projects, {_id: projectID})[0];
     };
 

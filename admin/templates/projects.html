@@ -33,7 +33,7 @@
 
 
             <select class="dashboardInput" ng-model="addProjectObject.owner">
-                <option value="" disabled selected>Select Designer</option>
+                <option value="" disabled selected>Select Client</option>
                 <option ng-repeat="x in users |  filter: { role: 'client'}" value="{{x._id}}">{{x.name}}</option>
             </select>
 
@@ -55,6 +55,20 @@
             </div>
         </div>
 
+        <div class="optionSection" ng-show="projectsControllerView == projectsControllerViews.editMyProject">
+            <div class="optionSectionTitle">Edit Client Project</div>
+
+            <div class="comingSoonBox">Feature not ready yet.<br><br>Coming Soon.</div>
+            <br>
+            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL &nbsp;<i
+                    class="fa fa-times"></i></div>
+            <div class="actionButton actionButtonRed" ng-click="deleteProject()">Delete Project &nbsp;<i
+                    class="fa fa-trash"></i></div>
+            <div class="actionButton actionButtonYellow" ng-click="updateProject()">Update Project &nbsp;<i
+                    class="fa fa-pencil"></i></div>
+        </div>
     </div>
+
+</div>
 
 </div>
