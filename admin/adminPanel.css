@@ -794,6 +794,62 @@ html, body {
     margin-top: 10px;
 }
 
+
+
+
+
+.questionBox {
+    margin: 15px;
+    width: 200px;
+    height: 150px;
+    padding: 20px 40px 20px 40px;
+    background: white;
+    display: inline-block;
+    cursor: pointer;
+    transition: all ease .3s;
+    vertical-align: top;
+}
+
+.questionBox:hover {
+    background: #eee;
+}
+
+.questionLabel {
+    width: 100%;
+    font-size: 17px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    opacity: 0.4;
+    text-transform: uppercase;
+}
+
+.questionTitle {
+    width: 100%;
+    font-size: 20px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    height: 70px;
+}
+
+.questionActive {
+    color: green;
+    width: 50%;
+    float: left;
+    bottom: 0;
+}
+
+.questionDeactive {
+    color: salmon;
+    width: 50%;
+    float: left;
+    bottom: 0;
+}
+
+
+
 .role-admin {
     color: salmon;
 }
