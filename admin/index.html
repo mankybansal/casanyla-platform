@@ -26,8 +26,8 @@
 <body ng-app="casanylaApp" casanyla-app-control user-control>
 <login-overlay></login-overlay>
 
-
 <div class="mainUnderlay"></div>
+
 <div class="contentOverlay" ng-controller="adminDashboardControl">
 
     <div class="menuLeft">
@@ -36,91 +36,15 @@
             <a href="http://casanyla.com/home"><img src="../images/casanyla.png" class="menuHeaderLogo"></a>
         </div>
 
-        <div class="menuOptionGroup">
-            <div class="menuGroupLabel">Main</div>
-
-            <div class="menuOption optionSelected" ng-click="endpoint('overview')">
+        <div class="menuOptionGroup" ng-repeat="menuGroup in menuModel">
+            <div class="menuGroupLabel">{{menuGroup.name}}</div>
+            <div ng-repeat="menuOption in menuGroup.options" class="menuOption" ng-class="getClass(menuOption)"
+                 ng-click="endpoint(menuGroup,menuOption)">
                 <div class="menuOptionSelect viewOverview"></div>
                 <div class="menuOptionIcon">
-                    <i class="fa fa-dashboard menuIcon"></i>
+                    <i class="fa {{menuOption.icon}} menuIcon"></i>
                 </div>
-                <div class="menuOptionText">Overview</div>
-            </div>
-
-            <div class="menuOption" ng-click="endpoint('users')">
-                <div class="menuOptionSelect viewUsers"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-user menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Users</div>
-            </div>
-        </div>
-
-        <div class="menuOptionGroup">
-            <div class="menuGroupLabel">Project Management</div>
-
-            <div class="menuOption" ng-click="endpoint('projects')">
-                <div class="menuOptionSelect viewProjects"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-tasks menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Projects</div>
-            </div>
-
-            <div class="menuOption" ng-click="endpoint('designers')">
-                <div class="menuOptionSelect viewDesigners"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-paint-brush menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Designers</div>
-            </div>
-
-            <div class="menuOption" ng-click="endpoint('clients')">
-                <div class="menuOptionSelect viewClients"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-users menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Clients</div>
-            </div>
-        </div>
-
-        <div class="menuOptionGroup">
-            <div class="menuGroupLabel">Lookbook Manager</div>
-
-            <div class="menuOption" ng-click="endpoint('styles')">
-                <div class="menuOptionSelect viewStyles"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-photo menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Styles</div>
-            </div>
-
-            <div class="menuOption" ng-click="endpoint('quiz')">
-                <div class="menuOptionSelect viewQuizSettings"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-check-square-o menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Quiz Settings</div>
-            </div>
-        </div>
-
-        <div class="menuOptionGroup">
-            <div class="menuGroupLabel">Help & Settings</div>
-
-            <div class="menuOption" ng-click="endpoint('help')">
-                <div class="menuOptionSelect viewHelp"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-question-circle menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Help</div>
-            </div>
-
-            <div class="menuOption" ng-click="endpoint('settings')">
-                <div class="menuOptionSelect viewSettings"></div>
-                <div class="menuOptionIcon">
-                    <i class="fa fa-gear menuIcon"></i>
-                </div>
-                <div class="menuOptionText">Settings</div>
+                <div class="menuOptionText">{{menuOption.name}}</div>
             </div>
         </div>
 
@@ -132,11 +56,11 @@
             <img src='../images/MENU.png' class="menuLogo">
             <div class="menuTitle">Admin Dashboard</div>
             <div class="menuSection">
-                <i class="fa fa-angle-right"></i>&nbsp;<span class="menuGroupSelected">Main</span>
+                <i class="fa fa-angle-right"></i>&nbsp;{{menuGroupSelected.name}}
             </div>
 
             <div class="menuSection">
-                <i class="fa fa-angle-right"></i>&nbsp;<span class="menuOptionSelected">Overview</span>
+                <i class="fa fa-angle-right"></i>&nbsp;{{menuOptionSelected.name}}
             </div>
 
             <div class="profileContainer" ng-click="showOptionOverlay2()">
@@ -155,7 +79,6 @@
         <div class="fillContent">
             <div class="viewPanel" ng-view></div>
         </div>
-
     </div>
 
     <div class="optionOverlay2">
@@ -172,14 +95,15 @@
             <span style="color: #AAA; font-size: 25px; font-family: RobotoThin, sans-serif;">{{ ngMyUser.email }}</span>
             <br><br>
             <br><br>
-            <div class="actionButton actionButtonYellow" ng-click="logout()">SIGN OUT &nbsp; <i class="fa fa-sign-out"></i></div>
+            <div class="actionButton actionButtonYellow" ng-click="logout()">SIGN OUT &nbsp; <i
+                    class="fa fa-sign-out"></i></div>
 
         </div>
     </div>
 
     <div class="messageOverlay">
         <span class="messageSpan">Message will go here.</span>&nbsp;&nbsp;
-    <i class="fa fa-times closeMessage"></i>
+        <i class="fa fa-times" ng-click="closeMessage()"></i>
     </div>
 </div>
 

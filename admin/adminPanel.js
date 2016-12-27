@@ -66,7 +66,7 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
                 $scope.closeOptionOverlay();
                 $scope.$parent.updateAdmin();
                 $scope.init();
-                showMessage("Added User","green");
+                showMessage("Added User", "green");
             });
         });
     };
@@ -77,7 +77,7 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
                 $scope.closeOptionOverlay();
                 $scope.$parent.updateAdmin();
                 $scope.init();
-                showMessage("Deleted User","red");
+                showMessage("Deleted User", "red");
             });
         });
     };
@@ -88,13 +88,13 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
         $scope.selectedUser = $filter('filter')($scope.$parent.users, {_id: userID})[0];
     };
 
-    $scope.updateUser = function (userID){
+    $scope.updateUser = function (userID) {
         $scope.requests.updateUser(userID, JSON.parse(angular.toJson($scope.selectedUser)), function (response) {
             console.log(response);
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            showMessage("Successfully Updated","yellow");
+            showMessage("Successfully Updated", "yellow");
         });
         $scope.closeOptionOverlay();
     };
@@ -119,7 +119,7 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
 });
 
 casanylaApp.angular.controller("projectsControl", function ($scope) {
-    
+
     $scope.addProject = function () {
         $scope.showOptionOverlay();
         $scope.projectsControllerView = $scope.projectsControllerViews.addProjects;
@@ -132,7 +132,7 @@ casanylaApp.angular.controller("projectsControl", function ($scope) {
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            showMessage("Successfully Added","green");
+            showMessage("Successfully Added", "green");
         });
     };
 
@@ -142,7 +142,7 @@ casanylaApp.angular.controller("projectsControl", function ($scope) {
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            showMessage("Successfully Deleted","red");
+            showMessage("Successfully Deleted", "red");
         });
     };
 
@@ -160,7 +160,7 @@ casanylaApp.angular.controller("projectsControl", function ($scope) {
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            showMessage("Successfully Updated","yellow");
+            showMessage("Successfully Updated", "yellow");
         });
         $scope.closeOptionOverlay();
     };
@@ -232,7 +232,7 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
 
     $scope.uploadImage = function () {
         if ($scope.addStyleObject.name == '' || $scope.addStyleObject.name == null) {
-            showMessage("First Enter Style Name","red");
+            showMessage("First Enter Style Name", "red");
             return;
         }
 
@@ -310,7 +310,7 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            showMessage("Successfully Added","green");
+            showMessage("Successfully Added", "green");
         });
     };
 
@@ -326,7 +326,7 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
             $scope.init();
             $scope.closeOptionOverlay();
             //TODO: DELETE IMAGE FOLDER BEFORE DELETE
-            showMessage("Successfully Deleted","red");
+            showMessage("Successfully Deleted", "red");
         });
     };
 
@@ -348,7 +348,7 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            showMessage("Successfully Updated","yellow");
+            showMessage("Successfully Updated", "yellow");
         });
         $scope.closeOptionOverlay();
     };
@@ -388,8 +388,20 @@ casanylaApp.angular.controller("settingsControl", function ($scope) {
 
 casanylaApp.angular.controller("adminDashboardControl", function ($scope, $localStorage, $location, $filter) {
 
-    $scope.endpoint = function (endpoint) {
-        $location.path(endpoint);
+    $scope.endpoint = function (menuGroup, menuOption) {
+        $location.path(menuOption.endpoint);
+        $scope.myEndpoint = menuOption.endpoint;
+
+        $scope.menuGroupSelected = menuGroup;
+        $scope.menuOptionSelected = menuOption;
+
+        angular.forEach($scope.menuModel, function (item) {
+            angular.forEach(item.options, function (item2) {
+                item2.selected = false;
+            });
+        });
+
+        menuOption.selected = true;
     };
 
     $scope.showOptionOverlay = function () {
@@ -420,7 +432,7 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $scope.requests.getStyles(function (response) {
             $scope.styles = response;
         });
-        
+
         $scope.requests.getProjects(function (response) {
             $scope.projects = response;
         });
@@ -428,6 +440,97 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $scope.requests.getQuiz(function (response) {
             $scope.questionModel = response;
         });
+    };
+
+    $scope.getClass = function (obj) {
+        if (obj.selected) {
+            return "optionSelected";
+        } else {
+            obj.selected = false;
+            return "";
+        }
+    };
+
+    $scope.menuReset = function () {
+        $scope.menuModel = [
+            {
+                name: "Main",
+                options: [
+                    {
+                        name: "Overview",
+                        endpoint: "overview",
+                        icon: "fa-dashboard",
+                        selected: true
+                    },
+                    {
+                        name: "Users",
+                        endpoint: "users",
+                        icon: "fa-user",
+                        selected: false
+                    }
+                ]
+            },
+            {
+                name: "Project Management",
+                options: [
+                    {
+                        name: "Projects",
+                        endpoint: "projects",
+                        icon: "fa-tasks",
+                        selected: false
+                    },
+                    {
+                        name: "Designers",
+                        endpoint: "designers",
+                        icon: "fa-paint-brush",
+                        selected: false
+                    },
+                    {
+                        name: "Clients",
+                        endpoint: "clients",
+                        icon: "fa-users",
+                        selected: false
+                    }
+                ]
+            },
+            {
+                name: "Lookbook Manager",
+                options: [
+                    {
+                        name: "Styles",
+                        endpoint: "styles",
+                        icon: "fa-photo",
+                        selected: false
+                    },
+                    {
+                        name: "Quiz Settings",
+                        endpoint: "quiz",
+                        icon: "fa-check-square-o",
+                        selected: false
+                    }
+                ]
+            },
+            {
+                name: "Help & Settings",
+                options: [
+                    {
+                        name: "Help",
+                        endpoint: "help",
+                        icon: "fa-question-circle",
+                        selected: false
+                    },
+                    {
+                        name: "Quiz Settings",
+                        endpoint: "settings",
+                        icon: "fa-gear",
+                        selected: false
+                    }
+                ]
+            }
+        ];
+
+        $scope.menuGroupSelected = $scope.menuModel[0];
+        $scope.menuOptionSelected = $scope.menuModel[0].options[0];
     };
 
     $scope.init = function () {
@@ -449,11 +552,20 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $scope.optionEdit = false;
         $scope.overlayOpen = false;
         $scope.overlayOpen2 = false;
+        $scope.myEndpoint = null;
+
+        $scope.menuModel = null;
+        $scope.menuGroupSelected = null;
+        $scope.menuOptionSelected = null;
 
         $scope.updateAdmin();
+        $scope.menuReset();
 
     };
 
+    $scope.closeMessage = function () {
+        $(".messageOverlay").fadeOut();
+    };
 
     $scope.getClientCount = function () {
         return $filter('filter')($scope.users, {role: 'client'}).length;
@@ -508,7 +620,7 @@ function hideDashboard() {
 
     setTimeout(function () {
         $('.loginOverlay').fadeIn(500);
-        showAlert("Successfully logged out.","green");
+        showAlert("Successfully logged out.", "green");
     }, 1500);
 }
 
@@ -533,20 +645,3 @@ function showMessage(message, color) {
         $('.messageOverlay').fadeOut(500);
     }, 5000);
 }
-
-$(document).ready(function () {
-
-    $(".menuOption").click(function () {
-        var menuGroupSelected = $(this).parent().find('.menuGroupLabel').text();
-        var menuOptionSelected = $(this).find('.menuOptionText').text();
-        $('.menuGroupSelected').html(menuGroupSelected);
-        $('.menuOptionSelected').html(menuOptionSelected);
-        $(".menuLeft").find(".optionSelected").removeClass("optionSelected");
-        $(this).addClass("optionSelected");
-    });
-
-    $(".closeMessage").click(function(){
-        $(".messageOverlay").fadeOut();
-    });
-
-});

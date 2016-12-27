@@ -8,7 +8,7 @@
     </div>
     <div class="statsContent">
         <div class="statsDesc">Add, Delete, Modify Lookbook styles from CasaNyla.</div>
-        <div class="actionButton" ng-click="endpoint('styles')">Manage Styles</div>
+        <div class="actionButton" ng-click="endpoint(menuModel[2],menuModel[2].options[0])">Manage Styles</div>
     </div>
 </div>
 <div class="statsBoxes">
@@ -21,7 +21,7 @@
     </div>
     <div class="statsContent">
         <div class="statsDesc">Manage ongoing or completed customer projects.</div>
-        <div class="actionButton" ng-click="endpoint('projects')">View Projects</div>
+        <div class="actionButton" ng-click="endpoint(menuModel[1],menuModel[1].options[0])">View Projects</div>
     </div>
 </div>
 <div class="statsBoxes">
@@ -34,6 +34,6 @@
     </div>
     <div class="statsContent">
         <div class="statsDesc">Get customer details, view projects history and more.</div>
-        <div class="actionButton" ng-click="endpoint('users')">Customer Manager</div>
+        <div class="actionButton" ng-click="endpoint(menuModel[1],menuModel[1].options[2])">Customer Manager</div>
     </div>
 </div>
