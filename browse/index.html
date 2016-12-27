@@ -66,13 +66,23 @@
             background: white;
             padding: 20px;
             text-align: center;
-            transition: all ease .5s;
+            transition: all ease .3s;
             cursor: pointer;
         }
 
         .styleBox:hover {
             background: #F8BB40;
-            box-shadow: 0px 0px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 0 40px rgba(0,0,0,0.2);
+        }
+
+        .styleIMG {
+            height: 100%;
+            transition: all ease .3s;
+        }
+
+        .styleBox:hover .styleIMG{
+            height: 120%;
+
         }
 
         .styleImage {
@@ -114,7 +124,7 @@
         <div class="styleBox" ng-repeat="style in styles" ng-click="viewStyle(style)">
             <div class="styleImage">
                 <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
-                     style="height: 100%;">
+                     class="styleIMG">
             </div>
             <div class="styleTitle">{{ style.name }}</div>
             <div class="styleDesc">{{ style.description.substring(0, 120)+"..."; }}</div>

@@ -28,7 +28,6 @@
 
 
 <div class="mainUnderlay"></div>
-
 <div class="contentOverlay" ng-controller="adminDashboardControl">
 
     <div class="menuLeft">
@@ -140,26 +139,50 @@
                 <i class="fa fa-angle-right"></i>&nbsp;<span class="menuOptionSelected">Overview</span>
             </div>
 
-            <div class="avatarBox">
-                <i class="fa fa-user-circle avatar"></i>
-            </div>
+            <div class="profileContainer" ng-click="showOptionOverlay2()">
+                <div class="avatarBox">
+                    <i class="fa fa-user-circle avatar"></i>
+                </div>
 
-            <div class="profileBox">
-                <span style="color: #999;">Welcome, </span>
-                <span style="color: #333;">{{ ngMyUser.name }}</span>
+                <div class="profileBox">
+                    <span style="color: #999;">Welcome, </span>
+                    <span style="color: #333;">{{ ngMyUser.name }}</span>
+
+                </div>
             </div>
         </div>
 
         <div class="fillContent">
-
-            <div class="viewPanel" ng-view>
-
-            </div>
-
+            <div class="viewPanel" ng-view></div>
         </div>
 
     </div>
+
+    <div class="optionOverlay2">
+        <div class="optionOverlaySpacer"></div>
+        <div class="optionOverlayContent">
+            <div class="optionOverlayClose" ng-click="closeOptionOverlay2()">X</div>
+
+            <br><br>
+            <br><br>
+            <i class="fa fa-user-circle" style="font-size: 150px; margin: 0 auto; opacity: .1;"></i>
+            <br><br>
+
+            <span style="color: #333; font-size: 40px;">{{ ngMyUser.name }}</span><br>
+            <span style="color: #AAA; font-size: 25px; font-family: RobotoThin, sans-serif;">{{ ngMyUser.email }}</span>
+            <br><br>
+            <br><br>
+            <div class="actionButton actionButtonYellow" ng-click="logout()">SIGN OUT &nbsp; <i class="fa fa-sign-out"></i></div>
+
+        </div>
+    </div>
+
+    <div class="messageOverlay">
+        <span class="messageSpan">Message will go here.</span>&nbsp;&nbsp;
+    <i class="fa fa-times closeMessage"></i>
+    </div>
 </div>
+
 
 </body>
 

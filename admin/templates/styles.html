@@ -6,74 +6,128 @@
 <div class="styleBox" ng-repeat="style in styles" ng-click="editSelectedStyle(style._id)">
     <div class="styleImage">
         <img ng-src='{{ "../platform-assets/styles/" + style.name + "/" + style.images[1].file; }}'
-             style="width: 100%;">
+             class="styleIMG">
     </div>
     <div class="styleTitle">{{ style.name }}</div>
     <div class="styleDesc">{{ style.description.substring(0, 100)+"..."; }}</div>
-    <div class="styleActive" ng-show="style.active">ACTIVE</div>
-    <div class="styleDeactive" ng-show="!style.active">DEACTIVE</div>
+
+    <div class="styleActive" ng-show="style.active">
+        <i class="fa fa-toggle-on" style="color: green;"></i> &nbsp;ACTIVE
+    </div>
+    <div class="styleDeactive" ng-show="!style.active">
+        <i class="fa fa-toggle-on fa-rotate-180" style="color: salmon;"></i> &nbsp;DEACTIVE
+    </div>
 </div>
 
 
 <div class="optionOverlay">
     <div class="optionOverlaySpacer"></div>
-    <div class="optionOverlayContent">
+    <div class="optionOverlayContent" style="width: 1000px;">
         <div class="optionOverlayClose" ng-click="closeOptionOverlay()">X</div>
 
-        <div class="optionSection" ng-show="stylesControllerView == stylesControllerViews.addStyles">
+        <div class="optionSection" style="background: #F8BB40;"
+             ng-show="stylesControllerView == stylesControllerViews.addStyles">
             <div class="optionSectionTitle">Add New CasaNyla Style</div>
 
-            <input type="text" ng-model="addStyleObject.name" ng-disabled="addStyleObject.images.length!=0" class="dashboardInput" placeholder="Style Name">
-            <input type="text" ng-model="addStyleObject.description"  class="dashboardInput" placeholder="Description">
-
-            <div class="styleUploadImages">
-                <div class="styleUploadNone" ng-show="addStyleObject.images.length==0">
-                    NO IMAGES UPLOADED FOR THIS STYLE
+            <div style="height: 100%; width: calc(100% - 500px); background: #FFF; float: left;">
+                <div class="optionSectionTitle">Style Information</div>
+                <input type="text" ng-model="addStyleObject.name" ng-disabled="addStyleObject.images.length!=0"
+                       class="dashboardInput" placeholder="Style Name">
+                <textarea ng-model="addStyleObject.description" class="dashboardInput"
+                          placeholder="Description" style="height: 150px; resize: none;"></textarea>
+                <br><br>
+                <div class="styleActivePopup" ng-show="addStyleObject.active"
+                     ng-click="addStyleObject.active = !addStyleObject.active">
+                    <i class="fa fa-toggle-on" style="color: green; font-size: 25px;"></i> &nbsp;ACTIVE
                 </div>
 
-                <div class="styleUploadImage" ng-repeat="myimage in addStyleObject.images">
-                    <img ng-src="../platform-assets/styles/{{addStyleObject.name}}/{{myimage.file}}" class="styleUploadIMG">
+                <div class="styleDeactivePopup" ng-show="!addStyleObject.active"
+                     ng-click="addStyleObject.active = !addStyleObject.active">
+                    <i class="fa fa-toggle-on fa-rotate-180" style="color: salmon; font-size: 25px;"></i> &nbsp;DEACTIVE
                 </div>
+                <br>
+                <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL &nbsp;<i class="fa fa-times"></i></div>
+                <div class="actionButton actionButtonBlue" ng-click="postStyle()">ADD STYLE &nbsp;<i class="fa fa-plus"></i></div>
             </div>
 
-            <input type="text" name="fileDesc" id="fileDesc" class="dashboardInput dashboardInputSmall" placeholder="Image Description">
-            <input type="number" name="fileOrder" id="fileOrder"  class="dashboardInput  dashboardInputSmall" placeholder="Image Order">
-            <br>
-            <input type="file" name="file" id="file" required />
-            <div class="actionButton actionButtonYellow" ng-click="uploadImage()">Upload Image</div>
+            <div style="height: 100%; width: 500px; background: #333; float: right;">
 
-            <br><br>
-            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
-            <div class="actionButton actionButtonBlue" ng-click="postStyle()">ADD STYLE</div>
+                <div class="styleUploadImages">
+                    <div class="optionSectionTitle">Image Previews</div>
+
+                    <div class="styleUploadNone" ng-show="addStyleObject.images.length==0">
+                        NO IMAGES UPLOADED FOR THIS STYLE
+                    </div>
+
+                    <div class="styleUploadImage" ng-repeat="myimage in addStyleObject.images">
+                        <img ng-src="../platform-assets/styles/{{addStyleObject.name}}/{{myimage.file}}"
+                             class="styleUploadIMG">
+                    </div>
+                </div>
+
+                <input type="text" name="fileDesc" id="fileDesc" class="dashboardInput dashboardInputSmall"
+                       placeholder="Image Description">
+                <input type="number" name="fileOrder" id="fileOrder" class="dashboardInput  dashboardInputSmall"
+                       placeholder="Image Order">
+                <br>
+                <input type="file" name="file" id="file" required/>
+                <div class="actionButton actionButtonYellow" ng-click="uploadImage()">Upload Image &nbsp;<i class="fa fa-upload"></i></div>
+            </div>
+
         </div>
 
-        <div class="optionSection" ng-show="stylesControllerView == stylesControllerViews.editMyStyle">
+        <div class="optionSection" style="background: #F8BB40;"
+             ng-show="stylesControllerView == stylesControllerViews.editMyStyle">
             <div class="optionSectionTitle">Edit CasaNyla Style</div>
 
-            <input type="text" ng-model="selectedStyle.name" ng-disabled="selectedStyle.images.length!=0" class="dashboardInput" placeholder="Style Name">
-            <input type="text" ng-model="selectedStyle.description"  class="dashboardInput" placeholder="Description">
+            <div style="height: 100%; width: calc(100% - 500px); background: #FFF; float: left;">
+                <div class="optionSectionTitle">Style Information</div>
 
-            <div class="styleUploadImages">
-                <div class="styleUploadNone" ng-show="selectedStyle.images.length==0">
-                    NO IMAGES UPLOADED FOR THIS STYLE
+                <input type="text" ng-model="selectedStyle.name" ng-disabled="selectedStyle.images.length!=0"
+                       class="dashboardInput" placeholder="Style Name">
+                <textarea ng-model="selectedStyle.description" class="dashboardInput"
+                          placeholder="Description" style="height: 150px; resize: none;"></textarea>
+                <br><br>
+                <div class="styleActivePopup" ng-show="selectedStyle.active"
+                     ng-click="selectedStyle.active = !selectedStyle.active">
+                    <i class="fa fa-toggle-on" style="color: green; font-size: 25px;"></i> &nbsp;ACTIVE
                 </div>
 
-                <div class="styleUploadImage" ng-repeat="myimage in selectedStyle.images">
-                    <div class="deleteImage" ng-click="deleteImage($index)"><i class="fa fa-trash"></i></div>
-                    <img ng-src="../platform-assets/styles/{{selectedStyle.name}}/{{myimage.file}}" class="styleUploadIMG">
+                <div class="styleDeactivePopup" ng-show="!selectedStyle.active"
+                     ng-click="selectedStyle.active = !selectedStyle.active">
+                    <i class="fa fa-toggle-on fa-rotate-180" style="color: salmon; font-size: 25px;"></i> &nbsp;DEACTIVE
+                </div>
+                <br>
+                <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL &nbsp;<i class="fa fa-times"></i></div>
+                <div class="actionButton actionButtonRed" ng-click="deleteStyle(selectedStyle._id)">DELETE STYLE &nbsp;<i class="fa fa-trash"></i></div>
+                <div class="actionButton actionButtonYellow" ng-click="updateStyle(selectedStyle._id)">UPDATE STYLE &nbsp;<i class="fa fa-pencil"></i>
                 </div>
             </div>
 
-            <input type="text" name="fileDesc" id="fileDesc2" class="dashboardInput dashboardInputSmall" placeholder="Image Description">
-            <input type="number" name="fileOrder" id="fileOrder2"  class="dashboardInput  dashboardInputSmall" placeholder="Image Order">
-            <br>
-            <input type="file" name="file" id="file2" required />
-            <div class="actionButton actionButtonYellow" ng-click="uploadImage2()">Upload Image</div>
+            <div style="height: 100%; width: 500px; background: #333; float: right;">
+                <div class="styleUploadImages">
+                    <div class="optionSectionTitle">Image Previews</div>
 
-            <br><br>
-            <div class="actionButton actionButtonGrey" ng-click="closeOptionOverlay()">CANCEL</div>
-            <div class="actionButton actionButtonRed" ng-click="deleteStyle(selectedStyle._id)">DELETE STYLE</div>
-            <div class="actionButton actionButtonYellow" ng-click="updateStyle(selectedStyle._id)">UPDATE STYLE</div>
+                    <div class="styleUploadNone" ng-show="selectedStyle.images.length==0">
+                        NO IMAGES UPLOADED FOR THIS STYLE
+                    </div>
+
+                    <div class="styleUploadImage" ng-repeat="myimage in selectedStyle.images">
+                        <div class="deleteImage" ng-click="deleteImage($index)"><i class="fa fa-trash"></i></div>
+                        <img ng-src="../platform-assets/styles/{{selectedStyle.name}}/{{myimage.file}}"
+                             class="styleUploadIMG">
+                    </div>
+                </div>
+
+                <input type="text" name="fileDesc" id="fileDesc2" class="dashboardInput dashboardInputSmall"
+                       placeholder="Image Description">
+                <input type="number" name="fileOrder" id="fileOrder2" class="dashboardInput  dashboardInputSmall"
+                       placeholder="Image Order">
+                <br>
+
+                <input type="file" name="file" id="file2" required/>
+                <div class="actionButton actionButtonYellow" ng-click="uploadImage2()">Upload Image &nbsp;<i class="fa fa-upload"></i></div>
+            </div>
         </div>
 
     </div>

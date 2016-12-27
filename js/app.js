@@ -512,7 +512,7 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
                 if (casanylaApp.currentPage == casanylaApp.pages.browse) {
                     $('.resultCard').fadeOut(500);
                     $('.centerDesc').fadeOut(500);
-                }else{
+                } else {
                     window.location = "../browse"
                 }
             };
@@ -562,7 +562,7 @@ casanylaApp.angular.directive("headerMenuBeta", function ($templateRequest, $com
                 window.location = "../quiz"
             };
 
-            $scope.menuWhoWeAreClick = function (){
+            $scope.menuWhoWeAreClick = function () {
                 if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("whoWeAreSection"), 0, 500);
                 else window.location = "../home/#!#whoWeAreSection";
@@ -574,33 +574,34 @@ casanylaApp.angular.directive("headerMenuBeta", function ($templateRequest, $com
                 else window.location = "../home/#!#contactUsSection";
             };
 
-            $scope.menuClicked = function () {
-                if (!$scope.menuState)
-                    $scope.menuOpen();
-                else
-                    $scope.menuClose();
-            };
 
-            $scope.menuContainerClicked = function () {
-                if ($scope.menuState)
-                    $scope.menuClose();
-            };
-
-            $scope.menuClose = function () {
-                $scope.menuState = false;
-                $(".menuCloseFeedback").stop(true, true).animate({opacity: 0}, 175);
-                $(".menuContainer").stop(true, true).fadeOut(175);
-                $(".menu").stop(true, true).animate({left: '-270px'}, 175);
-                $("#fullpage").stop(true, true).animate({left: '0px'}, 175);
-            };
-
-            $scope.menuOpen = function () {
-                $scope.menuState = true;
-                $(".menuCloseFeedback").stop(true, true).animate({opacity: 1}, 250);
-                $(".menuContainer").stop(true, true).fadeIn(250);
-                $(".menu").stop(true, true).animate({left: '0px'}, 250);
-                $("#fullpage").stop(true, true).animate({left: '100px'}, 250);
-            };
+            // $scope.menuClicked = function () {
+            //     if (!$scope.menuState)
+            //         $scope.menuOpen();
+            //     else
+            //         $scope.menuClose();
+            // };
+            //
+            // $scope.menuContainerClicked = function () {
+            //     if ($scope.menuState)
+            //         $scope.menuClose();
+            // };
+            //
+            // $scope.menuClose = function () {
+            //     $scope.menuState = false;
+            //     $(".menuCloseFeedback").stop(true, true).animate({opacity: 0}, 175);
+            //     $(".menuContainer").stop(true, true).fadeOut(175);
+            //     $(".menu").stop(true, true).animate({left: '-270px'}, 175);
+            //     $("#fullpage").stop(true, true).animate({left: '0px'}, 175);
+            // };
+            //
+            // $scope.menuOpen = function () {
+            //     $scope.menuState = true;
+            //     $(".menuCloseFeedback").stop(true, true).animate({opacity: 1}, 250);
+            //     $(".menuContainer").stop(true, true).fadeIn(250);
+            //     $(".menu").stop(true, true).animate({left: '0px'}, 250);
+            //     $("#fullpage").stop(true, true).animate({left: '100px'}, 250);
+            // };
 
             $scope.loginButtonClick = function () {
                 $('.loginOverlay').fadeIn(500);

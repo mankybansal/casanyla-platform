@@ -59,25 +59,25 @@ casanylaApp.angular.controller("usersControl", function ($scope, $filter) {
         $scope.userControllerView = $scope.userControllerViews.addUser;
     };
 
-    $scope.postUser = function(){
+    $scope.postUser = function () {
         //TODO CHANGE THIS TO ANGULAR MODEL
-        $scope.requests.userRegisterForm($scope.addNewUser.name,$scope.addNewUser.email,$scope.addNewUser.password,$scope.addNewUser.role, function(response){
-            $scope.safeApply(function(){
+        $scope.requests.userRegisterForm($scope.addNewUser.name, $scope.addNewUser.email, $scope.addNewUser.password, $scope.addNewUser.role, function (response) {
+            $scope.safeApply(function () {
                 $scope.closeOptionOverlay();
                 $scope.$parent.updateAdmin();
                 $scope.init();
-                alert("Added User");
+                showMessage("Added User","green");
             });
         });
     };
 
-    $scope.deleteUser = function(){
-        $scope.requests.deleteUser($scope.selectedUser._id, function(){
-            $scope.safeApply(function(){
+    $scope.deleteUser = function () {
+        $scope.requests.deleteUser($scope.selectedUser._id, function () {
+            $scope.safeApply(function () {
                 $scope.closeOptionOverlay();
                 $scope.$parent.updateAdmin();
                 $scope.init();
-                alert("Deleted User");
+                showMessage("Deleted User","red");
             });
         });
     };
@@ -154,7 +154,8 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
 
     $scope.uploadImage = function () {
         if ($scope.addStyleObject.name == '' || $scope.addStyleObject.name == null) {
-            alert("First Enter Style Name");
+            showMessage("First Enter Style Name","red");
+            return;
         }
 
         var file_data = $('#file').prop('files')[0];
@@ -231,23 +232,23 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            alert("Successfully Added");
+            showMessage("Successfully Added","green");
         });
     };
 
-    $scope.deleteImage = function(imageIndex){
-        $scope.selectedStyle.images.splice(imageIndex,1);
+    $scope.deleteImage = function (imageIndex) {
+        $scope.selectedStyle.images.splice(imageIndex, 1);
         console.log($scope.selectedStyle.images);
     };
 
-    $scope.deleteStyle = function(styleID){
+    $scope.deleteStyle = function (styleID) {
         $scope.requests.deleteStyle(styleID, function (response) {
             console.log(response);
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
             //TODO: DELETE IMAGE FOLDER BEFORE DELETE
-            alert("Successfully Deleted");
+            showMessage("Successfully Deleted","red");
         });
     };
 
@@ -256,15 +257,20 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
         $scope.stylesControllerView = $scope.stylesControllerViews.editMyStyle;
         $scope.selectedStyle = $filter('filter')($scope.$parent.styles, {_id: styleID})[0];
     };
-    
-    $scope.updateStyle = function (styleID){
-        console.log(JSON.parse(angular.toJson($scope.selectedStyle)));
+
+    $scope.updateStyle = function (styleID) {
+
+        if ($scope.selectedStyle.images.length == 0) {
+            $scope.selectedStyle.images = [];
+        }
+
+        console.log(angular.toJson($scope.selectedStyle));
         $scope.requests.updateStyle(styleID, JSON.parse(angular.toJson($scope.selectedStyle)), function (response) {
             console.log(response);
             $scope.$parent.updateAdmin();
             $scope.init();
             $scope.closeOptionOverlay();
-            alert("Successfully Updated");
+            showMessage("Successfully Updated","yellow");
         });
         $scope.closeOptionOverlay();
     };
@@ -275,7 +281,7 @@ casanylaApp.angular.controller("stylesControl", function ($scope, $filter) {
             editMyStyle: 1
         };
 
-        $scope.stylesControllerView =  null;
+        $scope.stylesControllerView = null;
 
         $scope.addStyleObject = {
             name: "",
@@ -302,7 +308,7 @@ casanylaApp.angular.controller("settingsControl", function ($scope) {
 
 });
 
-casanylaApp.angular.controller("adminDashboardControl", function ($scope, $localStorage, $location, $filter, $sessionStorage, $rootScope, $interval) {
+casanylaApp.angular.controller("adminDashboardControl", function ($scope, $localStorage, $location, $filter) {
 
     $scope.endpoint = function (endpoint) {
         $location.path(endpoint);
@@ -313,12 +319,22 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $(".optionOverlay").fadeIn();
     };
 
+    $scope.showOptionOverlay2 = function () {
+        $scope.overlayOpen2 = true;
+        $(".optionOverlay2").fadeIn();
+    };
+
     $scope.closeOptionOverlay = function () {
         $scope.overlayOpen = false;
         $(".optionOverlay").fadeOut();
     };
 
-    $scope.updateAdmin = function(){
+    $scope.closeOptionOverlay2 = function () {
+        $scope.overlayOpen2 = false;
+        $(".optionOverlay2").fadeOut();
+    };
+
+    $scope.updateAdmin = function () {
         $scope.requests.showUsers(function (response) {
             $scope.users = response;
         });
@@ -350,6 +366,7 @@ casanylaApp.angular.controller("adminDashboardControl", function ($scope, $local
         $scope.currentEditOption = null;
         $scope.optionEdit = false;
         $scope.overlayOpen = false;
+        $scope.overlayOpen2 = false;
 
         $scope.updateAdmin();
 
@@ -409,8 +426,30 @@ function hideDashboard() {
 
     setTimeout(function () {
         $('.loginOverlay').fadeIn(500);
-        showAlert("Successfully logged out.");
+        showAlert("Successfully logged out.","green");
     }, 1500);
+}
+
+function showMessage(message, color) {
+
+    switch (color) {
+        case 'green':
+            $('.messageOverlay').css("background", "green");
+            break;
+        case 'red':
+            $('.messageOverlay').css("background", "salmon");
+            break;
+        case 'yellow':
+            $('.messageOverlay').css("background", "#F8BB40");
+            break;
+        default:
+            $('.messageOverlay').css("background", "#333");
+    }
+    $('.messageOverlay').fadeIn(500);
+    $('.messageSpan').html(message);
+    setTimeout(function () {
+        $('.messageOverlay').fadeOut(500);
+    }, 5000);
 }
 
 $(document).ready(function () {
@@ -422,6 +461,10 @@ $(document).ready(function () {
         $('.menuOptionSelected').html(menuOptionSelected);
         $(".menuLeft").find(".optionSelected").removeClass("optionSelected");
         $(this).addClass("optionSelected");
-    })
+    });
+
+    $(".closeMessage").click(function(){
+        $(".messageOverlay").fadeOut();
+    });
 
 });
