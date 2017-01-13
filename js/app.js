@@ -659,11 +659,7 @@ casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile
                     $document.scrollToElement(document.getElementsByClassName("introSection"), 0, 500);
                 else window.location = "../home";
             };
-
-            $scope.menuBrowseClick = function () {
-                window.location = "../browse"
-            };
-
+            
             $scope.menuHowItWorksClick = function () {
                 if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("howItWorksSection"), 0, 500);
