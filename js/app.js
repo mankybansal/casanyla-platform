@@ -159,6 +159,12 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 deleteProject: function (projectID, callback) {
                     var myObject = {};
                     $scope.serverRequest("DELETE", "project/" + projectID, myObject, callback, "x-www-form-urlencoded");
+                },
+
+                sendContact: function (contact, callback){
+                    $.get("casanyla.com/home/mailer.php?to=" + contact.to + "&phone=" + contact.phone + "&name=" + contact.name + "&msg=" + contact.msg, function(data){
+                        callback && callback(data);
+                    });
                 }
             };
 
@@ -170,6 +176,20 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     $scope.apiBaseURL = "http://manky.me/";
                     $scope.baseURL = "http://casanyla.com/";
                 }
+            };
+
+            $scope.sendContact = function(){
+
+                $scope.myContact = {
+                    to: $("#EMAIL").val().trim(),
+                    msg: $("#MESSAGE").val().trim(),
+                    name: $("#NAME").val().trim(),
+                    phone: $("#PHONE").val().trim()
+                };
+
+                $scope.requests.sendContact(myContact,function(response){
+                   alert(response);
+                });
             };
 
             $scope.init = function () {
@@ -421,56 +441,6 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
                 $scope.currentStyle = null;
             };
 
-            /*
-             $scope.updateLikes = function (styleNode, imageNode) {
-             if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
-             $scope.requests.getLikes($scope.$parent.ngMyUser.token, function (response) {
-             if (response.success != "false") {
-             var flag1 = false, flag2 = false;
-             $.each(response, function (index, item) {
-             if (item.id == styleNode) {
-             $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
-             flag1 = true;
-             }
-             if (item.id == imageNode) {
-             $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
-             flag2 = true;
-             }
-             });
-             if (!flag1) $(".changeHeartStyle").removeClass("fa-heart").addClass("fa-heart-o")
-             if (!flag2) $(".changeHeartRoom").removeClass("fa-heart").addClass("fa-heart-o");
-             }
-             });
-             };
-
-             $scope.likeStyle = function () {
-             if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
-             $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.styleNode, function (response) {
-             if (response.status == "Success")
-             $(".changeHeartStyle").removeClass("fa-heart-o").addClass("fa-heart");
-             else if (response.message == "Invalid token detected")
-             $scope.$parent.logout();
-             else
-             console.log("Some Error Occurred");
-             });
-             else loginButtonClick();
-             };
-
-             $scope.likeRoom = function () {
-             if ($scope.$parent.ngMyUser = Cookies.getJSON("myUser"))
-             $scope.requests.likeNode($scope.$parent.ngMyUser.token, $scope.current.imageNode, function (response) {
-             if (response.status == "Success")
-             $(".changeHeartRoom").removeClass("fa-heart-o").addClass("fa-heart");
-             else if (response.message == "Invalid token detected")
-             $scope.$parent.logout();
-             else
-             console.log("Some Error Occurred");
-             });
-             else
-             loginButtonClick();
-             };
-             */
-
             $scope.getNextPrev = function(){
                 return currentStyle.styleObject.images[currentStyle.currentImage].name;
             };
@@ -659,7 +629,7 @@ casanylaApp.angular.directive("headerMenu", function ($templateRequest, $compile
                     $document.scrollToElement(document.getElementsByClassName("introSection"), 0, 500);
                 else window.location = "../home";
             };
-            
+
             $scope.menuHowItWorksClick = function () {
                 if (casanylaApp.currentPage == casanylaApp.pages.home)
                     $document.scrollToElement(document.getElementsByClassName("howItWorksSection"), 0, 500);
