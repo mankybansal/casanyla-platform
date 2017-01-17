@@ -6,12 +6,19 @@
  * Time: 9:21 PM
  */
 
-// the message
-$msg = "First line of text\nSecond line of text";
+$to = "info@casanyla.com";
+$subject = "HTML email";
 
-// use wordwrap() if lines are longer than 70 characters
-$msg = wordwrap($msg,70);
+$message = "Test";
 
-mail("info@casanyla.com","My subject",$msg);
+// Always set content-type when sending HTML email
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+$headers .= 'From: noreply@casanyla.com>' . "\r\n";
+
+mail($to,$subject,$message,$headers);
+?>
 
 ?>
