@@ -187,7 +187,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     phone: $("#PHONE").val().trim()
                 };
 
-                $scope.requests.sendContact(myContact,function(response){
+                $scope.requests.sendContact($scope.myContact,function(response){
                    alert(response);
                 });
             };
