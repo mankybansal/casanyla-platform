@@ -23,6 +23,10 @@ if(isset($_GET['to']) && isset($_GET['name']) && isset($_GET['phone']) && isset(
 
     mail($to,$subject,$message,$headers);
 
+    $myfile = fopen("../contacts.txt", "a") or die("Unable to open file!");
+    fwrite($myfile, $message);
+    fclose($myfile);
+
     echo json_encode(true);
 
 }else{
