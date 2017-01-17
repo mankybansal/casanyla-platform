@@ -162,8 +162,25 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 },
 
                 sendContact: function (contact, callback){
-                    $.get("http://www.casanyla.com/home/mailer.php?to=" + contact.to + "&phone=" + contact.phone + "&name=" + contact.name + "&msg=" + contact.msg, function(data){
-                        callback && callback(data);
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        xhrFields: {withCredentials: true},
+                        url: "http://www.casanyla.com/home/mailer.php?to=" + contact.to + "&phone=" + contact.phone + "&name=" + contact.name + "&msg=" + contact.msg,
+                        timeout: 25000,
+                        success: function (response) {
+                            $scope.safeApply(function () {
+                                console.log(response);
+                                callback && callback(response);
+                            });
+                        },
+                        error: function (response) {
+                            $scope.safeApply(function () {
+                                console.log("SERVER REQUEST ERROR");
+                                console.log(response);
+                                callback && callback(response);
+                            });
+                        }
                     });
                 }
             };
