@@ -97,7 +97,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     $scope.serverRequest("GET", "user/" + userID, myObject, callback, "x-www-form-urlencoded");
                 },
 
-                updateUser: function (userID,userObject, callback) {
+                updateUser: function (userID, userObject, callback) {
                     $scope.serverRequest("PUT", "user/" + userID, userObject, callback, "x-www-form-urlencoded");
                 },
 
@@ -161,7 +161,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     $scope.serverRequest("DELETE", "project/" + projectID, myObject, callback, "x-www-form-urlencoded");
                 },
 
-                sendContact: function (contact, callback){
+                sendContact: function (contact, callback) {
                     $.ajax({
                         type: "GET",
                         dataType: "json",
@@ -195,21 +195,24 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 }
             };
 
-            $scope.sendContact = function(){
-
-                $scope.myContact = {
-                    to: $("#EMAIL").val().trim(),
-                    msg: $("#MESSAGE").val().trim(),
-                    name: $("#NAME").val().trim(),
-                    phone: $("#PHONE").val().trim()
-                };
-
-                $scope.requests.sendContact($scope.myContact,function(response){
-                   alert(response);
+            $scope.sendContact = function () {
+                $scope.requests.sendContact($scope.myContact, function (response) {
+                    if (response == "true")
+                        alert("Contact Request Sent");
+                    else
+                        alert("Request Failed");
                 });
             };
 
             $scope.init = function () {
+
+                $scope.myContact = {
+                    to: null,
+                    msg: null,
+                    name: null,
+                    phone: null
+                };
+                
                 $scope.serverSelect();
             };
 
@@ -458,7 +461,7 @@ casanylaApp.angular.directive("styleViewer", function ($templateRequest, $compil
                 $scope.currentStyle = null;
             };
 
-            $scope.getNextPrev = function(){
+            $scope.getNextPrev = function () {
                 return currentStyle.styleObject.images[currentStyle.currentImage].name;
             };
 

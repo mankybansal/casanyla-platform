@@ -253,17 +253,12 @@
             </div>
 
             <div>
-                <input class="contactInput" id="NAME" name="NAME" type="text" placeholder="Full Name">
-                <input class="contactInput" id="EMAIL" name="EMAIL" type="email" placeholder="Email Address">
-                <input class="contactInput" id="PHONE" name="PHONE" type="text" placeholder="Phone Number">
-                            <textarea class="textInput" id="MESSAGE" name="MESSAGE" rows="3"
-                                      placeholder="Type your message here"></textarea>
-                <div class="contactSuccess" style="display: none; margin-top: 20px; font-size: 20px;">We will
-                    contact
-                    you!
-                </div>
+                <input class="contactInput" ng-model="myContact.name" type="text" placeholder="Full Name">
+                <input class="contactInput" ng-model="myContact.to" type="email" placeholder="Email Address">
+                <input class="contactInput" ng-model="myContact.phone" type="text" placeholder="Phone Number">
+                <textarea class="textInput" ng-model="myContact.msg" rows="3" placeholder="Type your message here"></textarea>
                 <div style="width: 100%; height: 10px;"></div>
-                <div class="contactSubmit" ng-click="sendContact()">SEND</div>
+                <button class="contactSubmit" ng-click="sendContact()">SEND</button>
             </div>
         </div>
 
