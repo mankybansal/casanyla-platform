@@ -196,8 +196,9 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
             };
 
             $scope.sendContact = function () {
+                console.log($scope.myContact);
                 $scope.requests.sendContact($scope.myContact, function (response) {
-                    if (response == "true")
+                    if (response)
                         alert("Contact Request Sent");
                     else
                         alert("Request Failed");
@@ -212,7 +213,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                     name: null,
                     phone: null
                 };
-                
+
                 $scope.serverSelect();
             };
 
