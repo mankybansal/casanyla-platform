@@ -162,7 +162,7 @@ casanylaApp.angular.directive('casanylaAppControl', function () {
                 },
 
                 sendContact: function (contact, callback){
-                    $.get("casanyla.com/home/mailer.php?to=" + contact.to + "&phone=" + contact.phone + "&name=" + contact.name + "&msg=" + contact.msg, function(data){
+                    $.get("http://www.casanyla.com/home/mailer.php?to=" + contact.to + "&phone=" + contact.phone + "&name=" + contact.name + "&msg=" + contact.msg, function(data){
                         callback && callback(data);
                     });
                 }
